@@ -15,6 +15,6 @@ export default new DataSource({
   database: configService.getOrThrow<string>('DATABASE_NAME'),
   type: 'postgres',
   entities: [path.join(__dirname, '**/*.entity{.ts,.js}')],
-  migrations: [path.join(__dirname, 'database/migrations/**/*{.ts,.js}')],
+  migrations: [path.join(__dirname, './database/migrations/**/*{.ts,.js}')],
   synchronize: false,
 });

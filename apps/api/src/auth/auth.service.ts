@@ -5,9 +5,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import * as argon2 from 'argon2';
 import { Repository } from 'typeorm';
 
-import { User } from '../user/entities/user.entity';
-
-import { RegistrationDto } from './dtos/registration.dto';
+import { EmailSenderService } from './../email-sender/email-sender.service';
+import { User } from './../user/entities/user.entity';
+import { RegistrationDto } from './dtos';
 import { Token } from './entities/token.entity';
 import { UserTokens } from './entities/userTokens.entity';
 
@@ -22,9 +22,11 @@ export class AuthService {
     private userTokensRepository: Repository<UserTokens>,
     private jwtService: JwtService,
     private configService: ConfigService,
+    private emailSenderService: EmailSenderService,
   ) {}
   async registration(user: RegistrationDto, userAgent: string) {
     const { name, email, password } = user;
+
     const existedUser = await this.userRepository.findOneBy({ email });
 
     if (existedUser) {
@@ -47,14 +49,26 @@ export class AuthService {
       user: newUserTokens,
       device: userAgent,
     });
-    //TODO email send module
+
+    const { VERIFICATION_TOKEN_SECRET, VERIFICATION_TOKEN_TTL } = this.getConfigJWTVariables();
+
+    const verificationToken = this.jwtService.sign(
+      { userId: newUser.id },
+      {
+        secret: VERIFICATION_TOKEN_SECRET,
+        expiresIn: VERIFICATION_TOKEN_TTL,
+      },
+    );
+
+    this.emailSenderService.sendVerificationEmail({
+      email,
+      name,
+      verificationUrl: `${this.publicDomain}/auth/verify/${verificationToken}`,
+    });
+
     return {
       message: 'Please Verify your email',
     };
-    // const { JWT_REFRESH_TOKEN_TTL, JWT_ACCESS_TOKEN_TTL } = this.getConfigJWTVariables();
-
-    // const accessToken = this.generateToken({ userId: newUser.id }, JWT_ACCESS_TOKEN_TTL);
-    // const refreshToken = this.generateToken({ userId: newUser.id }, JWT_REFRESH_TOKEN_TTL);
   }
 
   private async findLastCreatedToken(userAgent: string, userId: string) {
@@ -96,4 +110,6 @@ export class AuthService {
 
     return generatedToken;
   }
+
+  private publicDomain = this.configService.getOrThrow<string>('PUBLIC_BASE_URL');
 }
