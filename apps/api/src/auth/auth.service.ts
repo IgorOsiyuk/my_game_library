@@ -150,6 +150,60 @@ export class AuthService {
     };
   }
 
+  async logout(userId: string, userAgent: string) {
+    const lastToken = await this.findLastCreatedToken(userAgent, userId);
+    if (lastToken) {
+      Object.assign(lastToken, {
+        isOnBlackList: true,
+      });
+
+      this.tokenRepository.save(lastToken);
+    }
+    return;
+  }
+
+  async refreshToken(headerToken: string, userId: string, userAgent: string) {
+    const [, token] = headerToken.split(' ') ?? [];
+    const authUserData = await this.userAuthTokensRepository.findOneBy({ userId });
+    if (!authUserData) {
+      throw new UnauthorizedException('Access denied');
+    }
+
+    const lastToken = await this.findLastCreatedToken(userAgent, userId);
+    const isMatch = await argon2.verify(lastToken.refreshToken, token);
+    if (!lastToken || !isMatch || lastToken.isOnBlackList) {
+      console.log(lastToken);
+      console.log(isMatch);
+      throw new UnauthorizedException('Access denied 2');
+    }
+
+    if (lastToken) {
+      Object.assign(lastToken, {
+        isOnBlackList: true,
+      });
+
+      this.tokenRepository.save(lastToken);
+    }
+
+    const { JWT_REFRESH_TOKEN_TTL, JWT_ACCESS_TOKEN_TTL } = this.getConfigJWTVariables();
+
+    const accessToken = this.generateToken({ userId }, JWT_ACCESS_TOKEN_TTL);
+    const refreshToken = this.generateToken({ userId }, JWT_REFRESH_TOKEN_TTL);
+
+    const hashedRefreshToken = await argon2.hash(refreshToken);
+
+    this.tokenRepository.save({
+      device: userAgent,
+      refreshToken: hashedRefreshToken,
+      userId: authUserData,
+    });
+
+    return {
+      accessToken,
+      refreshToken,
+    };
+  }
+
   private async findLastCreatedToken(userAgent: string, userId: string) {
     const lastCreatedToken = await this.tokenRepository
       .createQueryBuilder('token')

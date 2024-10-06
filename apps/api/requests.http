@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ### Verify registration Token
-GET http://localhost:4000/auth/verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwODJmMTg1YS1jZWVkLTQ2NDktODE1My03YjljMDc0YzNhYTciLCJpYXQiOjE3MjgyMTU1MjcsImV4cCI6MTcyODMwMTkyN30.8F89XnCfvhrtA792_cKM5vZJ_LTmGkX9FxkiVq8k2E8
+GET http://localhost:4000/auth/verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmNzdiNjdmZS0wYjc2LTQyOTEtOTVmYS0yM2QwOWMzNTc1YjEiLCJpYXQiOjE3MjgyMzY1ODcsImV4cCI6MTcyODMyMjk4N30.wJwgSr2e4yVIxUcpnl_Z5gmmrhCsgYqwD40L_nOQVsg
 
 ### Login
 POST http://localhost:4000/auth/login
@@ -19,3 +19,12 @@ Content-Type: application/json
     "email": "wimx@tut.by",
     "password": "12345lL@"
 }
+
+### Logout 
+POST  http://localhost:4000/auth/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmNzdiNjdmZS0wYjc2LTQyOTEtOTVmYS0yM2QwOWMzNTc1YjEiLCJpYXQiOjE3MjgyMzcyMjUsImV4cCI6MTcyODIzNzI4NX0.cFzw7VD8m0AdEZaGqXLF2pPWlRayIQodYRB0l7tX_hg
+
+
+### Refresh Token 
+POST   http://localhost:4000/auth/refresh-token
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmNzdiNjdmZS0wYjc2LTQyOTEtOTVmYS0yM2QwOWMzNTc1YjEiLCJpYXQiOjE3MjgyMzcyNjUsImV4cCI6MTcyODg0MjA2NX0.3v-rzt0F_Aq0D8dU7quU6NcBJQ-tkDmIFo2vzfgMmDo
