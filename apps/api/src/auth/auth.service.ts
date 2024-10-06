@@ -7,7 +7,7 @@ import { Repository } from 'typeorm';
 
 import { EmailSenderService } from './../email-sender/email-sender.service';
 import { User } from './../user/entities/user.entity';
-import { RegistrationDto } from './dtos';
+import { LoginDto, RegistrationDto } from './dtos';
 import { Token } from './entities/token.entity';
 import { UserAuthTokens } from './entities/userAuthTokens.entity';
 
@@ -44,11 +44,6 @@ export class AuthService {
     await this.userAuthTokensRepository.save({
       userId: newUser.id,
     });
-
-    // await this.tokenRepository.save({
-    //   user: newUserTokens,
-    //   device: userAgent,
-    // });
 
     const { VERIFICATION_TOKEN_SECRET, VERIFICATION_TOKEN_TTL } = this.getConfigJWTVariables();
 
@@ -110,16 +105,60 @@ export class AuthService {
     }
   }
 
+  async login(user: LoginDto, userAgent: string) {
+    const { email, password } = user;
+
+    const existedUser = await this.userRepository.findOneBy({ email });
+    if (!existedUser) {
+      throw new UnauthorizedException('The email and/or password you specified are incorrect.');
+    }
+
+    const isPasswordMatch = await argon2.verify(existedUser.password, password);
+    if (!isPasswordMatch) {
+      throw new UnauthorizedException('The email and/or password you specified are incorrect.');
+    }
+
+    const authUserData = await this.userAuthTokensRepository.findOneBy({ userId: existedUser.id });
+    if (!authUserData.isVerified) {
+      throw new UnauthorizedException('Please verify your email');
+    }
+
+    const lastToken = await this.findLastCreatedToken(userAgent, existedUser.id);
+    if (lastToken) {
+      Object.assign(lastToken, {
+        isOnBlackList: true,
+      });
+      this.tokenRepository.save(lastToken);
+    }
+
+    const { JWT_REFRESH_TOKEN_TTL, JWT_ACCESS_TOKEN_TTL } = this.getConfigJWTVariables();
+
+    const accessToken = this.generateToken({ userId: existedUser.id }, JWT_ACCESS_TOKEN_TTL);
+    const refreshToken = this.generateToken({ userId: existedUser.id }, JWT_REFRESH_TOKEN_TTL);
+
+    const hashedRefreshToken = await argon2.hash(refreshToken);
+
+    this.tokenRepository.save({
+      device: userAgent,
+      refreshToken: hashedRefreshToken,
+      userId: authUserData,
+    });
+
+    return {
+      accessToken,
+      refreshToken,
+    };
+  }
+
   private async findLastCreatedToken(userAgent: string, userId: string) {
     const lastCreatedToken = await this.tokenRepository
       .createQueryBuilder('token')
       .where({
         device: userAgent,
       })
-      .leftJoinAndSelect('token.userToken', 'userToken', 'userToken.userId = :userId', { userId })
-      .orderBy('token.created_date', 'DESC')
+      .leftJoinAndSelect('token.userId', 'user', 'user.userId =:userId', { userId })
+      .orderBy('token.createdAt', 'DESC')
       .getOne();
-
     return lastCreatedToken;
   }
 
