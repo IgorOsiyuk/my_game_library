@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,7 +9,7 @@ import { EmailSenderService } from './../email-sender/email-sender.service';
 import { User } from './../user/entities/user.entity';
 import { RegistrationDto } from './dtos';
 import { Token } from './entities/token.entity';
-import { UserTokens } from './entities/userTokens.entity';
+import { UserAuthTokens } from './entities/userAuthTokens.entity';
 
 @Injectable()
 export class AuthService {
@@ -18,13 +18,13 @@ export class AuthService {
     private userRepository: Repository<User>,
     @InjectRepository(Token)
     private tokenRepository: Repository<Token>,
-    @InjectRepository(UserTokens)
-    private userTokensRepository: Repository<UserTokens>,
+    @InjectRepository(UserAuthTokens)
+    private userAuthTokensRepository: Repository<UserAuthTokens>,
     private jwtService: JwtService,
     private configService: ConfigService,
     private emailSenderService: EmailSenderService,
   ) {}
-  async registration(user: RegistrationDto, userAgent: string) {
+  async registration(user: RegistrationDto) {
     const { name, email, password } = user;
 
     const existedUser = await this.userRepository.findOneBy({ email });
@@ -41,14 +41,14 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    const newUserTokens = await this.userTokensRepository.save({
+    await this.userAuthTokensRepository.save({
       userId: newUser.id,
     });
 
-    await this.tokenRepository.save({
-      user: newUserTokens,
-      device: userAgent,
-    });
+    // await this.tokenRepository.save({
+    //   user: newUserTokens,
+    //   device: userAgent,
+    // });
 
     const { VERIFICATION_TOKEN_SECRET, VERIFICATION_TOKEN_TTL } = this.getConfigJWTVariables();
 
@@ -69,6 +69,45 @@ export class AuthService {
     return {
       message: 'Please Verify your email',
     };
+  }
+
+  async verifyToken(token: string, userAgent: string) {
+    const { VERIFICATION_TOKEN_SECRET, JWT_REFRESH_TOKEN_TTL, JWT_ACCESS_TOKEN_TTL } = this.getConfigJWTVariables();
+    try {
+      const payload = this.jwtService.verifyAsync(token, {
+        secret: VERIFICATION_TOKEN_SECRET,
+      });
+      const userId = payload['userId'];
+
+      const user = await this.userAuthTokensRepository.findOneBy({ userId });
+
+      if (!user) {
+        throw new NotFoundException('This user does not exist');
+      }
+
+      const accessToken = this.generateToken({ userId }, JWT_ACCESS_TOKEN_TTL);
+      const refreshToken = this.generateToken({ userId }, JWT_REFRESH_TOKEN_TTL);
+
+      const hashedRefreshToken = await argon2.hash(refreshToken);
+
+      this.tokenRepository.save({
+        userId: user,
+        device: userAgent,
+        refreshToken: hashedRefreshToken,
+      });
+
+      Object.assign(user, {
+        isVerified: true,
+      });
+
+      this.userAuthTokensRepository.save(user);
+      return {
+        accessToken,
+        refreshToken,
+      };
+    } catch (error) {
+      throw new UnauthorizedException('Your verification token is expired or not valid');
+    }
   }
 
   private async findLastCreatedToken(userAgent: string, userId: string) {
@@ -109,6 +148,14 @@ export class AuthService {
     });
 
     return generatedToken;
+  }
+
+  private findOneByIdOrThrow(userId: string, repository: Repository<any>) {
+    const user = repository.findOneBy({ userId });
+    if (!user) {
+      throw new NotFoundException('This user does not exist');
+    }
+    return user;
   }
 
   private publicDomain = this.configService.getOrThrow<string>('PUBLIC_BASE_URL');

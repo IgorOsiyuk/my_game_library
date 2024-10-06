@@ -1,14 +1,23 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-import { UserTokens } from './userTokens.entity';
+import { UserAuthTokens } from './userAuthTokens.entity';
 
 @Entity()
 export class Token {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => UserTokens, (userToken) => userToken.refreshTokens)
-  userToken: UserTokens;
+  @ManyToOne(() => UserAuthTokens, (userAuthTokens) => userAuthTokens.refreshTokens)
+  @JoinColumn({ name: 'userId' })
+  userId: UserAuthTokens;
 
   @Column()
   device: string;
