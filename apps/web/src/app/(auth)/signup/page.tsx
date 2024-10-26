@@ -1,10 +1,7 @@
-import PasswordInput from '@/components/PasswordInput';
-import { Button, Input, Link } from '@nextui-org/react';
-import type { Metadata } from 'next';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Регистрация',
-};
+import PasswordInput from '@/components/shared/PasswordInput';
+import { Button, Input, Link } from '@nextui-org/react';
 
 export default function Signup() {
   return (
@@ -27,7 +24,7 @@ export default function Signup() {
 
       <div className="mt-6">
         <Button color="primary" size="lg" className="h-auto w-full rounded-lg px-6 py-3">
-          Sign In
+          Sign Up
         </Button>
         <div className="mt-6 text-center">
           <Link href="/signin" size="sm">

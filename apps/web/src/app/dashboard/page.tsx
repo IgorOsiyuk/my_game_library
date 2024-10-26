@@ -1,4 +1,9 @@
+'use client';
+import useAxiosAuth from '@/lib/hooks/useAxiosAuth';
+import { signOut } from 'next-auth/react';
+
 export default function Dashboard() {
+  const axiosAuth = useAxiosAuth();
   return (
     <>
       <section className="grid grid-cols-12">
@@ -102,6 +107,14 @@ export default function Dashboard() {
               </a>
             </nav>
           </div>
+          <button
+            className="text-red-500"
+            onClick={() => {
+              axiosAuth.post('/auth/logout').then(() => signOut({ callbackUrl: '/signout' }));
+            }}
+          >
+            Sign Out
+          </button>
         </aside>
         <section className="col-start-3 -col-end-1">
           <div className="px-4 py-8">

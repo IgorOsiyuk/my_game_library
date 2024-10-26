@@ -1,10 +1,7 @@
-import PasswordInput from '@/components/PasswordInput';
+'use client';
+import PasswordInput from '@/components/shared/PasswordInput';
 import { Button, Input } from '@nextui-org/react';
-import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Вход в личный кабинет',
-};
+import { signIn } from 'next-auth/react';
 
 export default function Signin() {
   return (
@@ -18,7 +15,19 @@ export default function Signin() {
       </div>
 
       <div className="mt-6">
-        <Button color="primary" size="lg" className="h-auto w-full rounded-lg px-6 py-3">
+        <Button
+          color="primary"
+          size="lg"
+          className="h-auto w-full rounded-lg px-6 py-3"
+          onClick={async () =>
+            await signIn('credentials', {
+              email: 'wimx@tut.by',
+              password: '12345lL@',
+              redirect: true,
+              callbackUrl: '/dashboard',
+            })
+          }
+        >
           Sign In
         </Button>
       </div>

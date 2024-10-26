@@ -170,10 +170,9 @@ export class AuthService {
     }
 
     const lastToken = await this.findLastCreatedToken(userAgent, userId);
+
     const isMatch = await argon2.verify(lastToken.refreshToken, token);
     if (!lastToken || !isMatch || lastToken.isOnBlackList) {
-      console.log(lastToken);
-      console.log(isMatch);
       throw new UnauthorizedException('Access denied 2');
     }
 
