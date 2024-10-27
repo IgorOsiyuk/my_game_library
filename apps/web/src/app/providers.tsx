@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { NextUIProvider } from "@nextui-org/system";
-import { useRouter } from "next/navigation";
+import { NextUIProvider } from '@nextui-org/system';
+import { SessionProvider } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import * as React from 'react';
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -11,5 +12,9 @@ export interface ProvidersProps {
 export function Providers({ children }: ProvidersProps) {
   const router = useRouter();
 
-  return <NextUIProvider navigate={router.push}>{children}</NextUIProvider>;
+  return (
+    <NextUIProvider navigate={router.push}>
+      <SessionProvider>{children}</SessionProvider>
+    </NextUIProvider>
+  );
 }
