@@ -6,14 +6,16 @@ import { useState } from 'react';
 
 interface PasswordInputIProps {
   label: string;
+  name: string;
 }
-export default function PasswordInput({ label }: PasswordInputIProps) {
+export default function PasswordInput({ label, name }: PasswordInputIProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   return (
     <Input
+      name={name}
       label={label}
       variant="bordered"
       endContent={

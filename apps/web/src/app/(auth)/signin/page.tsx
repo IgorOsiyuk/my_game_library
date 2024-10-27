@@ -11,7 +11,7 @@ export default function Signin() {
       </div>
 
       <div className="relative mt-4 flex items-center">
-        <PasswordInput label="Password" />
+        <PasswordInput label="Password" name="password" />
       </div>
 
       <div className="mt-6">
