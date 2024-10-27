@@ -1,4 +1,4 @@
-import AuthNav from '@/components/shared/AuthNav';
+import AuthNav from '@/components/AuthNav';
 
 export default function Layout({
   children,

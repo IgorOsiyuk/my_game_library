@@ -1,3 +1,6 @@
+import Breadcrumbs from '@/components/Breadcrumbs';
+import Footer from '@/components/Footer';
+import SideNav from '@/components/SideNav';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -10,5 +13,20 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div>{children}</div>;
+  return (
+    <section className="grid grid-cols-12">
+      <div className="col-start-1 col-end-3 ">
+        <SideNav />
+      </div>
+      <div className="col-start-3 -col-end-1 flex flex-col">
+        <div className="px-4 py-8">
+          <Breadcrumbs />
+          {children}
+        </div>
+        <div className="mt-auto">
+          <Footer />
+        </div>
+      </div>
+    </section>
+  );
 }

@@ -1,5 +1,5 @@
 'use client';
-import PasswordInput from '@/components/shared/PasswordInput';
+import PasswordInput from '@/components/PasswordInput';
 import { Button, Input } from '@nextui-org/react';
 import { signIn } from 'next-auth/react';
 
