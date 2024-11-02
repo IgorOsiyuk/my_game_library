@@ -11,23 +11,25 @@ const handler = NextAuth({
         email: {},
       },
       async authorize(credentials, req) {
-        const userData = await axios.post(
-          '/auth/login',
-          {
-            email: credentials?.email,
-            password: credentials?.password,
-          },
-          {
-            headers: {
-              'User-Agent': req.headers?.['user-agent'],
+        return await axios
+          .post(
+            '/auth/login',
+            {
+              email: credentials?.email,
+              password: credentials?.password,
             },
-          },
-        );
-
-        if (userData.data) {
-          return userData.data;
-        }
-        return null;
+            {
+              headers: {
+                'User-Agent': req.headers?.['user-agent'],
+              },
+            },
+          )
+          .then((res) => {
+            return res.data;
+          })
+          .catch((err) => {
+            return { error: JSON.stringify(err.response.data) };
+          });
       },
     }),
   ],
@@ -42,6 +44,12 @@ const handler = NextAuth({
     signIn: '/signin',
   },
   callbacks: {
+    async signIn({ user }) {
+      if (user?.error) {
+        throw new Error(user?.error);
+      }
+      return true;
+    },
     async jwt({ token, user }) {
       return { ...token, ...user };
     },

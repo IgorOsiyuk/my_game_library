@@ -1,8 +1,6 @@
 'use client';
-import useAxiosAuth from '@/lib/hooks/useAxiosAuth';
 
 export default function Dashboard() {
-  const axiosAuth = useAxiosAuth();
   return (
     <>
       <div className="mt-8">
@@ -98,7 +96,7 @@ export default function Dashboard() {
                 <div className="text-surface p-6 dark:text-white">
                   <h5 className="mb-2 text-xl font-medium leading-tight">Card title</h5>
                   <p className="mb-4 text-base">
-                    Some quick example text to build on the card title and make up the bulk of the card's content.
+                    Some quick example text to build on the card title and make up the bulk of the card&apos;s content.
                   </p>
                   <button
                     type="button"
@@ -117,7 +115,7 @@ export default function Dashboard() {
                 <div className="text-surface p-6 dark:text-white">
                   <h5 className="mb-2 text-xl font-medium leading-tight">Card title</h5>
                   <p className="mb-4 text-base">
-                    Some quick example text to build on the card title and make up the bulk of the card's content.
+                    Some quick example text to build on the card title and make up the bulk of the card&apos;s content.
                   </p>
                   <button
                     type="button"
@@ -136,7 +134,7 @@ export default function Dashboard() {
                 <div className="text-surface p-6 dark:text-white">
                   <h5 className="mb-2 text-xl font-medium leading-tight">Card title</h5>
                   <p className="mb-4 text-base">
-                    Some quick example text to build on the card title and make up the bulk of the card's content.
+                    Some quick example text to build on the card title and make up the bulk of the card&apos;s content.
                   </p>
                   <button
                     type="button"
@@ -155,7 +153,7 @@ export default function Dashboard() {
                 <div className="text-surface p-6 dark:text-white">
                   <h5 className="mb-2 text-xl font-medium leading-tight">Card title</h5>
                   <p className="mb-4 text-base">
-                    Some quick example text to build on the card title and make up the bulk of the card's content.
+                    Some quick example text to build on the card title and make up the bulk of the card&apos;s content.
                   </p>
                   <button
                     type="button"

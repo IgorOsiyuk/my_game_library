@@ -1,36 +1,39 @@
 'use client';
 
-import Alert from '@/components/Alert';
 import PasswordInput from '@/components/PasswordInput';
 import { Button, Input, Link } from '@nextui-org/react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 export default function Signup() {
   const router = useRouter();
-  const [isAlert, setIsAlert] = useState(false);
 
   const handleSubmit = async (event: React.BaseSyntheticEvent) => {
+    const toastId = toast.loading('Загрузка...');
+
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const formValues = Object.fromEntries(formData);
     try {
-      const response = await axios.post('/api/auth/signUp', {
+      await axios.post('/api/auth/signUp', {
         body: { ...formValues },
       });
-      console.log(response.data.message);
+      toast.dismiss(toastId);
       router.push('/thanks');
     } catch (error: any) {
-      setIsAlert(true);
-      console.log(error.response.data);
+      toast.dismiss(toastId);
+      if (Array.isArray(error.response.data.message)) {
+        error.response.data.message.forEach((text: string) => toast.error(text));
+      } else {
+        toast.error(error.response.data.message);
+      }
     }
   };
 
   return (
     <>
-      {isAlert && <Alert />}
       <form className="w-full max-w-md" onSubmit={handleSubmit}>
         <div className="relative mt-6 flex items-center">
           <Input type="text" label="Name" variant="bordered" name="name" />
@@ -43,10 +46,6 @@ export default function Signup() {
         <div className="relative mt-4 flex items-center">
           <PasswordInput label="Password" name="password" />
         </div>
-
-        {/* <div className="relative mt-4 flex items-center">
-        <PasswordInput label="Confirm Password" /> //TODO 
-      </div> */}
 
         <div className="mt-6">
           <Button type="submit" color="primary" size="lg" className="h-auto w-full rounded-lg px-6 py-3">
