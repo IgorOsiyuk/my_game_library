@@ -1,3 +1,4 @@
+import EditableMasonryGallery from '@/components/EditableMasonryGallery';
 import GameList from '@/components/GameList';
 import Slider from '@/components/Slider';
 
@@ -15,38 +16,38 @@ export default function Dashboard() {
                 className="absolute bottom-4 right-3 h-14 w-14"
               >
                 <path
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                   d="M41.5002 0.081543C63.9405 0.081543 82.1303 18.2723 82.1303 40.7126C82.1303 63.1519 63.9405 81.3427 41.5002 81.3427C19.0609 81.3427 0.870117 63.1519 0.870117 40.7126C0.870117 18.2723 19.0609 0.081543 41.5002 0.081543V0.081543Z"
                   fill="url(#paint0_radial)"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                 />
                 <path
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                   d="M43.2671 41.4268C34.4583 45.7406 42.6485 60.1506 57.4679 56.9281C71.6164 53.8503 73.7085 37.823 65.0204 36.8494C61.2135 36.4229 57.831 39.5449 53.8792 40.3244C50.2745 41.0365 46.4645 39.8607 43.2671 41.4268Z"
                   fill="#282829"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                 />
                 <path
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                   d="M51.1217 57.6834C54.5132 58.0143 61.0398 57.0649 57.5226 52.4583C56.3629 50.9416 54.5172 49.6964 51.9696 49.449C49.5084 49.2086 47.5209 50.0002 46.0394 51.0905C40.6302 55.0674 47.6346 57.3445 51.1217 57.6834V57.6834Z"
                   fill="url(#paint1_linear)"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                 />
                 <path
                   d="M43.7099 42.3272C41.8472 43.2395 40.8847 44.6637 40.6845 46.2408C40.5457 47.3441 40.766 48.542 41.3021 49.7128C41.8563 50.9238 42.7454 52.1005 43.9242 53.1224C46.844 55.652 51.5089 57.1929 57.258 55.9427C62.6581 54.7689 66.1844 51.6117 67.9214 48.2152C68.6919 46.7085 69.1083 45.1565 69.1777 43.7183C69.2441 42.3353 68.9876 41.066 68.4133 40.0622C67.7273 38.8633 66.5556 38.0325 64.9131 37.8484C62.9438 37.6282 60.9744 38.5505 58.9528 39.4969C57.3948 40.2261 55.8076 40.9694 54.0736 41.3124C52.5127 41.6202 50.9466 41.596 49.4037 41.5709C47.374 41.5397 45.3846 41.5075 43.7099 42.3272V42.3272ZM38.693 45.9893C38.9757 43.7585 40.2922 41.767 42.8289 40.5249C44.937 39.4929 47.1628 39.5281 49.4349 39.5643C50.8611 39.5864 52.3075 39.6096 53.6884 39.337C55.1981 39.0383 56.6636 38.3523 58.1029 37.6785C60.387 36.6093 62.6118 35.5673 65.1324 35.8499C67.4789 36.1124 69.1626 37.3174 70.1613 39.0624C70.9257 40.3991 71.2707 42.0476 71.1852 43.8128C71.1028 45.5247 70.6129 47.3582 69.7077 49.1284C67.7273 53.0017 63.7454 56.5924 57.6824 57.911C51.2373 59.3121 45.9509 57.5359 42.6106 54.6412C41.2105 53.4292 40.1474 52.0151 39.4755 50.5476C38.7856 49.0409 38.507 47.4699 38.693 45.9893V45.9893Z"
                   fill="#FED788"
                 />
                 <path
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                   d="M39.6413 25.9498C41.2435 25.6813 42.7924 26.9536 43.0992 28.7922C43.408 30.6308 42.3579 32.3386 40.7557 32.6062C39.1524 32.8747 37.6035 31.6024 37.2957 29.7638C36.988 27.9252 38.038 26.2184 39.6413 25.9498V25.9498Z"
                   fill="#282829"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                 />
                 <path
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                   d="M62.3903 21.4195C63.9925 21.151 65.5414 22.4243 65.8492 24.2619C66.157 26.1005 65.1069 27.8084 63.5047 28.0769C61.9015 28.3444 60.3536 27.0721 60.0458 25.2335C59.738 23.3959 60.7871 21.6881 62.3903 21.4195Z"
                   fill="#282829"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                 />
                 <defs>
                   <radialGradient
@@ -57,8 +58,8 @@ export default function Dashboard() {
                     id="paint0_radial"
                     r="1"
                   >
-                    <stop stop-color="#FFE28E" />
-                    <stop offset="1" stop-color="#FAC07D" />
+                    <stop stopColor="#FFE28E" />
+                    <stop offset="1" stopColor="#FAC07D" />
                   </radialGradient>
                   <linearGradient
                     gradientUnits="userSpaceOnUse"
@@ -68,8 +69,8 @@ export default function Dashboard() {
                     y1="49.9086"
                     y2="66.3544"
                   >
-                    <stop stop-color="#EE7B78" />
-                    <stop offset="1" stop-color="#65221D" />
+                    <stop stopColor="#EE7B78" />
+                    <stop offset="1" stopColor="#65221D" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -86,16 +87,16 @@ export default function Dashboard() {
                 className="absolute bottom-4 right-3 h-14 w-14"
               >
                 <path
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                   d="M40.8586 0C18.4183 0 0.227539 18.1908 0.227539 40.6301C0.227539 63.0704 18.4183 81.2612 40.8586 81.2612C63.2979 81.2612 81.4887 63.0704 81.4887 40.6301C81.4887 18.1908 63.2979 0 40.8586 0V0Z"
                   fill="url(#paint0_radial)"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                 />
                 <path
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                   d="M11.7234 35.7064C22.5206 36.4316 28.2416 25.9462 28.4689 19.842C28.5122 18.0879 31.1755 18.281 30.8587 20.0472C30.2069 26.2057 33.87 36.9103 44.2408 38.2742C57.3141 39.9931 62.8067 25.1486 59.8658 19.4276C58.1248 16.0411 3.4719 12.4182 2.19857 14.4057C-1.72102 20.5219 -1.43235 34.8223 11.7234 35.7064Z"
                   fill="url(#paint1_linear)"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                 />
                 <path
                   d="M22.9599 42.6751C22.4188 43.179 21.5699 43.1488 21.066 42.6067C20.5621 42.0645 20.5922 41.2167 21.1344 40.7117C22.6622 39.2845 24.6104 38.2113 26.7356 37.8845C28.6094 37.5968 30.6099 37.8885 32.5712 39.019C33.2119 39.3871 33.4322 40.2048 33.0651 40.8455C32.697 41.4852 31.8793 41.7065 31.2386 41.3384C29.8586 40.5428 28.4515 40.3376 27.1349 40.5398C25.5749 40.7791 24.1196 41.5908 22.9599 42.6751V42.6751Z"
@@ -118,8 +119,8 @@ export default function Dashboard() {
                     id="paint0_radial"
                     r="1"
                   >
-                    <stop stop-color="#FFE28E" />
-                    <stop offset="1" stop-color="#F9B86C" />
+                    <stop stopColor="#FFE28E" />
+                    <stop offset="1" stopColor="#F9B86C" />
                   </radialGradient>
                   <linearGradient
                     gradientUnits="userSpaceOnUse"
@@ -129,8 +130,8 @@ export default function Dashboard() {
                     y1="59.1193"
                     y2="9.55575"
                   >
-                    <stop stop-color="#1E1E20" />
-                    <stop offset="1" stop-color="#3B3B3B" />
+                    <stop stopColor="#1E1E20" />
+                    <stop offset="1" stopColor="#3B3B3B" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -147,22 +148,22 @@ export default function Dashboard() {
                 className="absolute bottom-4 right-3 h-14 w-14"
               >
                 <path
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                   d="M41.4992 0.0817871C19.0599 0.0817871 0.869141 18.2726 0.869141 40.7119C0.869141 63.1512 19.0599 81.342 41.4992 81.342C63.9395 81.342 82.1303 63.1512 82.1303 40.7119C82.1303 18.2726 63.9395 0.0817871 41.4992 0.0817871V0.0817871Z"
                   fill="url(#paint0_radial)"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                 />
                 <path
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                   d="M48.2145 28.4951C48.7606 39.0328 35.976 51.8617 22.2891 49.1833C8.45237 46.4767 4.8476 29.5794 11.2264 20.3271C11.8268 19.456 48.135 26.9462 48.2145 28.4951V28.4951Z"
                   fill="#282829"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                 />
                 <path
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                   d="M24.6612 49.4114C20.634 48.8964 13.2585 46.1989 18.4474 42.1405C20.1573 40.8028 22.6024 39.9358 25.6278 40.323C28.5507 40.6962 30.6779 42.059 32.1444 43.612C37.4982 49.2846 28.8021 49.9394 24.6612 49.4114V49.4114Z"
                   fill="url(#paint1_linear)"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                 />
                 <path
                   d="M49.2195 28.4449C49.2809 29.6387 49.1853 30.8527 48.949 32.0657C48.082 36.4942 45.316 40.976 41.4196 44.4098C37.5272 47.8376 32.4871 50.2394 27.0639 50.521C25.4325 50.6055 23.7689 50.4989 22.0983 50.172C19.5094 49.6661 17.2534 48.6855 15.3323 47.3608C11.9971 45.0616 9.68777 41.7304 8.39834 38.0452C7.11696 34.38 6.84338 30.3589 7.56756 26.6525C8.05637 24.1531 9.00182 21.7865 10.4009 19.7578C10.6161 19.447 10.9681 19.2831 11.4439 19.2579C13.1427 19.1704 21.7201 20.7244 30.1818 22.5328C38.6798 24.3493 47.1486 26.4494 48.602 27.4521C48.9872 27.7187 49.1984 28.0476 49.2195 28.4449V28.4449ZM46.9736 31.6805C47.1516 30.7652 47.2401 29.858 47.226 28.9709C45.4267 28.0677 37.6469 26.1848 29.7644 24.5001C21.8317 22.8054 13.8729 21.3329 11.81 21.2645C10.7087 22.9743 9.95229 24.9487 9.54294 27.0377C8.88414 30.4072 9.13257 34.0582 10.2953 37.3833C11.4499 40.6864 13.5088 43.6635 16.4739 45.7073C18.1706 46.877 20.1732 47.745 22.4835 48.1966C23.9972 48.4934 25.4969 48.5899 26.9613 48.5135C31.8987 48.258 36.5103 46.0503 40.0889 42.8981C43.6625 39.75 46.1921 35.6765 46.9736 31.6805V31.6805Z"
@@ -189,8 +190,8 @@ export default function Dashboard() {
                     id="paint0_radial"
                     r="1"
                   >
-                    <stop stop-color="#FFE28E" />
-                    <stop offset="1" stop-color="#F9B86C" />
+                    <stop stopColor="#FFE28E" />
+                    <stop offset="1" stopColor="#F9B86C" />
                   </radialGradient>
                   <linearGradient
                     gradientUnits="userSpaceOnUse"
@@ -200,8 +201,8 @@ export default function Dashboard() {
                     y1="40.9215"
                     y2="59.1354"
                   >
-                    <stop stop-color="#EE7B78" />
-                    <stop offset="1" stop-color="#65221D" />
+                    <stop stopColor="#EE7B78" />
+                    <stop offset="1" stopColor="#65221D" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -218,16 +219,16 @@ export default function Dashboard() {
                 className="absolute bottom-4 right-3 h-14 w-14"
               >
                 <path
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                   d="M31.3136 1.37946C9.59049 7.00487 -3.45869 29.1746 2.16672 50.8978C7.79213 72.6209 29.9629 85.6701 51.685 80.0447C73.4082 74.4193 86.4573 52.2485 80.8329 30.5264C75.2065 8.80323 53.0368 -4.24696 31.3136 1.37946V1.37946Z"
                   fill="url(#paint0_radial)"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                 />
                 <path
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                   d="M23.0287 20.1118C20.138 22.8114 17.5894 28.0465 17.9706 31.7408C18.5962 37.8178 29.2747 37.4286 28.9478 30.3679C28.7768 26.6827 26.1004 22.1465 23.0287 20.1118V20.1118Z"
                   fill="url(#paint1_linear)"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                 />
                 <path
                   d="M57.4175 54.0231C56.7134 53.7908 56.3302 53.0324 56.5616 52.3284C56.7939 51.6243 57.5533 51.2411 58.2573 51.4724L66.6044 54.2364C67.3085 54.4677 67.6917 55.2271 67.4593 55.9311C67.228 56.6352 66.4686 57.0184 65.7646 56.786L57.4175 54.0231Z"
@@ -250,8 +251,8 @@ export default function Dashboard() {
                     id="paint0_radial"
                     r="1"
                   >
-                    <stop stop-color="#FFE28E" />
-                    <stop offset="1" stop-color="#F9B86C" />
+                    <stop stopColor="#FFE28E" />
+                    <stop offset="1" stopColor="#F9B86C" />
                   </radialGradient>
                   <linearGradient
                     gradientUnits="userSpaceOnUse"
@@ -261,8 +262,8 @@ export default function Dashboard() {
                     y1="22.3376"
                     y2="34.9624"
                   >
-                    <stop stop-color="#33BEFF" />
-                    <stop offset="1" stop-color="#298FE3" />
+                    <stop stopColor="#33BEFF" />
+                    <stop offset="1" stopColor="#298FE3" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -274,6 +275,7 @@ export default function Dashboard() {
       </div>
       <Slider />
       <GameList />
+      <EditableMasonryGallery />
     </>
   );
 }

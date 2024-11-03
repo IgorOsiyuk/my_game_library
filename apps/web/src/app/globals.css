@@ -1,7 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import '~react-grid-layout/css/styles.css';
+@import '~react-resizable/css/styles.css';
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -24,4 +25,8 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.react-grid-item.react-grid-placeholder {
+  pointer-events: none;
 }
