@@ -11,7 +11,8 @@ const config = {
   semi: true,
   bracketSpacing: true,
   arrowParens: 'always',
-  plugins: ['prettier-plugin-tailwindcss', 'prettier-plugin-organize-imports'],
+  plugins: ['prettier-plugin-tailwindcss', 'prettier-plugin-organize-imports', 'prettier-plugin-xml'],
+  xmlWhitespaceSensitivity: 'ignore',
 };
 
 export default config;
