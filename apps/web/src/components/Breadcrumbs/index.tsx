@@ -10,6 +10,7 @@ const breadcrumbRepresentation: Record<string, string> = {
   games: 'Список игр',
   reviews: 'Обзоры',
   review: 'Мой обзор',
+  collage: 'Коллаж',
   'create-review': 'Создать обзор',
 };
 

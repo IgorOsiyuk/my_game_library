@@ -1,0 +1,34 @@
+/* EditableMasonryGallery.css */
+.resize-handle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  cursor: se-resize;
+  background-color: rgba(0, 0, 0, 0.5); /* Для видимости, можно изменить */
+}
+
+.exportable-gallery {
+  position: relative;
+  overflow: hidden; /* Чтобы элементы не выходили за пределы контейнера */
+}
+
+.remove-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: red; /* Цвет для кнопки удаления */
+}
+.my-masonry-grid {
+  display: flex;
+  margin-left: -30px; /* отрицательный отступ для выравнивания */
+  width: auto; /* ширина для автоматической настройки */
+  flex-wrap: wrap;
+}
+
+.my-masonry-grid_column {
+  padding-left: 30px; /* отступ между колонками */
+  background-clip: padding-box; /* необходимо для правильного отображения */
+}
