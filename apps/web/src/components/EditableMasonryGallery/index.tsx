@@ -9,21 +9,15 @@ interface Image {
   height: number;
 }
 
-const initialImages: Image[] = [
-  { id: '1', src: 'https://picsum.photos/200/300?random=1', width: 2, height: 2 },
-  { id: '2', src: 'https://picsum.photos/200/300?random=2', width: 2, height: 2 },
-  { id: '3', src: 'https://picsum.photos/200/300?random=3', width: 2, height: 2 },
-];
-
 const ResponsiveGridLayout = WidthProvider(Responsive);
 const MyGridLayout = () => {
-  const [images, setImages] = useState<Image[]>(initialImages);
+  const [images, setImages] = useState<Image[]>([]);
   const [nextId, setNextId] = useState(4);
 
   const addImage = () => {
     const newImage = {
       id: nextId.toString(),
-      src: `https://picsum.photos/${Math.floor(Math.random() * 300) + 200}/${Math.floor(Math.random() * 300) + 200}?random=1`,
+      src: `https://dummyimage.com/${Math.floor(Math.random() * 400) + 200}x${Math.floor(Math.random() * 300) + 200}/000/fff`,
       width: Math.floor(Math.random() * 2 + 1),
       height: Math.floor(Math.random() * 2 + 1),
     };

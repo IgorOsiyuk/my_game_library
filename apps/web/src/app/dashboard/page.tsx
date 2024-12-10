@@ -1,4 +1,3 @@
-import EditableMasonryGallery from '@/components/EditableMasonryGallery';
 import GameList from '@/components/GameList';
 import Slider from '@/components/Slider';
 import StatItem from '@/components/StatItem';
@@ -28,7 +27,6 @@ export default function Dashboard() {
       </div>
       <Slider />
       <GameList />
-      <EditableMasonryGallery />
     </>
   );
 }
