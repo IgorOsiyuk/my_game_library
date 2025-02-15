@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build -o ../../docs"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
