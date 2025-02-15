@@ -1,16 +1,4 @@
 'use client';
-import { Textarea } from '@nextui-org/input';
-import {
-  Autocomplete,
-  AutocompleteItem,
-  Checkbox,
-  CheckboxGroup,
-  Image,
-  Input,
-  Radio,
-  RadioGroup,
-} from '@nextui-org/react';
-import { Slider } from '@nextui-org/slider';
 
 const testSelect = [
   {
@@ -26,7 +14,7 @@ export default function Dashboard() {
       <div className="mt-8">
         <div className="grid grid-cols-8 gap-4">
           <div className="col-span-3 row-span-2 flex max-h-[500px] justify-center self-center overflow-hidden">
-            <Image
+            <img
               style={{
                 height: '100%',
               }}
@@ -37,13 +25,13 @@ export default function Dashboard() {
           <div className="col-span-2">
             <div className="flex flex-col gap-4">
               <div>
-                <Autocomplete label="Find your game" className="">
+                {/* <Autocomplete label="Find your game" className="">
                   {testSelect.map((animal) => (
                     <AutocompleteItem key={animal.value} value={animal.value}>
                       {animal.label}
                     </AutocompleteItem>
                   ))}
-                </Autocomplete>
+                </Autocomplete> */}
               </div>
               <div>
                 <p>Год выпуска</p>
@@ -57,7 +45,7 @@ export default function Dashboard() {
             </div>
           </div>
           <div className="col-span-3">
-            <div className="flex flex-col gap-4">
+            {/* <div className="flex flex-col gap-4">
               <div>
                 <Autocomplete
                   label="Платформа"
@@ -213,14 +201,14 @@ export default function Dashboard() {
                   </label>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
-        <div className="mt-4">
+        {/* <div className="mt-4">
           <div>
             <Textarea minRows={10} label="Комментарий " placeholder="Краткая или неочень заметка об игре" />
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

@@ -1,6 +1,5 @@
 'use client';
 
-import { BreadcrumbItem, Breadcrumbs as BreadcrumbsUI } from '@nextui-org/breadcrumbs';
 import { usePathname } from 'next/navigation';
 
 const breadcrumbRepresentation: Record<string, string> = {
@@ -19,15 +18,16 @@ const Breadcrumbs = () => {
   const pathNames = paths.split('/').filter((path) => path);
   const listOfBreadcrumbItem = pathNames.filter((el) => breadcrumbRepresentation[el]);
   return (
-    <BreadcrumbsUI>
-      {listOfBreadcrumbItem.map((el, index) => {
-        return (
-          <BreadcrumbItem href={`/${listOfBreadcrumbItem.slice(0, index + 1).join('/')}`} key={el}>
-            {breadcrumbRepresentation[el]}
-          </BreadcrumbItem>
-        );
-      })}
-    </BreadcrumbsUI>
+    // <BreadcrumbsUI>
+    //   {listOfBreadcrumbItem.map((el, index) => {
+    //     return (
+    //       <BreadcrumbItem href={`/${listOfBreadcrumbItem.slice(0, index + 1).join('/')}`} key={el}>
+    //         {breadcrumbRepresentation[el]}
+    //       </BreadcrumbItem>
+    //     );
+    //   })}
+    // </BreadcrumbsUI>
+    <></>
   );
 };
 

@@ -2,7 +2,6 @@
 import PasswordInput from '@/components/PasswordInput';
 import useDebounce from '@/lib/hooks/useDebounce';
 import { validateEmail } from '@/lib/utils';
-import { Button, Input } from '@nextui-org/react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -51,14 +50,14 @@ export default function Signin() {
   return (
     <form className="w-full max-w-md" onSubmit={handleSubmit}>
       <div className="relative mt-6 flex items-center">
-        <Input
+        <input
           type="email"
-          label="Email"
-          variant="bordered"
+          // label="Email"
+          // variant="bordered"
           name="email"
-          onValueChange={setValue}
+          // onValueChange={setValue}
           value={value}
-          isInvalid={!validateEmail(debouncedEmail) ? true : false}
+          // isInvalid={!validateEmail(debouncedEmail) ? true : false}
         />
       </div>
 
@@ -67,9 +66,9 @@ export default function Signin() {
       </div>
 
       <div className="mt-6">
-        <Button type="submit" color="primary" size="lg" className="h-auto w-full rounded-lg px-6 py-3">
+        <button type="submit" color="primary" className="h-auto w-full rounded-lg px-6 py-3">
           Sign In
-        </Button>
+        </button>
       </div>
     </form>
   );

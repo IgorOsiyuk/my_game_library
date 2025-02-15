@@ -1,7 +1,6 @@
 'use client';
 
 import PasswordInput from '@/components/PasswordInput';
-import { Button, Input, Link } from '@nextui-org/react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
@@ -36,11 +35,11 @@ export default function Signup() {
     <>
       <form className="w-full max-w-md" onSubmit={handleSubmit}>
         <div className="relative mt-6 flex items-center">
-          <Input type="text" label="Name" variant="bordered" name="name" />
+          <input type="text" name="name" />
         </div>
 
         <div className="relative mt-6 flex items-center">
-          <Input type="email" label="Email" variant="bordered" name="email" />
+          <input type="email" name="email" />
         </div>
 
         <div className="relative mt-4 flex items-center">
@@ -48,13 +47,11 @@ export default function Signup() {
         </div>
 
         <div className="mt-6">
-          <Button type="submit" color="primary" size="lg" className="h-auto w-full rounded-lg px-6 py-3">
+          <button type="submit" color="primary" className="h-auto w-full rounded-lg px-6 py-3">
             Sign Up
-          </Button>
+          </button>
           <div className="mt-6 text-center">
-            <Link href="/signin" size="sm">
-              Already have an account?
-            </Link>
+            <a href="/signin">Already have an account?</a>
           </div>
         </div>
       </form>

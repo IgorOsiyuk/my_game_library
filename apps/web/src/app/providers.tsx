@@ -1,20 +1,20 @@
 'use client';
 
-import { NextUIProvider } from '@nextui-org/system';
+import GlobalStyles from '@/styles/GlobalStyles';
 import { SessionProvider } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import * as React from 'react';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '../styles/theme';
 
 export interface ProvidersProps {
   children: React.ReactNode;
 }
 
 export function Providers({ children }: ProvidersProps) {
-  const router = useRouter();
-
   return (
-    <NextUIProvider navigate={router.push}>
-      <SessionProvider>{children}</SessionProvider>
-    </NextUIProvider>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <SessionProvider>{children}</SessionProvider>;
+    </ThemeProvider>
   );
 }
