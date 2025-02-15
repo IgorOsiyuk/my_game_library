@@ -25,7 +25,10 @@ jobs:
       # Set up Node
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '20'   
+      # Add a step to navigate to the correct directory
+      - name: Change directory to apps/web
+        run: cd apps/web
       #👇 Add Storybook build and deploy to GitHub Pages as a step in the workflow
       - uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
         with:
