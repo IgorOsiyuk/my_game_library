@@ -27,6 +27,14 @@
       "@/styles/*": ["./src/styles/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/types/**/*.ts", "**/*.*js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/types/**/*.ts",
+    "**/*.*js",
+    "src/stories/*.*"
+  ],
   "exclude": ["node_modules"]
 }

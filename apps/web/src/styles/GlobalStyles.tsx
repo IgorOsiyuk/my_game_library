@@ -15,8 +15,8 @@ const GlobalStyles = createGlobalStyle`
   body {
     -webkit-overflow-scrolling: touch;
     font-family: ${(props) => props.theme.fonts.main};
-    background-color: ${(props) => props.theme.colors.background};
-    color: ${(props) => props.theme.colors.text};
+    background-color: ${(props) => props.theme.colors.black};
+    color: ${(props) => props.theme.colors.white};
   }
 
   a {

@@ -5,6 +5,14 @@ import GlobalStyles from '../src/styles/GlobalStyles';
 import { theme } from '../src/styles/theme';
 
 const preview: Preview = {
+  parameters: {
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
+    },
+  },
   decorators: [
     withThemeFromJSXProvider({
       Provider: ThemeProvider,

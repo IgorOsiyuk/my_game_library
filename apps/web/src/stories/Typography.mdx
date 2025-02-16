@@ -1,0 +1,57 @@
+import { theme } from '@/styles/theme';
+import { Meta, Canvas } from '@storybook/blocks';
+
+<Meta title="Typography" />
+
+# Typography
+
+**Font:** Inter
+
+**Weights:** 300(light), 400(regular), 500(medium), 600(semiBold), 700(bold)
+
+export const Typography = ({ fontSize }) => {
+  return (
+    <>
+    {Object.entries(fontSize).map(([key,value])=>
+      <div
+        style={{
+          display: 'grid',
+          width:"100%",
+          gridTemplateColumns:"3fr 18fr 2fr",
+          gap: 20,
+          alignItems: 'center',
+          justifyContent:"center",
+        }}
+      >
+        <div>{key}</div>
+        <div
+          style={{
+            flexGrow: 0,
+            flexSrink:1,
+            fontFamily:theme.fonts.main,
+            fontWeight:400,
+            fontSize:value,
+            whiteSpace:"nowrap",
+            overflow: 'hidden',
+            textOverflow:"ellipsis"
+          }}
+        >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </div>
+        <div>{value}px</div>
+      </div>
+    )}
+    </>
+
+);
+};
+
+<div
+  style={{
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+  }}
+>
+  <Typography fontSize={theme.fontSizes} />
+</div>
