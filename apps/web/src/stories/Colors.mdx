@@ -8,25 +8,10 @@ import { Meta, Typeset, ColorPalette, ColorItem } from '@storybook/blocks';
 # Colors
 
 <ColorPalette>
-  <ColorItem title="theme.colors.black" subtitle="Black" colors={[theme.colors.black]} />
-  <ColorItem title="theme.colors.dark_01" subtitle="Dark_01" colors={[theme.colors.dark_01]} />
-  <ColorItem title="theme.colors.dark_02" subtitle="Dark_02" colors={[theme.colors.dark_02]} />
-  <ColorItem title="theme.colors.grey_01" subtitle="Grey_01" colors={[theme.colors.grey_01]} />
-  <ColorItem title="theme.colors.grey_02" subtitle="Grey_02" colors={[theme.colors.grey_02]} />
-  <ColorItem title="theme.colors.white" subtitle="White" colors={[theme.colors.white]} />
-  <ColorItem title="theme.colors.accent.main" subtitle="Accent" colors={[theme.colors.accent.main]} />
-  <ColorItem title="theme.colors.accent.hover" subtitle="Accent_hover" colors={[theme.colors.accent.hover]} />
-  <ColorItem
-    title="theme.colors.accent_secondary.main"
-    subtitle="Accent_2"
-    colors={[theme.colors.accent_secondary.main]}
-  />
-  <ColorItem title="theme.colors.blue.light" subtitle="Label blue" colors={[theme.colors.blue.light]} />
-  <ColorItem title="theme.colors.blue.dark" subtitle="Label blue" colors={[theme.colors.blue.dark]} />
-  <ColorItem title="theme.colors.red.light" subtitle="Label red" colors={[theme.colors.red.light]} />
-  <ColorItem title="theme.colors.red.dark" subtitle="Label red" colors={[theme.colors.red.dark]} />
-  <ColorItem title="theme.colors.yellow.light" subtitle="Label yellow" colors={[theme.colors.yellow.light]} />
-  <ColorItem title="theme.colors.yellow.dark" subtitle="Label yellow" colors={[theme.colors.yellow.dark]} />
-  <ColorItem title="theme.colors.green.light" subtitle="Label green" colors={[theme.colors.green.light]} />
-  <ColorItem title="theme.colors.green.dark" subtitle="Label green" colors={[theme.colors.green.dark]} />
+  {Object.keys(colors).map((el) => (
+    <>
+      <ColorItem title={`theme.colors.${el}.light`} subtitle={el} colors={[theme.colors[el].light]} />
+      <ColorItem title={`theme.colors.${el}.dark`} colors={[theme.colors[el].dark]} />
+    </>
+  ))}
 </ColorPalette>

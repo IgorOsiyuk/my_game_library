@@ -1,4 +1,18 @@
-const spacing = {
+export type Spacing = {
+  s_2: string;
+  s_4: string;
+  s_8: string;
+  s_12: string;
+  s_16: string;
+  s_20: string;
+  s_24: string;
+  s_32: string;
+  s_40: string;
+  s_48: string;
+  s_56: string;
+};
+
+const spacing: Spacing = {
   s_2: '2px',
   s_4: '4px',
   s_8: '8px',

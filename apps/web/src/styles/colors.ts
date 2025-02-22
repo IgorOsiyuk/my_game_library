@@ -1,16 +1,45 @@
-const colors = {
-  black: '#000000',
-  dark_01: '#141316',
-  dark_02: '#262529',
-  grey_01: '#3E3C42',
-  grey_02: '#A8A8A9',
-  white: '#FFFFFF',
+type ColorVariant = {
+  light: string;
+  dark: string;
+};
+
+export type Colors = {
+  black: ColorVariant;
+  white: ColorVariant;
+  dark: ColorVariant;
+  grey: ColorVariant;
+  accent: ColorVariant;
+  accent_secondary: ColorVariant;
+  blue: ColorVariant;
+  red: ColorVariant;
+  yellow: ColorVariant;
+  green: ColorVariant;
+};
+
+const colors: Colors = {
+  black: {
+    light: '#000000',
+    dark: '#000000',
+  },
+  white: {
+    light: '#FFFFFF',
+    dark: '#FFFFFF',
+  },
+  dark: {
+    light: '#262529',
+    dark: '#141316',
+  },
+  grey: {
+    light: '#A8A8A9',
+    dark: '#3E3C42',
+  },
   accent: {
-    main: '#4F46E5',
-    hover: '#6A61FD',
+    light: '#6A61FD',
+    dark: '#4F46E5',
   },
   accent_secondary: {
-    main: '#FFE786',
+    light: '#FFE786',
+    dark: '#FFE786',
   },
   blue: {
     light: '#DBEAFE',
