@@ -20,6 +20,7 @@
     "paths": {
       "@/*": ["./src/app/*"],
       "@/components/*": ["./src/components/*"],
+      "@/atomic/*": ["./src/components/atomic/*"],
       "@/lib/*": ["./src/lib/*"],
       "@/libHooks/*": ["./src/lib/hooks/*"],
       "@/utils": ["./src/lib/utils.ts"],

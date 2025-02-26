@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className={`min-h-screen bg-background font-geist font-bold antialiased`}>
+      <body>
         <StyledComponentsRegistry>
           <Providers>
             <>

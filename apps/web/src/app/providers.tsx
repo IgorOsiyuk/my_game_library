@@ -14,7 +14,7 @@ export function Providers({ children }: ProvidersProps) {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <SessionProvider>{children}</SessionProvider>;
+      <SessionProvider>{children}</SessionProvider>
     </ThemeProvider>
   );
 }

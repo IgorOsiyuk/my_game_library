@@ -11,26 +11,26 @@ export enum SizeEnum {
 }
 
 interface ButtonIProps {
-  color: keyof Colors;
-  label: string;
+  color?: keyof Colors;
+  children: string;
   buttonSize?: SizeEnum;
   icon?: ReactNode;
-  radius: keyof Radius;
-  textSize: keyof FontSizes;
-  spacing: keyof Spacing;
-  isActive: boolean;
-  onClick: () => void;
+  radius?: keyof Radius;
+  textSize?: keyof FontSizes;
+  spacing?: keyof Spacing;
+  isActive?: boolean;
+  onClick?: () => void;
 }
 
 const Button = ({
   color = 'black',
-  label,
+  children,
   buttonSize = SizeEnum.DEFAULT,
   icon,
   radius = 'rounded_small',
-  textSize = 'body_S',
+  textSize = 'button',
   spacing = 's_8',
-  isActive,
+  isActive = false,
   onClick,
 }: ButtonIProps) => {
   return (
@@ -44,7 +44,7 @@ const Button = ({
       isActive={isActive}
     >
       {icon}
-      {label}
+      {children}
     </S.Button>
   );
 };

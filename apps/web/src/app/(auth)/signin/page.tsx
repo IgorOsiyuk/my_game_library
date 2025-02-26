@@ -1,12 +1,16 @@
 'use client';
-import PasswordInput from '@/components/PasswordInput';
+import Input from '@/components/Input';
+import * as S from './style';
+
+import FlexBox from '@/atomic/FlexBox';
+import Button, { SizeEnum } from '@/components/Button';
+import Text from '@/components/Text';
 import useDebounce from '@/lib/hooks/useDebounce';
 import { validateEmail } from '@/lib/utils';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-
 export default function Signin() {
   const router = useRouter();
 
@@ -48,28 +52,43 @@ export default function Signin() {
   }, [debouncedEmail]);
 
   return (
-    <form className="w-full max-w-md" onSubmit={handleSubmit}>
-      <div className="relative mt-6 flex items-center">
-        <input
-          type="email"
-          // label="Email"
-          // variant="bordered"
-          name="email"
-          // onValueChange={setValue}
-          value={value}
-          // isInvalid={!validateEmail(debouncedEmail) ? true : false}
-        />
-      </div>
+    <FlexBox height="100vh" align="center" justify="center" backgroundColor="accent">
+      <S.FormWrapper onSubmit={handleSubmit}>
+        <FlexBox direction="column" gap="s_56">
+          <Text color="white" size="small_titles">
+            Привет!
+          </Text>
 
-      <div className="relative mt-4 flex items-center">
-        <PasswordInput label="Password" name="password" />
-      </div>
-
-      <div className="mt-6">
-        <button type="submit" color="primary" className="h-auto w-full rounded-lg px-6 py-3">
-          Sign In
-        </button>
-      </div>
-    </form>
+          <FlexBox direction="column" gap="s_24">
+            <FlexBox direction="column" gap="s_14">
+              <Input
+                label="test"
+                name="test"
+                onChange={(e) => setValue(e.target.value)}
+                placeholder="Логин"
+                value={value}
+                // icon={<SadSmile />}
+              />
+              <Input
+                label="test"
+                name="test"
+                onChange={(e) => setValue(e.target.value)}
+                placeholder="Пароль"
+                value={value}
+                // icon={<SadSmile />}
+              />
+            </FlexBox>
+            <FlexBox gap="s_16">
+              <Button buttonSize={SizeEnum.FULL} color="accent" spacing="s_24">
+                Войти
+              </Button>
+              <Button buttonSize={SizeEnum.FULL} color="dark" spacing="s_24">
+                Создать аккаунт
+              </Button>
+            </FlexBox>
+          </FlexBox>
+        </FlexBox>
+      </S.FormWrapper>
+    </FlexBox>
   );
 }

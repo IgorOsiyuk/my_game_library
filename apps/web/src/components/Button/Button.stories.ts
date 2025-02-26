@@ -56,7 +56,7 @@ const meta: Meta<typeof ButtonComponent> = {
     },
   },
   args: {
-    label: 'Button',
+    children: 'Button',
     onClick: fn(),
   },
 };

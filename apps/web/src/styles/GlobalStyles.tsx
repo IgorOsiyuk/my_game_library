@@ -149,8 +149,9 @@ const GlobalStyles = createGlobalStyle`
   body {
     -webkit-overflow-scrolling: touch;
     font-family: ${(props) => props.theme.fonts.main};
-    background-color: ${(props) => props.theme.colors.black};
-    color: ${(props) => props.theme.colors.white};
+    background-color: ${(props) => props.theme.colors.black.dark};
+    color: ${(props) => props.theme.colors.white.dark};
+    min-height: 100vh;
   }
 
   a {
@@ -185,9 +186,14 @@ const GlobalStyles = createGlobalStyle`
   input,
   optgroup,
   select,
-  textarea {
+  textarea,
+  input:focus, 
+  input:focus-visible, 
+  input:active {
     border: none;
     font-family: inherit;
+    background: none;
+    outline: none;
   }
 `;
 
