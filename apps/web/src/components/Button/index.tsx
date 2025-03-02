@@ -2,7 +2,7 @@ import { Colors } from '@/styles/colors';
 import { FontSizes } from '@/styles/fontSizes';
 import { Radius } from '@/styles/radius';
 import { Spacing } from '@/styles/spacing';
-import { ReactNode } from 'react';
+import { MouseEventHandler, ReactNode } from 'react';
 import * as S from './style';
 
 export enum SizeEnum {
@@ -19,7 +19,8 @@ interface ButtonIProps {
   textSize?: keyof FontSizes;
   spacing?: keyof Spacing;
   isActive?: boolean;
-  onClick?: () => void;
+  as?: string;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const Button = ({
@@ -31,10 +32,12 @@ const Button = ({
   textSize = 'button',
   spacing = 's_8',
   isActive = false,
+  as = 'button',
   onClick,
 }: ButtonIProps) => {
   return (
     <S.Button
+      as={as}
       color={color}
       radius={radius}
       buttonSize={buttonSize}

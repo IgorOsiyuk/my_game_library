@@ -1,12 +1,19 @@
 'use client';
 
-import PasswordInput from '@/components/PasswordInput';
+import FlexBox from '@/components/atomic/FlexBox';
+import Button, { SizeEnum } from '@/components/Button';
+import Input from '@/components/Input';
+import Text from '@/components/Text';
 import axios from 'axios';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 export default function Signup() {
   const router = useRouter();
+
+  const [value, setValue] = useState('');
 
   const handleSubmit = async (event: React.BaseSyntheticEvent) => {
     const toastId = toast.loading('Загрузка...');
@@ -32,29 +39,48 @@ export default function Signup() {
   };
 
   return (
-    <>
-      <form className="w-full max-w-md" onSubmit={handleSubmit}>
-        <div className="relative mt-6 flex items-center">
-          <input type="text" name="name" />
-        </div>
+    <form onSubmit={handleSubmit}>
+      <FlexBox $direction="column" $gap="s_56">
+        <Text color="white" size="small_titles">
+          Создай себе свою картотеку!
+        </Text>
 
-        <div className="relative mt-6 flex items-center">
-          <input type="email" name="email" />
-        </div>
-
-        <div className="relative mt-4 flex items-center">
-          <PasswordInput label="Password" name="password" />
-        </div>
-
-        <div className="mt-6">
-          <button type="submit" color="primary" className="h-auto w-full rounded-lg px-6 py-3">
-            Sign Up
-          </button>
-          <div className="mt-6 text-center">
-            <a href="/signin">Already have an account?</a>
-          </div>
-        </div>
-      </form>
-    </>
+        <FlexBox $direction="column" $gap="s_24">
+          <FlexBox $direction="column" $gap="s_14">
+            <Input
+              label="name"
+              name="name"
+              onChange={(e) => setValue(e.target.value)}
+              placeholder="Ваш ник"
+              value={value}
+            />
+            <Input
+              label="email"
+              name="email"
+              onChange={(e) => setValue(e.target.value)}
+              placeholder="Ваша почта"
+              value={value}
+            />
+            <Input
+              label="password"
+              name="password"
+              onChange={(e) => setValue(e.target.value)}
+              placeholder="Пароль"
+              value={value}
+            />
+          </FlexBox>
+          <FlexBox $gap="s_16">
+            <Button buttonSize={SizeEnum.FULL} color="dark" spacing="s_24">
+              Создать аккаунт
+            </Button>
+          </FlexBox>
+        </FlexBox>
+        <Link href={'/signin'}>
+          <Text color="white" size="body_S">
+            Уже есть аккаунт?
+          </Text>
+        </Link>
+      </FlexBox>
+    </form>
   );
 }

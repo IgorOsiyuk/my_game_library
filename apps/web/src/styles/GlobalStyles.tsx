@@ -136,7 +136,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   html {
-    scrollbar-gutter: stable;
+    /* scrollbar-gutter: stable; */
   }
 
   html,

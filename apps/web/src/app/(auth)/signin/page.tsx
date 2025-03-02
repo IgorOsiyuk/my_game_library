@@ -1,6 +1,5 @@
 'use client';
 import Input from '@/components/Input';
-import * as S from './style';
 
 import FlexBox from '@/atomic/FlexBox';
 import Button, { SizeEnum } from '@/components/Button';
@@ -11,6 +10,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+
 export default function Signin() {
   const router = useRouter();
 
@@ -52,43 +52,47 @@ export default function Signin() {
   }, [debouncedEmail]);
 
   return (
-    <FlexBox height="100vh" align="center" justify="center" backgroundColor="accent">
-      <S.FormWrapper onSubmit={handleSubmit}>
-        <FlexBox direction="column" gap="s_56">
-          <Text color="white" size="small_titles">
-            Привет!
-          </Text>
+    <form onSubmit={handleSubmit}>
+      <FlexBox $direction="column" $gap="s_56">
+        <Text color="white" size="small_titles">
+          Привет!
+        </Text>
 
-          <FlexBox direction="column" gap="s_24">
-            <FlexBox direction="column" gap="s_14">
-              <Input
-                label="test"
-                name="test"
-                onChange={(e) => setValue(e.target.value)}
-                placeholder="Логин"
-                value={value}
-                // icon={<SadSmile />}
-              />
-              <Input
-                label="test"
-                name="test"
-                onChange={(e) => setValue(e.target.value)}
-                placeholder="Пароль"
-                value={value}
-                // icon={<SadSmile />}
-              />
-            </FlexBox>
-            <FlexBox gap="s_16">
-              <Button buttonSize={SizeEnum.FULL} color="accent" spacing="s_24">
-                Войти
-              </Button>
-              <Button buttonSize={SizeEnum.FULL} color="dark" spacing="s_24">
-                Создать аккаунт
-              </Button>
-            </FlexBox>
+        <FlexBox $direction="column" $gap="s_24">
+          <FlexBox $direction="column" $gap="s_14">
+            <Input
+              label="test"
+              name="test"
+              onChange={(e) => setValue(e.target.value)}
+              placeholder="Логин"
+              value={value}
+            />
+            <Input
+              label="test"
+              name="test"
+              onChange={(e) => setValue(e.target.value)}
+              placeholder="Пароль"
+              value={value}
+            />
+          </FlexBox>
+          <FlexBox $gap="s_16">
+            <Button buttonSize={SizeEnum.FULL} color="accent" spacing="s_24">
+              Войти
+            </Button>
+            <Button
+              buttonSize={SizeEnum.FULL}
+              color="dark"
+              spacing="s_24"
+              onClick={(e) => {
+                e.preventDefault();
+                router.push('/signup');
+              }}
+            >
+              Создать аккаунт
+            </Button>
           </FlexBox>
         </FlexBox>
-      </S.FormWrapper>
-    </FlexBox>
+      </FlexBox>
+    </form>
   );
 }

@@ -3,8 +3,8 @@ import { FontSizes } from '@/styles/fontSizes';
 import * as S from './style';
 
 interface TextIProps {
-  color: keyof Colors;
-  size: keyof FontSizes;
+  color?: keyof Colors;
+  size?: keyof FontSizes;
   children: string;
 }
 
