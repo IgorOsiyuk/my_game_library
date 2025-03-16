@@ -9,7 +9,7 @@ export default function Layout({
 }>) {
   return (
     <>
-      <FlexBox $height="100vh" $align="center" $justify="center" backgroundColor="accent">
+      <FlexBox $height="100vh" $align="center" $justify="center" $backgroundColor="accent">
         <S.FormWrapper>{children}</S.FormWrapper>
       </FlexBox>
     </>

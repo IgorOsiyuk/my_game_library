@@ -1,6 +1,6 @@
 'use client';
 
-import FlexBox from '@/components/atomic/FlexBox';
+import FlexBox from '@/atomic/FlexBox';
 import Button, { SizeEnum } from '@/components/Button';
 import Input from '@/components/Input';
 import Text from '@/components/Text';

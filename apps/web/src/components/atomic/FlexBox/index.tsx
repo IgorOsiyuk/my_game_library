@@ -1,6 +1,6 @@
 import { Colors } from '@/styles/colors';
 import { Spacing } from '@/styles/spacing';
-import styled from 'styled-components';
+import styled, { css, ExecutionContext } from 'styled-components';
 
 interface FlexBoxProps {
   $direction?: 'row' | 'column';
@@ -8,9 +8,16 @@ interface FlexBoxProps {
   $align?: 'stretch' | 'flex-start' | 'flex-end' | 'center' | 'baseline';
   $gap?: keyof Spacing;
   $padding?: keyof Spacing;
-  backgroundColor?: keyof Colors;
+  $px?: keyof Spacing;
+  $py?: keyof Spacing;
+  $pl?: keyof Spacing;
+  $pr?: keyof Spacing;
+  $pt?: keyof Spacing;
+  $pb?: keyof Spacing;
+  $backgroundColor?: keyof Colors;
   $width?: string;
   $height?: string;
+  $sx?: ((context: ExecutionContext) => ReturnType<typeof css>) | ReturnType<typeof css>;
 }
 
 const FlexBox = styled.div<FlexBoxProps>`
@@ -19,11 +26,19 @@ const FlexBox = styled.div<FlexBoxProps>`
   justify-content: ${({ $justify }) => $justify || 'flex-start'};
   align-items: ${({ $align }) => $align || 'stretch'};
   gap: ${({ theme, $gap }) => ($gap ? theme.spacing[$gap] : '0')};
-  padding: ${({ theme, $padding }) => ($padding ? theme.spacing[$padding] : '0')};
+
+  padding: ${({ theme, $padding, $px, $py }) =>
+    $padding ? theme.spacing[$padding] : `${$py ? theme.spacing[$py] : '0'} ${$px ? theme.spacing[$px] : '0'}`};
+  padding-left: ${({ theme, $pl }) => $pl && theme.spacing[$pl]};
+  padding-right: ${({ theme, $pr }) => $pr && theme.spacing[$pr]};
+  padding-top: ${({ theme, $pt }) => $pt && theme.spacing[$pt]};
+  padding-bottom: ${({ theme, $pb }) => $pb && theme.spacing[$pb]};
+
   width: ${({ $width }) => $width || '100%'};
   height: ${({ $height }) => $height || 'auto'};
-  background-color: ${({ theme, backgroundColor }) =>
-    backgroundColor ? theme.colors[backgroundColor].dark : 'transparent'};
+  background-color: ${({ theme, $backgroundColor }) =>
+    $backgroundColor ? theme.colors[$backgroundColor].dark : 'transparent'};
+  ${({ $sx }) => $sx};
 `;
 
 export default FlexBox;

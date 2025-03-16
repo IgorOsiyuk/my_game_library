@@ -10,7 +10,7 @@ interface TextIProps {
 
 const Text = ({ color = 'black', size = 'body_S', children }: TextIProps) => {
   return (
-    <S.Text color={color} size={size}>
+    <S.Text $color={color} $size={size}>
       {children}
     </S.Text>
   );

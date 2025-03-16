@@ -19,12 +19,13 @@
     ],
     "paths": {
       "@/*": ["./src/app/*"],
-      "@/components/*": ["./src/components/*"],
+      "@/components/*": ["./src/components/ui/*"],
       "@/atomic/*": ["./src/components/atomic/*"],
       "@/lib/*": ["./src/lib/*"],
       "@/libHooks/*": ["./src/lib/hooks/*"],
       "@/utils": ["./src/lib/utils.ts"],
       "@/icons/*": ["./public/icons/*"],
+      "@/images/*": ["./public/images/*"],
       "@/styles/*": ["./src/styles/*"]
     }
   },
