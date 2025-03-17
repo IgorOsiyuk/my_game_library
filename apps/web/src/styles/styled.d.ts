@@ -2,6 +2,7 @@
 import 'styled-components';
 import { Colors } from './colors';
 import { FontSizes } from './fontSizes';
+import { FontWeights } from './fontWeight';
 import { Radius } from './radius';
 import { Spacing } from './spacing';
 
@@ -11,13 +12,7 @@ declare module 'styled-components' {
       main: string;
     };
     fontSizes: FontSizes;
-    fontWeights: {
-      light: number;
-      regular: number;
-      medium: number;
-      semiBold: number;
-      bold: number;
-    };
+    fontWeights: FontWeights;
     colors: Colors;
     spacing: Spacing;
     radius: Radius;

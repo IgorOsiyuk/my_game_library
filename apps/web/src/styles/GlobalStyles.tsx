@@ -175,6 +175,10 @@ const GlobalStyles = createGlobalStyle`
     -ms-user-select: none;
     user-select: none;
   }
+  
+  svg {
+    vertical-align: top;
+  }
 
   @supports (font: -apple-system-body) and (-webkit-appearance: none) {
     img[loading='lazy'] {

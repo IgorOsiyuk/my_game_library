@@ -3,7 +3,7 @@ import FlexBox from '@/atomic/FlexBox';
 import SvgImage from '@/atomic/SvgImage';
 import Link from 'next/link';
 import { css } from 'styled-components';
-import Text from '../Text';
+import Text from '../../atomic/Text';
 
 interface NavLinkIProps {
   href: string;

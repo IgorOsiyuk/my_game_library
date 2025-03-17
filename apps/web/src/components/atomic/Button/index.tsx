@@ -3,6 +3,7 @@ import { FontSizes } from '@/styles/fontSizes';
 import { Radius } from '@/styles/radius';
 import { Spacing } from '@/styles/spacing';
 import { MouseEventHandler, ReactNode } from 'react';
+import { css, ExecutionContext } from 'styled-components';
 import * as S from './style';
 
 export enum SizeEnum {
@@ -12,7 +13,7 @@ export enum SizeEnum {
 
 interface ButtonIProps {
   color?: keyof Colors;
-  children: string;
+  children?: React.ReactNode;
   buttonSize?: SizeEnum;
   icon?: ReactNode;
   radius?: keyof Radius;
@@ -21,6 +22,7 @@ interface ButtonIProps {
   isActive?: boolean;
   as?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  sx?: ((context: ExecutionContext) => ReturnType<typeof css>) | ReturnType<typeof css>;
 }
 
 const Button = ({
@@ -34,6 +36,7 @@ const Button = ({
   isActive = false,
   as = 'button',
   onClick,
+  sx,
 }: ButtonIProps) => {
   return (
     <S.Button
@@ -45,6 +48,7 @@ const Button = ({
       spacing={spacing}
       onClick={onClick}
       isActive={isActive}
+      $sx={sx}
     >
       {icon}
       {children}

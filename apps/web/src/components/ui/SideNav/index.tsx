@@ -7,7 +7,7 @@ import ProfileIcon from '@/icons/profile.svg';
 import SettingsIcon from '@/icons/settings.svg';
 import DefaultProfileImage from '@/images/default_profile_image.jpg';
 import { css } from 'styled-components';
-import Text from '../Text';
+import Text from '../../atomic/Text';
 import NavLink from './NavLink';
 import SignOut from './SignOut';
 

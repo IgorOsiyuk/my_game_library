@@ -1,9 +1,9 @@
 'use client';
 
+import Button, { SizeEnum } from '@/atomic/Button';
 import FlexBox from '@/atomic/FlexBox';
-import Button, { SizeEnum } from '@/components/Button';
-import Input from '@/components/Input';
-import Text from '@/components/Text';
+import Input from '@/atomic/Input';
+import Text from '@/atomic/Text';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';

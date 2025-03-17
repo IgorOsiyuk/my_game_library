@@ -1,9 +1,9 @@
 'use client';
-import Input from '@/components/Input';
+import Input from '@/atomic/Input';
 
+import Button, { SizeEnum } from '@/atomic/Button';
 import FlexBox from '@/atomic/FlexBox';
-import Button, { SizeEnum } from '@/components/Button';
-import Text from '@/components/Text';
+import Text from '@/atomic/Text';
 import useDebounce from '@/lib/hooks/useDebounce';
 import { validateEmail } from '@/lib/utils';
 import { signIn } from 'next-auth/react';

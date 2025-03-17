@@ -24,7 +24,7 @@ const FlexBox = styled.div<FlexBoxProps>`
   display: flex;
   flex-direction: ${({ $direction }) => $direction || 'row'};
   justify-content: ${({ $justify }) => $justify || 'flex-start'};
-  align-items: ${({ $align }) => $align || 'stretch'};
+  align-items: ${({ $align }) => $align};
   gap: ${({ theme, $gap }) => ($gap ? theme.spacing[$gap] : '0')};
 
   padding: ${({ theme, $padding, $px, $py }) =>
@@ -34,8 +34,8 @@ const FlexBox = styled.div<FlexBoxProps>`
   padding-top: ${({ theme, $pt }) => $pt && theme.spacing[$pt]};
   padding-bottom: ${({ theme, $pb }) => $pb && theme.spacing[$pb]};
 
-  width: ${({ $width }) => $width || '100%'};
-  height: ${({ $height }) => $height || 'auto'};
+  width: ${({ $width }) => $width};
+  height: ${({ $height }) => $height};
   background-color: ${({ theme, $backgroundColor }) =>
     $backgroundColor ? theme.colors[$backgroundColor].dark : 'transparent'};
   ${({ $sx }) => $sx};

@@ -1,6 +1,6 @@
 'use client';
 import FlexBox from '@/atomic/FlexBox';
-import Text from '@/components/Text';
+import Text from '@/atomic/Text';
 
 export default function Thanks() {
   return (
