@@ -21,11 +21,7 @@ export default function DashboardLayout({
         min-height: 100dvh;
       `}
     >
-      <Box
-      // $sx={css`
-      //   grid-column: 1/3;
-      // `}
-      >
+      <Box>
         <SideNav
           signOutHandler={(e) => {
             e.preventDefault();
@@ -33,13 +29,7 @@ export default function DashboardLayout({
           }}
         />
       </Box>
-      <Box
-      // $sx={css`
-      //   grid-column: 3/-1;
-      // `}
-      >
-        {children}
-      </Box>
+      <Box>{children}</Box>
       {/* <div className="col-start-3 -col-end-1 flex flex-col">
         <div className="px-4 py-8">
           <Breadcrumbs />
