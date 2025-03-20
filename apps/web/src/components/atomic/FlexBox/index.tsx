@@ -6,6 +6,7 @@ interface FlexBoxProps {
   $direction?: 'row' | 'column';
   $justify?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
   $align?: 'stretch' | 'flex-start' | 'flex-end' | 'center' | 'baseline';
+  $wrap?: 'nowrap' | 'wrap' | 'wrap-reverse';
   $gap?: keyof Spacing;
   $padding?: keyof Spacing;
   $px?: keyof Spacing;
@@ -26,6 +27,7 @@ const FlexBox = styled.div<FlexBoxProps>`
   justify-content: ${({ $justify }) => $justify || 'flex-start'};
   align-items: ${({ $align }) => $align};
   gap: ${({ theme, $gap }) => ($gap ? theme.spacing[$gap] : '0')};
+  flex-wrap: ${({ $wrap }) => $wrap || 'nowrap'};
 
   padding: ${({ theme, $padding, $px, $py }) =>
     $padding ? theme.spacing[$padding] : `${$py ? theme.spacing[$py] : '0'} ${$px ? theme.spacing[$px] : '0'}`};
