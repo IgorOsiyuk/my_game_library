@@ -530,56 +530,35 @@ export default function Dashboard() {
               </FlexBox>
             </FlexBox>
           </FlexBox>
-          <FlexBox
+        </Grid>
+        <FlexBox $gap="s_8">
+          <Grid
+            $columns="341px 1fr 1fr 1fr 1fr 1fr 2fr 1fr"
+            $align="center"
+            $padding="s_8"
             $width="100%"
-            $direction="column"
+            $backgroundColor="dark"
             $sx={({ theme }) => css`
               border-radius: ${theme.radius.rounded_medium};
               overflow: hidden;
             `}
           >
-            <FlexBox
-              $direction="column"
-              $height="214px"
-              $width="100%"
-              $sx={css`
-                position: relative;
-              `}
-            >
-              <Box
-                $padding={'s_12'}
-                $sx={css`
-                  position: absolute;
-                  z-index: 1;
-                  right: 0;
+            <FlexBox $gap="s_12" $align="center">
+              <FlexBox
+                $direction="column"
+                $height="54px"
+                $width="54px"
+                $sx={({ theme }) => css`
+                  border-radius: ${theme.radius.rounded_medium};
+                  overflow: hidden;
                 `}
               >
-                <StatusLabel label="Пройдено" variant={StatusEnum.SUCCESS} />
-              </Box>
-              <Image
-                alt="card-image"
-                src={DefaultCardImage.src}
-                fill
-                sizes="100vw"
-                style={{
-                  objectFit: 'cover',
-                }}
-                $sx={css`
-                  width: 100%;
-                  height: 100%;
-                `}
-              />
-            </FlexBox>
-            <FlexBox $direction="column" $width="100%" $padding="s_16" $gap="s_24" $backgroundColor="dark">
-              <FlexBox $direction="column" $gap="s_8">
-                <FlexBox $gap="s_8" $align="center">
-                  <Text size="body_M" color="white" fontWeight="medium">
-                    God of War Ragnarök
-                  </Text>
-                  <Text size="body_S" color="grey">
-                    26h
-                  </Text>
-                </FlexBox>
+                <Image alt="card-image" src={DefaultCardImage.src} width={54} height={54} />
+              </FlexBox>
+              <FlexBox $gap="s_8" $align="flex-start" $direction="column">
+                <Text size="body_M" color="white" fontWeight="medium">
+                  God of War Ragnarök
+                </Text>
                 <FlexBox $gap="s_4" $align="center">
                   <Text size="body_S" color="grey">
                     Action
@@ -589,60 +568,224 @@ export default function Dashboard() {
                   </Text>
                 </FlexBox>
               </FlexBox>
-              <FlexBox $justify="space-between">
+            </FlexBox>
+
+            <FlexBox $gap="s_4" $align="center">
+              <SvgImage $height="16px" $width="16px" $fill="grey">
+                <StarIcon />
+              </SvgImage>
+              <Text size="body_M" color="white">
+                4.9
+              </Text>
+            </FlexBox>
+            <Box>
+              <Text size="body_M" color="white">
+                Playstation
+              </Text>
+            </Box>
+            <Box>
+              <Text size="body_M" color="white">
+                Esprit Games
+              </Text>
+            </Box>
+            <Box>
+              <Text size="body_M" color="grey">
+                45h played
+              </Text>
+            </Box>
+            <FlexBox $gap="s_4" $align="center">
+              <Text size="body_M" color="grey">
+                Action
+              </Text>
+              <Text size="body_M" color="grey">
+                Adventure
+              </Text>
+            </FlexBox>
+            <Box />
+            <FlexBox $gap="s_20" $align="center" $justify="flex-end">
+              <StatusLabel label="Пройдено" variant={StatusEnum.SUCCESS} />
+              <Box
+                as={'button'}
+                $sx={css`
+                  cursor: pointer;
+                `}
+              >
+                <SvgImage $height="16px" $width="16px" $fill="grey">
+                  <PlusIcon />
+                </SvgImage>
+              </Box>
+            </FlexBox>
+          </Grid>
+          <Grid
+            $columns="341px 1fr 1fr 1fr 1fr 1fr 2fr 1fr"
+            $align="center"
+            $padding="s_8"
+            $width="100%"
+            $backgroundColor="dark"
+            $sx={({ theme }) => css`
+              border-radius: ${theme.radius.rounded_medium};
+              overflow: hidden;
+            `}
+          >
+            <FlexBox $gap="s_12" $align="center">
+              <FlexBox
+                $direction="column"
+                $height="54px"
+                $width="54px"
+                $sx={({ theme }) => css`
+                  border-radius: ${theme.radius.rounded_medium};
+                  overflow: hidden;
+                `}
+              >
+                <Image alt="card-image" src={DefaultCardImage.src} width={54} height={54} />
+              </FlexBox>
+              <FlexBox $gap="s_8" $align="flex-start" $direction="column">
+                <Text size="body_M" color="white" fontWeight="medium">
+                  God of War Ragnarök
+                </Text>
                 <FlexBox $gap="s_4" $align="center">
-                  <SvgImage $height="16px" $width="16px" $fill="white">
-                    <StarIcon />
-                  </SvgImage>
-                  <Text size="body_M" color="white">
-                    1.0
+                  <Text size="body_S" color="grey">
+                    Action
                   </Text>
-                </FlexBox>
-                <FlexBox $gap="s_8" $align="center">
-                  <Box
-                    as={'button'}
-                    $sx={css`
-                      cursor: pointer;
-                    `}
-                  >
-                    <SvgImage $height="16px" $width="16px" $fill="grey">
-                      <PlusIcon />
-                    </SvgImage>
-                  </Box>
-                  <Box
-                    as={'button'}
-                    $sx={css`
-                      cursor: pointer;
-                    `}
-                  >
-                    <SvgImage $height="16px" $width="16px" $fill="grey">
-                      <PlusIcon />
-                    </SvgImage>
-                  </Box>
+                  <Text size="body_S" color="grey">
+                    Adventure
+                  </Text>
                 </FlexBox>
               </FlexBox>
             </FlexBox>
-          </FlexBox>
-        </Grid>
+
+            <FlexBox $gap="s_4" $align="center">
+              <SvgImage $height="16px" $width="16px" $fill="grey">
+                <StarIcon />
+              </SvgImage>
+              <Text size="body_M" color="white">
+                4.9
+              </Text>
+            </FlexBox>
+            <Box>
+              <Text size="body_M" color="white">
+                Playstation
+              </Text>
+            </Box>
+            <Box>
+              <Text size="body_M" color="white">
+                Esprit Games
+              </Text>
+            </Box>
+            <Box>
+              <Text size="body_M" color="grey">
+                45h played
+              </Text>
+            </Box>
+            <FlexBox $gap="s_4" $align="center">
+              <Text size="body_M" color="grey">
+                Action
+              </Text>
+              <Text size="body_M" color="grey">
+                Adventure
+              </Text>
+            </FlexBox>
+            <Box />
+            <FlexBox $gap="s_20" $align="center" $justify="flex-end">
+              <StatusLabel label="Пройдено" variant={StatusEnum.SUCCESS} />
+              <Box
+                as={'button'}
+                $sx={css`
+                  cursor: pointer;
+                `}
+              >
+                <SvgImage $height="16px" $width="16px" $fill="grey">
+                  <PlusIcon />
+                </SvgImage>
+              </Box>
+            </FlexBox>
+          </Grid>
+          <Grid
+            $columns="341px 1fr 1fr 1fr 1fr 1fr 2fr 1fr"
+            $align="center"
+            $padding="s_8"
+            $width="100%"
+            $backgroundColor="dark"
+            $sx={({ theme }) => css`
+              border-radius: ${theme.radius.rounded_medium};
+              overflow: hidden;
+            `}
+          >
+            <FlexBox $gap="s_12" $align="center">
+              <FlexBox
+                $direction="column"
+                $height="54px"
+                $width="54px"
+                $sx={({ theme }) => css`
+                  border-radius: ${theme.radius.rounded_medium};
+                  overflow: hidden;
+                `}
+              >
+                <Image alt="card-image" src={DefaultCardImage.src} width={54} height={54} />
+              </FlexBox>
+              <FlexBox $gap="s_8" $align="flex-start" $direction="column">
+                <Text size="body_M" color="white" fontWeight="medium">
+                  God of War Ragnarök
+                </Text>
+                <FlexBox $gap="s_4" $align="center">
+                  <Text size="body_S" color="grey">
+                    Action
+                  </Text>
+                  <Text size="body_S" color="grey">
+                    Adventure
+                  </Text>
+                </FlexBox>
+              </FlexBox>
+            </FlexBox>
+
+            <FlexBox $gap="s_4" $align="center">
+              <SvgImage $height="16px" $width="16px" $fill="grey">
+                <StarIcon />
+              </SvgImage>
+              <Text size="body_M" color="white">
+                4.9
+              </Text>
+            </FlexBox>
+            <Box>
+              <Text size="body_M" color="white">
+                Playstation
+              </Text>
+            </Box>
+            <Box>
+              <Text size="body_M" color="white">
+                Esprit Games
+              </Text>
+            </Box>
+            <Box>
+              <Text size="body_M" color="grey">
+                45h played
+              </Text>
+            </Box>
+            <FlexBox $gap="s_4" $align="center">
+              <Text size="body_M" color="grey">
+                Action
+              </Text>
+              <Text size="body_M" color="grey">
+                Adventure
+              </Text>
+            </FlexBox>
+            <Box />
+            <FlexBox $gap="s_20" $align="center" $justify="flex-end">
+              <StatusLabel label="Пройдено" variant={StatusEnum.SUCCESS} />
+              <Box
+                as={'button'}
+                $sx={css`
+                  cursor: pointer;
+                `}
+              >
+                <SvgImage $height="16px" $width="16px" $fill="grey">
+                  <PlusIcon />
+                </SvgImage>
+              </Box>
+            </FlexBox>
+          </Grid>
+        </FlexBox>
       </FlexBox>
-      {/* <div className="mt-8">
-        <div className="grid grid-cols-8 gap-4">
-          <div className="col-span-2">
-            <StatItem title={'Игр в библиотеке:'} count={20} icon={<FunSmile />} />
-          </div>
-          <div className="col-span-2">
-            <StatItem title={'Пройдено игр:'} count={20} icon={<DoneSmile />} />
-          </div>
-          <div className="col-span-2">
-            <StatItem title={'Играю в:'} count={20} icon={<PlaySmile />} />
-          </div>
-          <div className="col-span-2">
-            <StatItem title={'Заброшено игр:'} count={20} icon={<SadSmile />} />
-          </div>
-        </div>
-      </div>
-      <Slider />
-      <GameList /> */}
     </FlexBox>
   );
 }

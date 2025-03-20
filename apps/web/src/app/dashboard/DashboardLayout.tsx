@@ -14,7 +14,7 @@ export default function DashboardLayout({
 
   return (
     <Grid
-      $columns="repeat(12,1fr)"
+      $columns="1.5fr 10.5fr"
       $padding={'s_32'}
       $gap="s_32"
       $sx={css`
@@ -22,9 +22,9 @@ export default function DashboardLayout({
       `}
     >
       <Box
-        $sx={css`
-          grid-column: 1/3;
-        `}
+      // $sx={css`
+      //   grid-column: 1/3;
+      // `}
       >
         <SideNav
           signOutHandler={(e) => {
@@ -34,9 +34,9 @@ export default function DashboardLayout({
         />
       </Box>
       <Box
-        $sx={css`
-          grid-column: 3/-1;
-        `}
+      // $sx={css`
+      //   grid-column: 3/-1;
+      // `}
       >
         {children}
       </Box>

@@ -27,7 +27,7 @@ const FlexBox = styled.div<FlexBoxProps>`
   justify-content: ${({ $justify }) => $justify || 'flex-start'};
   align-items: ${({ $align }) => $align};
   gap: ${({ theme, $gap }) => ($gap ? theme.spacing[$gap] : '0')};
-  flex-wrap: ${({ $wrap }) => $wrap || 'nowrap'};
+  flex-wrap: ${({ $wrap }) => $wrap || 'wrap'};
 
   padding: ${({ theme, $padding, $px, $py }) =>
     $padding ? theme.spacing[$padding] : `${$py ? theme.spacing[$py] : '0'} ${$px ? theme.spacing[$px] : '0'}`};
