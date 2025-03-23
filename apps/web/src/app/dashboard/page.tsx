@@ -531,7 +531,7 @@ export default function Dashboard() {
             </FlexBox>
           </FlexBox>
         </Grid>
-        <FlexBox $gap="s_8">
+        <FlexBox $gap="s_8" $wrap="wrap">
           <Grid
             $columns="341px 1fr 1fr 1fr 1fr 1fr 2fr 1fr"
             $align="center"
