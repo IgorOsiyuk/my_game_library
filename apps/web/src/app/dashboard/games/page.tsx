@@ -90,8 +90,85 @@ export default function Games() {
                     <Text size="body_M" color="white" fontWeight="medium">
                       God of War Ragnarök
                     </Text>
+                  </FlexBox>
+                  <FlexBox $gap="s_4" $align="center">
                     <Text size="body_S" color="greySecondary">
-                      26h
+                      Action
+                    </Text>
+                    <Text size="body_S" color="greySecondary">
+                      Adventure
+                    </Text>
+                  </FlexBox>
+                </FlexBox>
+                <FlexBox $justify="space-between">
+                  <FlexBox $gap="s_4" $align="center">
+                    <SvgImage $height="16px" $width="16px" $fill="white">
+                      <StarIcon />
+                    </SvgImage>
+                    <Text size="body_M" color="white">
+                      1.0
+                    </Text>
+                  </FlexBox>
+                  <FlexBox $gap="s_8" $align="center">
+                    <Box
+                      as={'button'}
+                      $sx={css`
+                        cursor: pointer;
+                      `}
+                    >
+                      <SvgImage $height="16px" $width="16px" $fill="greySecondary">
+                        <PlusIcon />
+                      </SvgImage>
+                    </Box>
+                    <Box
+                      as={'button'}
+                      $sx={css`
+                        cursor: pointer;
+                      `}
+                    >
+                      <SvgImage $height="16px" $width="16px" $fill="greySecondary">
+                        <PlusIcon />
+                      </SvgImage>
+                    </Box>
+                  </FlexBox>
+                </FlexBox>
+              </FlexBox>
+            </FlexBox>
+            <FlexBox
+              $width="100%"
+              $direction="column"
+              $sx={({ theme }) => css`
+                border-radius: ${theme.radius.rounded_medium};
+                overflow: hidden;
+              `}
+            >
+              <FlexBox
+                $direction="column"
+                $height="214px"
+                $width="100%"
+                $sx={css`
+                  position: relative;
+                `}
+              >
+                <Image
+                  alt="card-image"
+                  src={DefaultCardImage.src}
+                  fill
+                  sizes="100vw"
+                  style={{
+                    objectFit: 'cover',
+                  }}
+                  $sx={css`
+                    width: 100%;
+                    height: 100%;
+                  `}
+                />
+              </FlexBox>
+              <FlexBox $direction="column" $width="100%" $padding="s_16" $gap="s_24" $backgroundColor="dark">
+                <FlexBox $direction="column" $gap="s_8">
+                  <FlexBox $gap="s_8" $align="center">
+                    <Text size="body_M" color="white" fontWeight="medium">
+                      God of War Ragnarök
                     </Text>
                   </FlexBox>
                   <FlexBox $gap="s_4" $align="center">
@@ -173,9 +250,6 @@ export default function Games() {
                     <Text size="body_M" color="white" fontWeight="medium">
                       God of War Ragnarök
                     </Text>
-                    <Text size="body_S" color="greySecondary">
-                      26h
-                    </Text>
                   </FlexBox>
                   <FlexBox $gap="s_4" $align="center">
                     <Text size="body_S" color="greySecondary">
@@ -255,92 +329,6 @@ export default function Games() {
                   <FlexBox $gap="s_8" $align="center">
                     <Text size="body_M" color="white" fontWeight="medium">
                       God of War Ragnarök
-                    </Text>
-                    <Text size="body_S" color="greySecondary">
-                      26h
-                    </Text>
-                  </FlexBox>
-                  <FlexBox $gap="s_4" $align="center">
-                    <Text size="body_S" color="greySecondary">
-                      Action
-                    </Text>
-                    <Text size="body_S" color="greySecondary">
-                      Adventure
-                    </Text>
-                  </FlexBox>
-                </FlexBox>
-                <FlexBox $justify="space-between">
-                  <FlexBox $gap="s_4" $align="center">
-                    <SvgImage $height="16px" $width="16px" $fill="white">
-                      <StarIcon />
-                    </SvgImage>
-                    <Text size="body_M" color="white">
-                      1.0
-                    </Text>
-                  </FlexBox>
-                  <FlexBox $gap="s_8" $align="center">
-                    <Box
-                      as={'button'}
-                      $sx={css`
-                        cursor: pointer;
-                      `}
-                    >
-                      <SvgImage $height="16px" $width="16px" $fill="greySecondary">
-                        <PlusIcon />
-                      </SvgImage>
-                    </Box>
-                    <Box
-                      as={'button'}
-                      $sx={css`
-                        cursor: pointer;
-                      `}
-                    >
-                      <SvgImage $height="16px" $width="16px" $fill="greySecondary">
-                        <PlusIcon />
-                      </SvgImage>
-                    </Box>
-                  </FlexBox>
-                </FlexBox>
-              </FlexBox>
-            </FlexBox>
-            <FlexBox
-              $width="100%"
-              $direction="column"
-              $sx={({ theme }) => css`
-                border-radius: ${theme.radius.rounded_medium};
-                overflow: hidden;
-              `}
-            >
-              <FlexBox
-                $direction="column"
-                $height="214px"
-                $width="100%"
-                $sx={css`
-                  position: relative;
-                `}
-              >
-                <Image
-                  alt="card-image"
-                  src={DefaultCardImage.src}
-                  fill
-                  sizes="100vw"
-                  style={{
-                    objectFit: 'cover',
-                  }}
-                  $sx={css`
-                    width: 100%;
-                    height: 100%;
-                  `}
-                />
-              </FlexBox>
-              <FlexBox $direction="column" $width="100%" $padding="s_16" $gap="s_24" $backgroundColor="dark">
-                <FlexBox $direction="column" $gap="s_8">
-                  <FlexBox $gap="s_8" $align="center">
-                    <Text size="body_M" color="white" fontWeight="medium">
-                      God of War Ragnarök
-                    </Text>
-                    <Text size="body_S" color="greySecondary">
-                      26h
                     </Text>
                   </FlexBox>
                   <FlexBox $gap="s_4" $align="center">
@@ -436,9 +424,6 @@ export default function Games() {
                       <Text size="body_M" color="white" fontWeight="medium">
                         God of War Ragnarök
                       </Text>
-                      <Text size="body_S" color="greySecondary">
-                        26h
-                      </Text>
                     </FlexBox>
                     <FlexBox $gap="s_4" $align="center">
                       <Text size="body_S" color="greySecondary">
@@ -518,9 +503,6 @@ export default function Games() {
                     <FlexBox $gap="s_8" $align="center">
                       <Text size="body_M" color="white" fontWeight="medium">
                         God of War Ragnarök
-                      </Text>
-                      <Text size="body_S" color="greySecondary">
-                        26h
                       </Text>
                     </FlexBox>
                     <FlexBox $gap="s_4" $align="center">
@@ -615,9 +597,6 @@ export default function Games() {
                       <Text size="body_M" color="white" fontWeight="medium">
                         God of War Ragnarök
                       </Text>
-                      <Text size="body_S" color="greySecondary">
-                        26h
-                      </Text>
                     </FlexBox>
                     <FlexBox $gap="s_4" $align="center">
                       <Text size="body_S" color="greySecondary">
@@ -697,9 +676,6 @@ export default function Games() {
                     <FlexBox $gap="s_8" $align="center">
                       <Text size="body_M" color="white" fontWeight="medium">
                         God of War Ragnarök
-                      </Text>
-                      <Text size="body_S" color="greySecondary">
-                        26h
                       </Text>
                     </FlexBox>
                     <FlexBox $gap="s_4" $align="center">
