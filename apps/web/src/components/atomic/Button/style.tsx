@@ -23,12 +23,12 @@ export const Button = styled.button<ButtonIProps>`
       gap: ${theme.spacing.s_8};
       width: ${buttonSize === SizeEnum.DEFAULT ? 'auto' : '100%'};
       border-radius: ${theme.radius[radius]};
-      background-color: ${isActive ? theme.colors.accent.dark : theme.colors[color].dark};
+      background-color: ${isActive ? theme.colors.accent : theme.colors[color]};
       font-size: ${theme.fontSizes[textSize]};
-      color: ${theme.colors.white.dark};
+      color: ${theme.colors.white};
       padding: ${theme.spacing[spacing]};
       &:hover {
-        background-color: ${isActive ? theme.colors.accent.light : theme.colors[color].light};
+        background-color: ${isActive ? theme.colors.accentSecondary : `${theme.colors[color]}`};
       }
       cursor: pointer;
       transition: all 0.25s;

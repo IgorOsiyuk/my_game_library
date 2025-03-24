@@ -149,8 +149,8 @@ const GlobalStyles = createGlobalStyle`
   body {
     -webkit-overflow-scrolling: touch;
     font-family: ${(props) => props.theme.fonts.main};
-    background-color: ${(props) => props.theme.colors.black.dark};
-    color: ${(props) => props.theme.colors.white.dark};
+    background-color: ${(props) => props.theme.colors.black};
+    color: ${(props) => props.theme.colors.white};
     min-height: 100vh;
   }
 

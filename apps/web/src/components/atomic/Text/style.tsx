@@ -13,7 +13,7 @@ export const Text = styled.span<TextIProps>`
   ${({ theme, $color, $size, $weight }) => {
     return css`
       font-size: ${theme.fontSizes[$size]};
-      color: ${theme.colors[$color].dark};
+      color: ${theme.colors[$color]};
       font-weight: ${theme.fontWeights[$weight]};
     `;
   }}

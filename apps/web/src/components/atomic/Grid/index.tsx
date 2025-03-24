@@ -26,7 +26,7 @@ const Grid = styled.div<GridProps>`
   width: ${({ $width }) => $width || '100%'};
   height: ${({ $height }) => $height || 'auto'};
   background-color: ${({ theme, $backgroundColor }) =>
-    $backgroundColor ? theme.colors[$backgroundColor].dark : 'transparent'};
+    $backgroundColor ? theme.colors[$backgroundColor] : 'transparent'};
   ${({ $sx }) => $sx};
 `;
 

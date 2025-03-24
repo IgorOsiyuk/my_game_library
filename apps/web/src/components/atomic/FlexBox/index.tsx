@@ -53,7 +53,7 @@ const FlexBox = styled.div<FlexBoxProps>`
   width: ${({ $width }) => $width};
   height: ${({ $height }) => $height};
   background-color: ${({ theme, $backgroundColor }) =>
-    $backgroundColor ? theme.colors[$backgroundColor].dark : 'transparent'};
+    $backgroundColor ? theme.colors[$backgroundColor] : 'transparent'};
   ${({ $sx }) => $sx};
 `;
 

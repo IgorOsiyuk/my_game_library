@@ -69,7 +69,7 @@ export default function Game() {
               <Grid $columns="4fr 2fr" $gap="s_20">
                 <FlexBox $direction="column" $gap="s_14">
                   <Grid $columns="1fr 3fr" $gap="s_20" $align="center">
-                    <Text size="body_M" color="grey">
+                    <Text size="body_M" color="greySecondary">
                       Год выпуска:
                     </Text>
                     <FlexBox $wrap="wrap" $gap="s_8">
@@ -88,7 +88,7 @@ export default function Game() {
                     </FlexBox>
                   </Grid>
                   <Grid $columns="1fr 3fr" $gap="s_20" $align="center">
-                    <Text size="body_M" color="grey">
+                    <Text size="body_M" color="greySecondary">
                       Разработчики:
                     </Text>
                     <FlexBox $wrap="wrap" $gap="s_8">
@@ -107,7 +107,7 @@ export default function Game() {
                     </FlexBox>
                   </Grid>
                   <Grid $columns="1fr 3fr" $gap="s_20" $align="center">
-                    <Text size="body_M" color="grey">
+                    <Text size="body_M" color="greySecondary">
                       Издатель:
                     </Text>
                     <FlexBox $wrap="wrap" $gap="s_8">
@@ -126,7 +126,7 @@ export default function Game() {
                     </FlexBox>
                   </Grid>
                   <Grid $columns="1fr 3fr" $gap="s_20" $align="center">
-                    <Text size="body_M" color="grey">
+                    <Text size="body_M" color="greySecondary">
                       Платформы:
                     </Text>
                     <FlexBox $wrap="wrap" $gap="s_8">
@@ -170,7 +170,7 @@ export default function Game() {
                     </FlexBox>
                   </Grid>
                   <Grid $columns="1fr 3fr" $gap="s_20" $align="center">
-                    <Text size="body_M" color="grey">
+                    <Text size="body_M" color="greySecondary">
                       Жанр:
                     </Text>
                     <FlexBox $wrap="wrap" $gap="s_8">
@@ -202,13 +202,13 @@ export default function Game() {
                   </Grid>
                 </FlexBox>
                 <FlexBox $direction="column" $gap="s_14">
-                  <Text size="body_M" color="grey">
+                  <Text size="body_M" color="greySecondary">
                     Время прохождения: 32ч
                   </Text>
-                  <Text size="body_M" color="grey">
+                  <Text size="body_M" color="greySecondary">
                     Сложность: легкая
                   </Text>
-                  <Text size="body_M" color="grey">
+                  <Text size="body_M" color="greySecondary">
                     Трофеи: 5 из 20
                   </Text>
                 </FlexBox>
@@ -259,7 +259,7 @@ export default function Game() {
         `}
       >
         <FlexBox $direction="column" $gap="s_12">
-          <Text size="body_M" color="grey">
+          <Text size="body_M" color="greySecondary">
             Оценка игры
           </Text>
           <FlexBox $gap="s_8" $wrap="nowrap">
@@ -272,7 +272,7 @@ export default function Game() {
           </FlexBox>
         </FlexBox>
         <FlexBox $direction="column" $gap="s_12">
-          <Text size="body_M" color="grey">
+          <Text size="body_M" color="greySecondary">
             Сюжет
           </Text>
           <FlexBox $gap="s_8" $wrap="nowrap">
@@ -285,7 +285,7 @@ export default function Game() {
           </FlexBox>
         </FlexBox>
         <FlexBox $direction="column" $gap="s_12">
-          <Text size="body_M" color="grey">
+          <Text size="body_M" color="greySecondary">
             Art
           </Text>
           <FlexBox $gap="s_8" $wrap="nowrap">
@@ -298,7 +298,7 @@ export default function Game() {
           </FlexBox>
         </FlexBox>
         <FlexBox $direction="column" $gap="s_12">
-          <Text size="body_M" color="grey">
+          <Text size="body_M" color="greySecondary">
             Геймплей
           </Text>
           <FlexBox $gap="s_8" $wrap="nowrap">

@@ -14,8 +14,9 @@ const FilterOptions = () => {
       $justify="flex-start"
       $sx={({ theme }) => css`
         button:hover * {
-          color: ${theme.colors.white.dark};
-          stroke: ${theme.colors.white.dark};
+          color: ${theme.colors.white};
+          stroke: ${theme.colors.white};
+          fill: ${theme.colors.white};
           transition: all 0.25s;
         }
       `}
@@ -37,7 +38,7 @@ const FilterOptions = () => {
           e.preventDefault();
         }}
       >
-        <Text color="grey" size="body_M">
+        <Text color="greySecondary" size="body_M">
           Пройдено (12)
         </Text>
       </Button>
@@ -48,7 +49,7 @@ const FilterOptions = () => {
           e.preventDefault();
         }}
       >
-        <Text color="grey" size="body_M">
+        <Text color="greySecondary" size="body_M">
           В процессе (5)
         </Text>
       </Button>
@@ -59,7 +60,7 @@ const FilterOptions = () => {
           e.preventDefault();
         }}
       >
-        <Text color="grey" size="body_M">
+        <Text color="greySecondary" size="body_M">
           Заброшенo (3)
         </Text>
       </Button>
@@ -70,7 +71,7 @@ const FilterOptions = () => {
           e.preventDefault();
         }}
       >
-        <Text color="grey" size="body_M">
+        <Text color="greySecondary" size="body_M">
           Запланированo (4)
         </Text>
       </Button>
@@ -81,12 +82,12 @@ const FilterOptions = () => {
           e.preventDefault();
         }}
         icon={
-          <SvgImage $height="16px" $width="16px" $fill="grey">
+          <SvgImage $height="16px" $width="16px" $fill="greySecondary">
             <PlusIcon />
           </SvgImage>
         }
       >
-        <Text color="grey" size="body_M">
+        <Text color="greySecondary" size="body_M">
           Избранные
         </Text>
       </Button>

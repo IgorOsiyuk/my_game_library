@@ -24,7 +24,7 @@ const NavLink = ({ href, label, icon, isActive = false }: NavLinkIProps) => {
         })}
         $sx={({ theme }) => css`
           &:hover {
-            background-color: ${theme.colors.grey.dark};
+            background-color: ${theme.colors.grey};
           }
           transition: all 0.25s;
         `}

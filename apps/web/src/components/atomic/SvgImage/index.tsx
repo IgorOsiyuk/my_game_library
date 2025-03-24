@@ -13,8 +13,8 @@ const SvgImage = styled.div<SvgImageProps>`
   svg {
     width: ${({ $width }) => $width};
     height: ${({ $height }) => $height};
-    fill: ${({ theme, $fill }) => ($fill ? theme.colors[$fill].dark : theme.colors.white.dark)};
-    stroke: ${({ theme, $fill }) => ($fill ? theme.colors[$fill].dark : theme.colors.white.dark)};
+    fill: ${({ theme, $fill }) => ($fill ? theme.colors[$fill] : theme.colors.white)};
+    stroke: ${({ theme, $fill }) => ($fill ? theme.colors[$fill] : theme.colors.white)};
   }
 `;
 

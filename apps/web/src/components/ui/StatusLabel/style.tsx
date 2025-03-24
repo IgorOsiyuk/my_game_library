@@ -13,23 +13,23 @@ export const StatusBox = styled.div<StatusBoxIProps>`
     switch (variant) {
       case StatusEnum.SUCCESS:
         return css`
-          background-color: ${theme.colors.green.light};
-          color: ${theme.colors.green.dark};
+          background-color: ${theme.colors.greenSecondary};
+          color: ${theme.colors.green};
         `;
       case StatusEnum.INFO:
         return css`
-          background-color: ${theme.colors.blue.light};
-          color: ${theme.colors.blue.dark};
+          background-color: ${theme.colors.blueSecondary};
+          color: ${theme.colors.blue};
         `;
       case StatusEnum.ERROR:
         return css`
-          background-color: ${theme.colors.red.light};
-          color: ${theme.colors.red.dark};
+          background-color: ${theme.colors.redSecondary};
+          color: ${theme.colors.red};
         `;
       case StatusEnum.WARNING:
         return css`
-          background-color: ${theme.colors.yellow.light};
-          color: ${theme.colors.yellow.dark};
+          background-color: ${theme.colors.yellowSecondary};
+          color: ${theme.colors.yellow};
         `;
 
       default:

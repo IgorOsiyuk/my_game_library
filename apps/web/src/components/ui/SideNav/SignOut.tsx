@@ -20,18 +20,18 @@ const SignOut = ({ label, icon, onClick }: SignOutIProps) => {
       $sx={({ theme }) => css`
         cursor: pointer;
         &:hover * {
-          color: ${theme.colors.white.dark};
-          fill: ${theme.colors.white.dark};
+          color: ${theme.colors.white};
+          fill: ${theme.colors.white};
           transition: all 0.25s;
         }
       `}
     >
       <FlexBox $align="center" $gap="s_12">
-        <SvgImage $height="20px" $width="20px" $fill="grey">
+        <SvgImage $height="20px" $width="20px" $fill="greySecondary">
           {icon}
         </SvgImage>
 
-        <Text color="grey" size="body_S">
+        <Text color="greySecondary" size="body_S">
           {label}
         </Text>
       </FlexBox>

@@ -15,9 +15,9 @@ const ViewOptions = () => {
       $sx={({ theme }) => css`
         button:hover,
         button:hover * {
-          color: ${theme.colors.white.dark};
-          background-color: ${theme.colors.dark.dark};
-          stroke: ${theme.colors.white.dark};
+          color: ${theme.colors.white};
+          background-color: ${theme.colors.dark};
+          stroke: ${theme.colors.white};
           transition: all 0.25s;
         }
       `}

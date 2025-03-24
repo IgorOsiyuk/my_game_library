@@ -29,13 +29,13 @@ export default function Dashboard() {
         <FlexBox $gap="s_16">
           <Button
             textSize="button"
-            color="grey"
+            color="darkSecondary"
             spacing="s_14"
             onClick={(e) => {
               e.preventDefault();
             }}
             icon={
-              <SvgImage $height="20px" $width="20px" $fill="white">
+              <SvgImage $height="20px" $width="20px">
                 <SearchIcon />
               </SvgImage>
             }
@@ -111,15 +111,15 @@ export default function Dashboard() {
                   <Text size="body_M" color="white" fontWeight="medium">
                     God of War Ragnarök
                   </Text>
-                  <Text size="body_S" color="grey">
+                  <Text size="body_S" color="greySecondary">
                     26h
                   </Text>
                 </FlexBox>
                 <FlexBox $gap="s_4" $align="center">
-                  <Text size="body_S" color="grey">
+                  <Text size="body_S" color="greySecondary">
                     Action
                   </Text>
-                  <Text size="body_S" color="grey">
+                  <Text size="body_S" color="greySecondary">
                     Adventure
                   </Text>
                 </FlexBox>
@@ -140,7 +140,7 @@ export default function Dashboard() {
                       cursor: pointer;
                     `}
                   >
-                    <SvgImage $height="16px" $width="16px" $fill="grey">
+                    <SvgImage $height="16px" $width="16px" $fill="greySecondary">
                       <PlusIcon />
                     </SvgImage>
                   </Box>
@@ -150,7 +150,7 @@ export default function Dashboard() {
                       cursor: pointer;
                     `}
                   >
-                    <SvgImage $height="16px" $width="16px" $fill="grey">
+                    <SvgImage $height="16px" $width="16px" $fill="greySecondary">
                       <PlusIcon />
                     </SvgImage>
                   </Box>
@@ -204,15 +204,15 @@ export default function Dashboard() {
                   <Text size="body_M" color="white" fontWeight="medium">
                     God of War Ragnarök
                   </Text>
-                  <Text size="body_S" color="grey">
+                  <Text size="body_S" color="greySecondary">
                     26h
                   </Text>
                 </FlexBox>
                 <FlexBox $gap="s_4" $align="center">
-                  <Text size="body_S" color="grey">
+                  <Text size="body_S" color="greySecondary">
                     Action
                   </Text>
-                  <Text size="body_S" color="grey">
+                  <Text size="body_S" color="greySecondary">
                     Adventure
                   </Text>
                 </FlexBox>
@@ -233,7 +233,7 @@ export default function Dashboard() {
                       cursor: pointer;
                     `}
                   >
-                    <SvgImage $height="16px" $width="16px" $fill="grey">
+                    <SvgImage $height="16px" $width="16px" $fill="greySecondary">
                       <PlusIcon />
                     </SvgImage>
                   </Box>
@@ -243,7 +243,7 @@ export default function Dashboard() {
                       cursor: pointer;
                     `}
                   >
-                    <SvgImage $height="16px" $width="16px" $fill="grey">
+                    <SvgImage $height="16px" $width="16px" $fill="greySecondary">
                       <PlusIcon />
                     </SvgImage>
                   </Box>
@@ -297,15 +297,15 @@ export default function Dashboard() {
                   <Text size="body_M" color="white" fontWeight="medium">
                     God of War Ragnarök
                   </Text>
-                  <Text size="body_S" color="grey">
+                  <Text size="body_S" color="greySecondary">
                     26h
                   </Text>
                 </FlexBox>
                 <FlexBox $gap="s_4" $align="center">
-                  <Text size="body_S" color="grey">
+                  <Text size="body_S" color="greySecondary">
                     Action
                   </Text>
-                  <Text size="body_S" color="grey">
+                  <Text size="body_S" color="greySecondary">
                     Adventure
                   </Text>
                 </FlexBox>
@@ -326,7 +326,7 @@ export default function Dashboard() {
                       cursor: pointer;
                     `}
                   >
-                    <SvgImage $height="16px" $width="16px" $fill="grey">
+                    <SvgImage $height="16px" $width="16px" $fill="greySecondary">
                       <PlusIcon />
                     </SvgImage>
                   </Box>
@@ -336,7 +336,7 @@ export default function Dashboard() {
                       cursor: pointer;
                     `}
                   >
-                    <SvgImage $height="16px" $width="16px" $fill="grey">
+                    <SvgImage $height="16px" $width="16px" $fill="greySecondary">
                       <PlusIcon />
                     </SvgImage>
                   </Box>
@@ -390,15 +390,15 @@ export default function Dashboard() {
                   <Text size="body_M" color="white" fontWeight="medium">
                     God of War Ragnarök
                   </Text>
-                  <Text size="body_S" color="grey">
+                  <Text size="body_S" color="greySecondary">
                     26h
                   </Text>
                 </FlexBox>
                 <FlexBox $gap="s_4" $align="center">
-                  <Text size="body_S" color="grey">
+                  <Text size="body_S" color="greySecondary">
                     Action
                   </Text>
-                  <Text size="body_S" color="grey">
+                  <Text size="body_S" color="greySecondary">
                     Adventure
                   </Text>
                 </FlexBox>
@@ -419,7 +419,7 @@ export default function Dashboard() {
                       cursor: pointer;
                     `}
                   >
-                    <SvgImage $height="16px" $width="16px" $fill="grey">
+                    <SvgImage $height="16px" $width="16px" $fill="greySecondary">
                       <PlusIcon />
                     </SvgImage>
                   </Box>
@@ -429,7 +429,7 @@ export default function Dashboard() {
                       cursor: pointer;
                     `}
                   >
-                    <SvgImage $height="16px" $width="16px" $fill="grey">
+                    <SvgImage $height="16px" $width="16px" $fill="greySecondary">
                       <PlusIcon />
                     </SvgImage>
                   </Box>
@@ -483,15 +483,15 @@ export default function Dashboard() {
                   <Text size="body_M" color="white" fontWeight="medium">
                     God of War Ragnarök
                   </Text>
-                  <Text size="body_S" color="grey">
+                  <Text size="body_S" color="greySecondary">
                     26h
                   </Text>
                 </FlexBox>
                 <FlexBox $gap="s_4" $align="center">
-                  <Text size="body_S" color="grey">
+                  <Text size="body_S" color="greySecondary">
                     Action
                   </Text>
-                  <Text size="body_S" color="grey">
+                  <Text size="body_S" color="greySecondary">
                     Adventure
                   </Text>
                 </FlexBox>
@@ -512,7 +512,7 @@ export default function Dashboard() {
                       cursor: pointer;
                     `}
                   >
-                    <SvgImage $height="16px" $width="16px" $fill="grey">
+                    <SvgImage $height="16px" $width="16px" $fill="greySecondary">
                       <PlusIcon />
                     </SvgImage>
                   </Box>
@@ -522,7 +522,7 @@ export default function Dashboard() {
                       cursor: pointer;
                     `}
                   >
-                    <SvgImage $height="16px" $width="16px" $fill="grey">
+                    <SvgImage $height="16px" $width="16px" $fill="greySecondary">
                       <PlusIcon />
                     </SvgImage>
                   </Box>
@@ -560,10 +560,10 @@ export default function Dashboard() {
                   God of War Ragnarök
                 </Text>
                 <FlexBox $gap="s_4" $align="center">
-                  <Text size="body_S" color="grey">
+                  <Text size="body_S" color="greySecondary">
                     Action
                   </Text>
-                  <Text size="body_S" color="grey">
+                  <Text size="body_S" color="greySecondary">
                     Adventure
                   </Text>
                 </FlexBox>
@@ -571,7 +571,7 @@ export default function Dashboard() {
             </FlexBox>
 
             <FlexBox $gap="s_4" $align="center">
-              <SvgImage $height="16px" $width="16px" $fill="grey">
+              <SvgImage $height="16px" $width="16px" $fill="greySecondary">
                 <StarIcon />
               </SvgImage>
               <Text size="body_M" color="white">
@@ -589,15 +589,15 @@ export default function Dashboard() {
               </Text>
             </Box>
             <Box>
-              <Text size="body_M" color="grey">
+              <Text size="body_M" color="greySecondary">
                 45h played
               </Text>
             </Box>
             <FlexBox $gap="s_4" $align="center">
-              <Text size="body_M" color="grey">
+              <Text size="body_M" color="greySecondary">
                 Action
               </Text>
-              <Text size="body_M" color="grey">
+              <Text size="body_M" color="greySecondary">
                 Adventure
               </Text>
             </FlexBox>
@@ -610,7 +610,7 @@ export default function Dashboard() {
                   cursor: pointer;
                 `}
               >
-                <SvgImage $height="16px" $width="16px" $fill="grey">
+                <SvgImage $height="16px" $width="16px" $fill="greySecondary">
                   <PlusIcon />
                 </SvgImage>
               </Box>
@@ -644,10 +644,10 @@ export default function Dashboard() {
                   God of War Ragnarök
                 </Text>
                 <FlexBox $gap="s_4" $align="center">
-                  <Text size="body_S" color="grey">
+                  <Text size="body_S" color="greySecondary">
                     Action
                   </Text>
-                  <Text size="body_S" color="grey">
+                  <Text size="body_S" color="greySecondary">
                     Adventure
                   </Text>
                 </FlexBox>
@@ -655,7 +655,7 @@ export default function Dashboard() {
             </FlexBox>
 
             <FlexBox $gap="s_4" $align="center">
-              <SvgImage $height="16px" $width="16px" $fill="grey">
+              <SvgImage $height="16px" $width="16px" $fill="greySecondary">
                 <StarIcon />
               </SvgImage>
               <Text size="body_M" color="white">
@@ -673,15 +673,15 @@ export default function Dashboard() {
               </Text>
             </Box>
             <Box>
-              <Text size="body_M" color="grey">
+              <Text size="body_M" color="greySecondary">
                 45h played
               </Text>
             </Box>
             <FlexBox $gap="s_4" $align="center">
-              <Text size="body_M" color="grey">
+              <Text size="body_M" color="greySecondary">
                 Action
               </Text>
-              <Text size="body_M" color="grey">
+              <Text size="body_M" color="greySecondary">
                 Adventure
               </Text>
             </FlexBox>
@@ -694,7 +694,7 @@ export default function Dashboard() {
                   cursor: pointer;
                 `}
               >
-                <SvgImage $height="16px" $width="16px" $fill="grey">
+                <SvgImage $height="16px" $width="16px" $fill="greySecondary">
                   <PlusIcon />
                 </SvgImage>
               </Box>
@@ -728,10 +728,10 @@ export default function Dashboard() {
                   God of War Ragnarök
                 </Text>
                 <FlexBox $gap="s_4" $align="center">
-                  <Text size="body_S" color="grey">
+                  <Text size="body_S" color="greySecondary">
                     Action
                   </Text>
-                  <Text size="body_S" color="grey">
+                  <Text size="body_S" color="greySecondary">
                     Adventure
                   </Text>
                 </FlexBox>
@@ -739,7 +739,7 @@ export default function Dashboard() {
             </FlexBox>
 
             <FlexBox $gap="s_4" $align="center">
-              <SvgImage $height="16px" $width="16px" $fill="grey">
+              <SvgImage $height="16px" $width="16px" $fill="greySecondary">
                 <StarIcon />
               </SvgImage>
               <Text size="body_M" color="white">
@@ -757,15 +757,15 @@ export default function Dashboard() {
               </Text>
             </Box>
             <Box>
-              <Text size="body_M" color="grey">
+              <Text size="body_M" color="greySecondary">
                 45h played
               </Text>
             </Box>
             <FlexBox $gap="s_4" $align="center">
-              <Text size="body_M" color="grey">
+              <Text size="body_M" color="greySecondary">
                 Action
               </Text>
-              <Text size="body_M" color="grey">
+              <Text size="body_M" color="greySecondary">
                 Adventure
               </Text>
             </FlexBox>
@@ -778,7 +778,7 @@ export default function Dashboard() {
                   cursor: pointer;
                 `}
               >
-                <SvgImage $height="16px" $width="16px" $fill="grey">
+                <SvgImage $height="16px" $width="16px" $fill="greySecondary">
                   <PlusIcon />
                 </SvgImage>
               </Box>

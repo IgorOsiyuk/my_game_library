@@ -9,9 +9,6 @@ import { Meta, Typeset, ColorPalette, ColorItem } from '@storybook/blocks';
 
 <ColorPalette>
   {Object.keys(colors).map((el) => (
-    <>
-      <ColorItem title={`theme.colors.${el}.light`} subtitle={el} colors={[theme.colors[el].light]} />
-      <ColorItem title={`theme.colors.${el}.dark`} colors={[theme.colors[el].dark]} />
-    </>
+    <ColorItem title={`theme.colors.${el}`} subtitle={el} colors={[theme.colors[el]]} />
   ))}
 </ColorPalette>

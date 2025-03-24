@@ -9,7 +9,27 @@ interface InputIProps {
   placeholder: string;
   icon?: ReactNode;
 }
-export default function Input({ label, name, onChange, value, placeholder, icon }: InputIProps) {
+
+interface TextAreaIProps {
+  label?: string;
+  name: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  value: string;
+  placeholder: string;
+  icon?: ReactNode;
+}
+
+function TextArea({ label, name, onChange, value, placeholder, icon }: TextAreaIProps) {
+  return (
+    <S.InputWrapper>
+      {icon}
+      <S.Label>{label}</S.Label>
+      <S.TextArea name={name} value={value} placeholder={placeholder} onChange={onChange} />
+    </S.InputWrapper>
+  );
+}
+
+function Input({ label, name, onChange, value, placeholder, icon }: InputIProps) {
   return (
     <S.InputWrapper>
       {icon}
@@ -18,3 +38,7 @@ export default function Input({ label, name, onChange, value, placeholder, icon 
     </S.InputWrapper>
   );
 }
+
+Input.TextArea = TextArea;
+
+export default Input;

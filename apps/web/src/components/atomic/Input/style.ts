@@ -7,7 +7,7 @@ const InputWrapper = styled.div`
       border-radius: ${theme.radius.rounded_small};
       border-width: 1px;
       border-style: solid;
-      border-color: ${theme.colors.grey.dark};
+      border-color: ${theme.colors.grey};
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -21,7 +21,7 @@ const Input = styled.input`
     return css`
       font-size: ${theme.fontSizes.body_M};
       font-weight: ${theme.fontWeights.light};
-      color: ${theme.colors.white.dark};
+      color: ${theme.colors.white};
       width: 100%;
     `;
   }}
@@ -32,7 +32,7 @@ const Label = styled.label`
     return css`
       font-size: ${theme.fontSizes.body_M};
       font-weight: ${theme.fontWeights.light};
-      color: ${theme.colors.white.dark};
+      color: ${theme.colors.white};
       width: 100%;
       visibility: hidden;
       display: none;
@@ -40,4 +40,16 @@ const Label = styled.label`
   }}
 `;
 
-export { Input, InputWrapper, Label };
+const TextArea = styled.textarea`
+  ${({ theme }) => {
+    return css`
+      font-size: ${theme.fontSizes.body_M};
+      font-weight: ${theme.fontWeights.light};
+      color: ${theme.colors.white};
+      width: 100%;
+      resize: vertical;
+    `;
+  }}
+`;
+
+export { Input, InputWrapper, Label, TextArea };
