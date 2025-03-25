@@ -6,7 +6,7 @@ import FlexBox from '@/atomic/FlexBox';
 import SvgImage from '@/atomic/SvgImage';
 import Text from '@/atomic/Text';
 import FilterOptions from '@/components/FilterOptions';
-import ViewOptions from '@/components/ViewOptions';
+import ViewOptions, { ViewType } from '@/components/ViewOptions';
 import PlusIcon from '@/icons/plus.svg';
 
 import Grid from '@/atomic/Grid';
@@ -14,9 +14,12 @@ import GameCard from '@/components/GameCard';
 import GameCardTile from '@/components/GameCardTile';
 import { games } from '@/data/games';
 import SearchIcon from '@/icons/search.svg';
+import { useState } from 'react';
 import { css } from 'styled-components';
 
 export default function Dashboard() {
+  const [currentView, setCurrentView] = useState<ViewType>(ViewType.CARD);
+
   return (
     <FlexBox $py="s_24" $direction="column" $gap="s_56">
       <FlexBox $align="center" $justify="space-between" $width="100%">
@@ -67,36 +70,39 @@ export default function Dashboard() {
       <FlexBox $direction="column" $gap="s_32">
         <FlexBox $justify="space-between">
           <FilterOptions />
-          <ViewOptions />
+          <ViewOptions currentView={currentView} onViewChange={setCurrentView} />
         </FlexBox>
-        <Grid $width="100%" $gap="s_24" $columns="repeat(5,1fr)">
-          {games.map((game) => (
-            <GameCard
-              key={game.id}
-              title={game.title}
-              playTime={game.playTime}
-              genres={game.genres}
-              rating={game.rating}
-              status={game.status}
-              image={game.image}
-            />
-          ))}
-        </Grid>
-        <FlexBox $gap="s_8" $wrap="wrap">
-          {games.map((game) => (
-            <GameCardTile
-              key={game.id}
-              title={game.title}
-              playTime={game.playTime}
-              genres={game.genres}
-              rating={game.rating}
-              image={game.image}
-              platform={game.platform}
-              developer={game.developer}
-              status={game.status}
-            />
-          ))}
-        </FlexBox>
+        {currentView === ViewType.CARD ? (
+          <Grid $width="100%" $gap="s_24" $columns="repeat(5,1fr)">
+            {games.map((game) => (
+              <GameCard
+                key={game.id}
+                title={game.title}
+                playTime={game.playTime}
+                genres={game.genres}
+                rating={game.rating}
+                status={game.status}
+                image={game.image}
+              />
+            ))}
+          </Grid>
+        ) : (
+          <FlexBox $gap="s_8" $wrap="wrap">
+            {games.map((game) => (
+              <GameCardTile
+                key={game.id}
+                title={game.title}
+                playTime={game.playTime}
+                genres={game.genres}
+                rating={game.rating}
+                image={game.image}
+                platform={game.platform}
+                developer={game.developer}
+                status={game.status}
+              />
+            ))}
+          </FlexBox>
+        )}
       </FlexBox>
     </FlexBox>
   );
