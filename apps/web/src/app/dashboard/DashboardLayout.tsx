@@ -14,7 +14,7 @@ export default function DashboardLayout({
 
   return (
     <Grid
-      $columns="1.5fr 10.5fr"
+      $columns="minmax(224px, 1.5fr) 10.5fr"
       $padding={'s_32'}
       $gap="s_32"
       $sx={css`

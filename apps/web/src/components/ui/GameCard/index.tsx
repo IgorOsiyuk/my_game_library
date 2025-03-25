@@ -11,14 +11,15 @@ import { css } from 'styled-components';
 
 interface GameCardIProps {
   title: string;
-  playTime: string;
+  playTime?: string;
   genres: string[];
   rating: string;
   status?: StatusEnum;
   image: string;
+  isLarge?: boolean;
 }
 
-const GameCard = ({ title, playTime, genres, rating, status, image }: GameCardIProps) => {
+const GameCard = ({ title, playTime, genres, rating, status, image, isLarge = false }: GameCardIProps) => {
   return (
     <FlexBox
       $width="100%"
@@ -30,7 +31,7 @@ const GameCard = ({ title, playTime, genres, rating, status, image }: GameCardIP
     >
       <FlexBox
         $direction="column"
-        $height="214px"
+        $height={isLarge ? '445px' : '214px'}
         $width="100%"
         $sx={css`
           position: relative;
@@ -68,9 +69,11 @@ const GameCard = ({ title, playTime, genres, rating, status, image }: GameCardIP
             <Text size="body_M" color="white" fontWeight="medium">
               {title}
             </Text>
-            <Text size="body_S" color="greySecondary">
-              {playTime}
-            </Text>
+            {playTime && (
+              <Text size="body_S" color="greySecondary">
+                {playTime}
+              </Text>
+            )}
           </FlexBox>
           <FlexBox $gap="s_4" $align="center">
             {genres.map((genre, index) => (

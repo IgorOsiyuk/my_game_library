@@ -69,3 +69,54 @@ export const games: Game[] = [
     developer: 'CD Projekt Red',
   },
 ];
+
+export const latestReleases = [
+  {
+    title: 'God of War Ragnarök',
+    genres: ['Action', 'Adventure'],
+    rating: '4.9',
+    image: '/images/default_card_image.jpg',
+  },
+  {
+    title: 'Elden Ring',
+    genres: ['Action', 'RPG'],
+    rating: '4.8',
+    image: '/images/default_card_image.jpg',
+  },
+  {
+    title: 'Horizon Forbidden West',
+    genres: ['Action', 'RPG'],
+    rating: '4.7',
+    image: '/images/default_card_image.jpg',
+  },
+];
+
+export const popularGames = [
+  {
+    title: 'The Last of Us Part II',
+    genres: ['Action', 'Adventure'],
+    rating: '4.9',
+    image: '/images/default_card_image.jpg',
+  },
+  {
+    title: 'Red Dead Redemption 2',
+    genres: ['Action', 'Adventure'],
+    rating: '4.8',
+    image: '/images/default_card_image.jpg',
+  },
+];
+
+export const comingSoon = [
+  {
+    title: 'Final Fantasy XVI',
+    genres: ['RPG', 'Action'],
+    rating: '4.5',
+    image: '/images/default_card_image.jpg',
+  },
+  {
+    title: 'Starfield',
+    genres: ['RPG', 'Sci-Fi'],
+    rating: '4.6',
+    image: '/images/default_card_image.jpg',
+  },
+];

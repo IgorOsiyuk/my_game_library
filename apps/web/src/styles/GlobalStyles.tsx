@@ -152,6 +152,7 @@ const GlobalStyles = createGlobalStyle`
     background-color: ${(props) => props.theme.colors.black};
     color: ${(props) => props.theme.colors.white};
     min-height: 100vh;
+    overflow-x: hidden;
   }
 
   a {
