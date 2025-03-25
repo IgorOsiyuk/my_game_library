@@ -26,7 +26,8 @@
       "@/utils": ["./src/lib/utils.ts"],
       "@/icons/*": ["./public/icons/*"],
       "@/images/*": ["./public/images/*"],
-      "@/styles/*": ["./src/styles/*"]
+      "@/styles/*": ["./src/styles/*"],
+      "@/data/*": ["./src/data/*"]
     }
   },
   "include": [

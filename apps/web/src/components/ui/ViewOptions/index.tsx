@@ -13,11 +13,8 @@ const ViewOptions = () => {
       $gap="s_12"
       $justify="flex-start"
       $sx={({ theme }) => css`
-        button:hover,
-        button:hover * {
-          color: ${theme.colors.white};
-          background-color: ${theme.colors.dark};
-          stroke: ${theme.colors.white};
+        button:hover {
+          background-color: ${theme.colors.darkSecondary};
           transition: all 0.25s;
         }
       `}
@@ -34,7 +31,6 @@ const ViewOptions = () => {
         }
       />
       <Button
-        color="dark"
         spacing="s_12"
         onClick={(e) => {
           e.preventDefault();
@@ -44,6 +40,9 @@ const ViewOptions = () => {
             <CardViewIcon />
           </SvgImage>
         }
+        sx={({ theme }) => css`
+          background-color: ${true ? theme.colors.darkSecondary : 'transparent'};
+        `}
       />
     </FlexBox>
   );

@@ -36,7 +36,7 @@ const SideNav = ({ signOutHandler }: SideNavIProps) => {
               Igor Osiyuk
             </Text>
           </FlexBox>
-          <FlexBox $direction="column">
+          <FlexBox $direction="column" $gap="s_4">
             <NavLink href={'/dashboard'} label={'Моя библиотека'} icon={<LibraryIcon />} isActive />
             <NavLink href={'/dashboard/games'} label={'Игры'} icon={<GameIcon />} />
             <NavLink href={'/dashboard/user'} label={'Аккаунт'} icon={<ProfileIcon />} />

@@ -13,17 +13,23 @@ const FilterOptions = () => {
       $gap="s_12"
       $justify="flex-start"
       $sx={({ theme }) => css`
-        button:hover * {
-          color: ${theme.colors.white};
-          stroke: ${theme.colors.white};
-          fill: ${theme.colors.white};
+        button:hover {
+          background-color: ${theme.colors.accentSecondary};
           transition: all 0.25s;
+          span {
+            color: ${theme.colors.white};
+          }
+          svg {
+            path {
+              fill: ${theme.colors.white};
+            }
+          }
         }
       `}
     >
       <Button
         textSize="body_M"
-        color="accent"
+        color={true ? 'accent' : 'darkSecondary'}
         spacing="s_12"
         onClick={(e) => {
           e.preventDefault();
@@ -32,7 +38,7 @@ const FilterOptions = () => {
         Все (24)
       </Button>
       <Button
-        color="dark"
+        color="darkSecondary"
         spacing="s_12"
         onClick={(e) => {
           e.preventDefault();
@@ -43,7 +49,7 @@ const FilterOptions = () => {
         </Text>
       </Button>
       <Button
-        color="dark"
+        color="darkSecondary"
         spacing="s_12"
         onClick={(e) => {
           e.preventDefault();
@@ -54,7 +60,7 @@ const FilterOptions = () => {
         </Text>
       </Button>
       <Button
-        color="dark"
+        color="darkSecondary"
         spacing="s_12"
         onClick={(e) => {
           e.preventDefault();
@@ -65,7 +71,7 @@ const FilterOptions = () => {
         </Text>
       </Button>
       <Button
-        color="dark"
+        color="darkSecondary"
         spacing="s_12"
         onClick={(e) => {
           e.preventDefault();
@@ -76,7 +82,7 @@ const FilterOptions = () => {
         </Text>
       </Button>
       <Button
-        color="dark"
+        color="darkSecondary"
         spacing="s_12"
         onClick={(e) => {
           e.preventDefault();
