@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { CustomSelect } from './index';
 
 const meta = {
-  title: 'Example/Select',
+  title: 'Atomic/Select',
   component: CustomSelect,
   parameters: {
     layout: 'centered',

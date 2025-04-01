@@ -19,7 +19,7 @@ const icons = {
 };
 
 const meta: Meta<typeof ButtonComponent> = {
-  title: 'Example/Button',
+  title: 'Atomic/Button',
   component: ButtonComponent,
   tags: ['autodocs'],
   argTypes: {

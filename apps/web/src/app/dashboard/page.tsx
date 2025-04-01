@@ -10,9 +10,9 @@ import ViewOptions, { ViewType } from '@/components/ViewOptions';
 import PlusIcon from '@/icons/plus.svg';
 
 import Grid from '@/atomic/Grid';
+import { CustomSelect } from '@/atomic/Select';
 import GameCard from '@/components/GameCard';
 import GameCardTile from '@/components/GameCardTile';
-import { CustomSelect } from '@/components/Select';
 import { games } from '@/data/games';
 import SearchIcon from '@/icons/search.svg';
 import { useState } from 'react';

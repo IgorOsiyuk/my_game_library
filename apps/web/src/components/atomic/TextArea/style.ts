@@ -1,60 +1,25 @@
 import styled, { css } from 'styled-components';
 
-const InputWrapper = styled.div<{ $isError?: boolean }>`
+const TextArea = styled.textarea<{ $isError?: boolean }>`
   ${({ theme, $isError }) => {
     return css`
+      display: block;
       background-color: ${theme.colors.darkSecondary};
       padding: ${theme.spacing.s_12} ${theme.spacing.s_18};
+      padding-bottom: ${theme.spacing.s_4};
+      padding-right: ${theme.spacing.s_4};
       border-radius: ${theme.radius.rounded_small};
       border-width: 1px;
       border-style: solid;
       border-color: ${$isError ? theme.colors.red : theme.colors.grey};
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: start;
-    `;
-  }}
-`;
-
-const Input = styled.input`
-  ${({ theme }) => {
-    return css`
       font-size: ${theme.fontSizes.body_M};
       font-weight: ${theme.fontWeights.light};
       color: ${theme.colors.white};
       width: 100%;
+      height: 100%;
     `;
   }}
 `;
-
-const Label = styled.label`
-  ${({ theme }) => {
-    return css`
-      font-size: ${theme.fontSizes.body_M};
-      font-weight: ${theme.fontWeights.light};
-      color: ${theme.colors.white};
-      width: 100%;
-      visibility: hidden;
-      display: none;
-    `;
-  }}
-`;
-
-const IconWrapper = styled.div`
-  ${({ theme }) => {
-    return css`
-      width: ${theme.spacing.s_16};
-      height: ${theme.spacing.s_16};
-      svg {
-        path {
-          fill: ${theme.colors.white};
-        }
-      }
-    `;
-  }}
-`;
-
 const Error = styled.div`
   ${({ theme }) => {
     return css`
@@ -67,4 +32,4 @@ const Error = styled.div`
   }}
 `;
 
-export { Error, IconWrapper, Input, InputWrapper, Label };
+export { Error, TextArea };

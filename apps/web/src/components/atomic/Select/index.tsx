@@ -1,6 +1,6 @@
-import Box from '@/atomic/Box';
 import Select, { ActionMeta, MultiValue, SingleValue } from 'react-select';
 import styled, { css, ExecutionContext } from 'styled-components';
+import Box from '../Box';
 
 export interface SelectOption {
   value: string;

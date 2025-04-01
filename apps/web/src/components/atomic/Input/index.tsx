@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import Box from '../Box';
 import * as S from './style';
 
 interface InputIProps {
@@ -8,37 +9,21 @@ interface InputIProps {
   value: string | number;
   placeholder: string;
   icon?: ReactNode;
+  isError?: boolean;
+  error?: string;
 }
 
-interface TextAreaIProps {
-  label?: string;
-  name: string;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  value: string;
-  placeholder: string;
-  icon?: ReactNode;
-}
-
-function TextArea({ label, name, onChange, value, placeholder, icon }: TextAreaIProps) {
+function Input({ label, name, onChange, value, placeholder, icon, isError, error }: InputIProps) {
   return (
-    <S.InputWrapper>
-      {icon}
-      <S.Label>{label}</S.Label>
-      <S.TextArea name={name} value={value} placeholder={placeholder} onChange={onChange} />
-    </S.InputWrapper>
+    <Box>
+      <S.InputWrapper $isError={isError}>
+        <S.Label>{label}</S.Label>
+        <S.Input name={name} value={value} placeholder={placeholder} onChange={onChange} />
+        <S.IconWrapper>{icon}</S.IconWrapper>
+      </S.InputWrapper>
+      {isError && <S.Error>{error}</S.Error>}
+    </Box>
   );
 }
-
-function Input({ label, name, onChange, value, placeholder, icon }: InputIProps) {
-  return (
-    <S.InputWrapper>
-      {icon}
-      <S.Label>{label}</S.Label>
-      <S.Input name={name} value={value} placeholder={placeholder} onChange={onChange} />
-    </S.InputWrapper>
-  );
-}
-
-Input.TextArea = TextArea;
 
 export default Input;
