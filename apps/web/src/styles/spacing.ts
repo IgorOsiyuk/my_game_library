@@ -2,6 +2,7 @@ export type Spacing = {
   s_0: string;
   s_2: string;
   s_4: string;
+  s_6: string;
   s_8: string;
   s_12: string;
   s_14: string;
@@ -19,6 +20,7 @@ const spacing: Spacing = {
   s_0: '0px',
   s_2: '2px',
   s_4: '4px',
+  s_6: '6px',
   s_8: '8px',
   s_12: '12px',
   s_14: '14px',

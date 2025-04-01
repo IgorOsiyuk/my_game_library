@@ -12,6 +12,7 @@ import PlusIcon from '@/icons/plus.svg';
 import Grid from '@/atomic/Grid';
 import GameCard from '@/components/GameCard';
 import GameCardTile from '@/components/GameCardTile';
+import { CustomSelect } from '@/components/Select';
 import { games } from '@/data/games';
 import SearchIcon from '@/icons/search.svg';
 import { useState } from 'react';
@@ -104,6 +105,20 @@ export default function Dashboard() {
           </FlexBox>
         )}
       </FlexBox>
+      <CustomSelect
+        options={[
+          { value: 'all', label: 'Все игры' },
+          { value: 'favorites', label: 'Избранное' },
+          { value: 'recent', label: 'Недавно добавленные' },
+          { value: 'completed', label: 'Завершенные' },
+          { value: 'in_progress', label: 'В процессе' },
+        ]}
+        placeholder="Фильтр по статусу"
+        onChange={(option) => console.log('Selected:', option)}
+        // sx={({ theme }) => css`
+        //   width: 200px;
+        // `}
+      />
     </FlexBox>
   );
 }
