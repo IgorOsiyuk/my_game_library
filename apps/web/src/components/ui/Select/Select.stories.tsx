@@ -1,4 +1,3 @@
-import Box from '@/atomic/Box';
 import type { Meta, StoryObj } from '@storybook/react';
 import { CustomSelect } from './index';
 
@@ -9,13 +8,13 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  decorators: [
-    (Story) => (
-      <Box $backgroundColor="grey" $padding="s_24">
-        <Story />
-      </Box>
-    ),
-  ],
+  // decorators: [
+  //   (Story) => (
+  //     <Box $backgroundColor="grey" $padding="s_24">
+  //       <Story />
+  //     </Box>
+  //   ),
+  // ],
 } satisfies Meta<typeof CustomSelect>;
 
 export default meta;
