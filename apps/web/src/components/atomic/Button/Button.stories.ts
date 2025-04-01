@@ -1,4 +1,3 @@
-import PlaySmile from '@/icons/play_smile.svg';
 import colors from '@/styles/colors';
 import fontSizes from '@/styles/fontSizes';
 import radius from '@/styles/radius';
@@ -7,15 +6,16 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import ButtonComponent, { SizeEnum } from '.';
 
-import DoneSmile from '@/icons/done_smile.svg';
-import FunSmile from '@/icons/fun_smile.svg';
-import SadSmile from '@/icons/sad_smile.svg';
+import CalendarIcon from '@/icons/calendar.svg';
+import CardViewIcon from '@/icons/card_view.svg';
+import InfoIcon from '@/icons/info.svg';
+import ListViewIcon from '@/icons/list_view.svg';
 
 const icons = {
-  DoneSmile,
-  FunSmile,
-  SadSmile,
-  PlaySmile,
+  CalendarIcon,
+  CardViewIcon,
+  ListViewIcon,
+  InfoIcon,
 };
 
 const meta: Meta<typeof ButtonComponent> = {
@@ -47,10 +47,10 @@ const meta: Meta<typeof ButtonComponent> = {
       control: {
         type: 'select',
         labels: {
-          DoneSmile: 'DoneSmile',
-          FunSmile: 'FunSmile',
-          SadSmile: 'SadSmile',
-          PlaySmile: 'PlaySmile',
+          CalendarIcon: 'CalendarIcon',
+          CardViewIcon: 'CardViewIcon',
+          ListViewIcon: 'ListViewIcon',
+          InfoIcon: 'InfoIcon',
         },
       },
     },

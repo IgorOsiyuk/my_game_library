@@ -10,7 +10,7 @@ export interface SelectOption {
 interface CustomSelectProps {
   options: SelectOption[];
   value?: SelectOption | SelectOption[];
-  onChange: (
+  onChange?: (
     option: SingleValue<SelectOption> | MultiValue<SelectOption>,
     actionMeta: ActionMeta<SelectOption>,
   ) => void;
@@ -25,8 +25,8 @@ const StyledSelect = styled(Select<SelectOption, boolean>)`
     background-color: ${({ theme }) => theme.colors.darkSecondary};
     border: 1px solid ${({ theme }) => theme.colors.grey};
     border-radius: ${({ theme }) => theme.radius.rounded_small};
-    min-height: 55px;
-    padding: 0 ${({ theme }) => theme.spacing.s_12};
+    /* min-height: 55px; */
+    padding: ${({ theme }) => theme.spacing.s_8} ${({ theme }) => theme.spacing.s_12};
     box-shadow: none;
     cursor: pointer;
 
@@ -35,6 +35,9 @@ const StyledSelect = styled(Select<SelectOption, boolean>)`
     }
   }
 
+  .select__placeholder {
+    padding-right: ${({ theme }) => theme.spacing.s_12};
+  }
   .select__menu {
     background-color: ${({ theme }) => theme.colors.darkSecondary};
     border: 1px solid ${({ theme }) => theme.colors.grey};
@@ -77,6 +80,9 @@ const StyledSelect = styled(Select<SelectOption, boolean>)`
   .select__indicator-separator {
     background-color: ${({ theme }) => theme.colors.grey};
   }
+  .select__value-container--is-multi {
+    gap: ${({ theme }) => theme.spacing.s_4};
+  }
   .select__multi-value__remove {
     padding-left: ${({ theme }) => theme.spacing.s_2};
     padding-right: ${({ theme }) => theme.spacing.s_2};
@@ -109,7 +115,6 @@ export const CustomSelect = ({
   return (
     <Box $sx={sx}>
       <StyledSelect
-        menuIsOpen={true}
         closeMenuOnSelect={false}
         className={className}
         classNamePrefix="select"
