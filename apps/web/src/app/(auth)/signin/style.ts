@@ -6,7 +6,7 @@ const FormWrapper = styled.form`
       width: 100%;
       max-width: 606px;
       padding: ${theme.spacing.s_40};
-      background-color: ${theme.colors.black.dark};
+      background-color: ${theme.colors.black};
       border-radius: ${theme.radius.rounded_large};
     `;
   }}
