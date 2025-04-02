@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import Box from '../Box';
 import * as S from './style';
 
 interface InputIProps {
@@ -15,14 +14,15 @@ interface InputIProps {
 
 function Input({ label, name, onChange, value, placeholder, icon, isError, error }: InputIProps) {
   return (
-    <Box>
+    <>
       <S.InputWrapper $isError={isError}>
         <S.Label>{label}</S.Label>
         <S.Input name={name} value={value} placeholder={placeholder} onChange={onChange} />
-        <S.IconWrapper>{icon}</S.IconWrapper>
+        {/* <S.IconWrapper>{icon}</S.IconWrapper> */}
+        {icon}
       </S.InputWrapper>
       {isError && <S.Error>{error}</S.Error>}
-    </Box>
+    </>
   );
 }
 

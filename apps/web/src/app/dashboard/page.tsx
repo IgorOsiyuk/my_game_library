@@ -10,7 +10,6 @@ import ViewOptions, { ViewType } from '@/components/ViewOptions';
 import PlusIcon from '@/icons/plus.svg';
 
 import Grid from '@/atomic/Grid';
-import { CustomSelect } from '@/atomic/Select';
 import GameCard from '@/components/GameCard';
 import GameCardTile from '@/components/GameCardTile';
 import { games } from '@/data/games';
@@ -105,20 +104,6 @@ export default function Dashboard() {
           </FlexBox>
         )}
       </FlexBox>
-      <CustomSelect
-        options={[
-          { value: 'all', label: 'Все игры' },
-          { value: 'favorites', label: 'Избранное' },
-          { value: 'recent', label: 'Недавно добавленные' },
-          { value: 'completed', label: 'Завершенные' },
-          { value: 'in_progress', label: 'В процессе' },
-        ]}
-        placeholder="Фильтр по статусу"
-        onChange={(option) => console.log('Selected:', option)}
-        // sx={({ theme }) => css`
-        //   width: 200px;
-        // `}
-      />
     </FlexBox>
   );
 }

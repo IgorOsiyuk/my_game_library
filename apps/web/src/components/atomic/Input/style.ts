@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 const InputWrapper = styled.div<{ $isError?: boolean }>`
   ${({ theme, $isError }) => {
     return css`
+      width: 100%;
       background-color: ${theme.colors.darkSecondary};
       padding: ${theme.spacing.s_12} ${theme.spacing.s_18};
       border-radius: ${theme.radius.rounded_small};
