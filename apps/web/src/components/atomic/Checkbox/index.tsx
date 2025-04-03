@@ -4,7 +4,7 @@ import SvgImage from '../SvgImage';
 import * as S from './style';
 
 interface CheckboxIProps {
-  label?: string;
+  label: string;
   name: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isError?: boolean;
@@ -23,11 +23,9 @@ const Checkbox = ({ label, checked, onChange, error, isError, disabled, name }: 
             <CheckIcon />
           </SvgImage>
         </S.CheckboxIcon>
-        {label && (
-          <S.Label color={disabled ? 'greySecondary' : 'white'} size="body_S">
-            {label}
-          </S.Label>
-        )}
+        <S.Label color={disabled ? 'greySecondary' : 'white'} size="body_S">
+          {label}
+        </S.Label>
       </S.CheckboxContainer>
       {error && <S.Error>{error}</S.Error>}
     </Box>

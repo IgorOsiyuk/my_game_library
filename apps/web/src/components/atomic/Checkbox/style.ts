@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import SvgImage from '../SvgImage';
 import Text from '../Text';
 
 const CheckboxContainer = styled.div`
@@ -6,14 +7,6 @@ const CheckboxContainer = styled.div`
   gap: ${({ theme }) => theme.spacing.s_8};
   align-items: center;
   cursor: pointer;
-`;
-
-const HiddenCheckbox = styled.input`
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
 `;
 
 const CheckboxIcon = styled.div<{ $isChecked?: boolean; $isError?: boolean }>`
@@ -31,20 +24,26 @@ const CheckboxIcon = styled.div<{ $isChecked?: boolean; $isError?: boolean }>`
   &:hover {
     opacity: 0.7;
   }
-  svg {
+  ${SvgImage} {
     display: none;
   }
-  ${({ $isChecked }) =>
-    $isChecked &&
-    css`
+`;
+
+const HiddenCheckbox = styled.input`
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+  &:checked + ${CheckboxIcon} {
+    opacity: 0.9;
+    &:hover {
       opacity: 0.9;
-      &:hover {
-        opacity: 0.9;
-      }
-      svg {
-        display: block;
-      }
-    `}
+    }
+    ${SvgImage} {
+      display: block;
+    }
+  }
 `;
 
 const Label = styled(Text)`
