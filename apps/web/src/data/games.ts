@@ -120,3 +120,83 @@ export const comingSoon = [
     image: '/images/default_card_image.jpg',
   },
 ];
+
+export const filtersList = [
+  {
+    label: 'Жанр',
+    options: [
+      {
+        label: 'Action',
+        name: 'action',
+      },
+      {
+        label: 'Adventure',
+        name: 'adventure',
+      },
+    ],
+  },
+  {
+    label: 'Платформа',
+    options: [
+      {
+        label: 'PC',
+        name: 'pc',
+      },
+      {
+        label: 'PS4',
+        name: 'ps4',
+      },
+    ],
+  },
+  {
+    label: 'Разработчик',
+    options: [
+      {
+        label: 'Rockstar Games',
+        name: 'rockstar-games',
+      },
+      {
+        label: 'Bethesda Game Studios',
+        name: 'bethesda-game-studios',
+      },
+    ],
+  },
+  {
+    label: 'Издатель',
+    options: [
+      {
+        label: 'Rockstar Games',
+        name: 'rockstar-games',
+      },
+      {
+        label: 'Bethesda Game Studios',
+        name: 'bethesda-game-studios',
+      },
+      {
+        label: 'Electronic Arts',
+        name: 'electronic-arts',
+      },
+    ],
+  },
+  {
+    label: 'Оценка',
+    options: [
+      {
+        label: '10',
+        name: '10',
+      },
+      {
+        label: '9',
+        name: '9',
+      },
+      {
+        label: '8',
+        name: '8',
+      },
+      {
+        label: '7',
+        name: '7',
+      },
+    ],
+  },
+];

@@ -32,7 +32,8 @@ const DropdownContentWrapper = styled.div`
   position: absolute;
   top: 100%;
   left: 0;
-  width: 100%;
+  width: auto;
+  min-width: 100%;
   z-index: -1;
   overflow: hidden;
 `;

@@ -16,6 +16,7 @@ const CheckboxIcon = styled.div<{ $isChecked?: boolean; $isError?: boolean }>`
   border: 2px solid ${({ theme, $isError }) => ($isError ? theme.colors.red : theme.colors.white)};
   border-radius: ${({ theme }) => theme.radius.rounded_xsmall};
   transition: all 0.2s ease-in-out;
+  flex-shrink: 0;
   position: relative;
   display: flex;
   align-items: center;

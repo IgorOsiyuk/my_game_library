@@ -6,7 +6,7 @@ import * as S from './style';
 interface CheckboxIProps {
   label: string;
   name: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isError?: boolean;
   error?: string;
   checked?: boolean;

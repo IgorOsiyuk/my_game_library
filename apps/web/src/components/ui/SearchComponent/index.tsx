@@ -1,12 +1,13 @@
 import Box from '@/atomic/Box';
 import Checkbox from '@/atomic/Checkbox';
+import { Dropdown } from '@/atomic/Dropdown';
 import FlexBox from '@/atomic/FlexBox';
 import Input from '@/atomic/Input';
 import SvgImage from '@/atomic/SvgImage';
 import Text from '@/atomic/Text';
+import { filtersList } from '@/data/games';
 import CloseIcon from '@/icons/close.svg';
 import SearchIcon from '@/icons/search.svg';
-import { useState } from 'react';
 import { css } from 'styled-components';
 
 const SelectedFilterItem = () => {
@@ -46,25 +47,18 @@ const SelectedFilters = () => {
   );
 };
 
-const FilterItem = () => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  return (
-    <Checkbox
-      label="Выбрать опцию"
-      checked={isChecked}
-      onChange={(e) => setIsChecked(e.target.checked)}
-      name="filter-option"
-    />
-  );
-};
-
 const Filters = () => {
   return (
     <FlexBox $gap="s_12">
-      <FilterItem />
-      <FilterItem />
-      <FilterItem />
+      {filtersList.map((filter) => (
+        <Dropdown
+          key={filter.label}
+          title={filter.label}
+          options={filter.options.map((option) => (
+            <Checkbox key={option.name} label={option.label} name={option.name} />
+          ))}
+        />
+      ))}
     </FlexBox>
   );
 };
