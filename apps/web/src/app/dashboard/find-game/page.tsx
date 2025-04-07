@@ -2,14 +2,15 @@
 
 import Box from '@/atomic/Box';
 import FlexBox from '@/atomic/FlexBox';
-import Text from '@/atomic/Text';
-
 import Grid from '@/atomic/Grid';
+import Text from '@/atomic/Text';
 import GameCard from '@/components/GameCard';
+import GameScoreSlider from '@/components/GameScoreSlider';
 import SearchComponent from '@/components/SearchComponent';
 import { games } from '@/data/games';
-
+import { useState } from 'react';
 export default function FindGame() {
+  const [gameScore, setGameScore] = useState(0);
   return (
     <FlexBox $py="s_24" $direction="column" $gap="s_36">
       <FlexBox $direction="column" $gap="s_40" $width="100%">
@@ -30,6 +31,15 @@ export default function FindGame() {
           ))}
         </Grid>
       </FlexBox>
+      <GameScoreSlider
+        min={0}
+        max={5}
+        step={0.1}
+        defaultValue={0}
+        onChange={setGameScore}
+        value={gameScore}
+        label="Оцени игру"
+      />
     </FlexBox>
   );
 }

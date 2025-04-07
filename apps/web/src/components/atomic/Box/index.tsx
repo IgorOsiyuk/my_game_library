@@ -15,6 +15,12 @@ interface BoxProps {
   $pt?: keyof Spacing;
   $pb?: keyof Spacing;
   $margin?: keyof Spacing;
+  $mx?: keyof Spacing;
+  $my?: keyof Spacing;
+  $ml?: keyof Spacing;
+  $mr?: keyof Spacing;
+  $mt?: keyof Spacing;
+  $mb?: keyof Spacing;
   $radius?: keyof Radius;
   $sx?: ((context: ExecutionContext) => ReturnType<typeof css>) | ReturnType<typeof css>;
 }
@@ -32,7 +38,13 @@ const Box = styled.div<BoxProps>`
   padding-top: ${({ theme, $pt }) => $pt && theme.spacing[$pt]};
   padding-bottom: ${({ theme, $pb }) => $pb && theme.spacing[$pb]};
 
-  margin: ${({ theme, $margin }) => $margin && theme.spacing[$margin]};
+  margin: ${({ theme, $margin, $mx, $my }) =>
+    $margin ? theme.spacing[$margin] : `${$my ? theme.spacing[$my] : '0'} ${$mx ? theme.spacing[$mx] : '0'}`};
+  margin-left: ${({ theme, $ml }) => $ml && theme.spacing[$ml]};
+  margin-right: ${({ theme, $mr }) => $mr && theme.spacing[$mr]};
+  margin-top: ${({ theme, $mt }) => $mt && theme.spacing[$mt]};
+  margin-bottom: ${({ theme, $mb }) => $mb && theme.spacing[$mb]};
+
   border-radius: ${({ theme, $radius }) => $radius && theme.radius[$radius]};
   ${({ $sx }) => $sx && $sx};
 `;
