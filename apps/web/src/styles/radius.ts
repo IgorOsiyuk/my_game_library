@@ -4,11 +4,13 @@ export type Radius = {
   rounded_small: string;
   rounded_circle: string;
   rounded_xsmall: string;
+  rounded_xmedium: string;
 };
 
 const radius: Radius = {
   rounded_large: '24px',
   rounded_medium: '12px',
+  rounded_xmedium: '10px',
   rounded_small: '8px',
   rounded_circle: '50%',
   rounded_xsmall: '4px',
