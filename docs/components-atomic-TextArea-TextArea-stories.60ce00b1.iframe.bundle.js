@@ -41,7 +41,12 @@
   padding-bottom: ${0};
 
   margin: ${0};
+  margin-left: ${0};
+  margin-right: ${0};
+  margin-top: ${0};
+  margin-bottom: ${0};
+
   border-radius: ${0};
   ${0};
-`),(({$width})=>$width),(({$height})=>$height),(({theme,$backgroundColor})=>$backgroundColor?theme.colors[$backgroundColor]:"transparent"),(({theme,$padding,$px,$py})=>$padding?theme.spacing[$padding]:`${$py?theme.spacing[$py]:"0"} ${$px?theme.spacing[$px]:"0"}`),(({theme,$pl})=>$pl&&theme.spacing[$pl]),(({theme,$pr})=>$pr&&theme.spacing[$pr]),(({theme,$pt})=>$pt&&theme.spacing[$pt]),(({theme,$pb})=>$pb&&theme.spacing[$pb]),(({theme,$margin})=>$margin&&theme.spacing[$margin]),(({theme,$radius})=>$radius&&theme.radius[$radius]),(({$sx})=>$sx&&$sx))}}]);
-//# sourceMappingURL=components-atomic-TextArea-TextArea-stories.a94fe498.iframe.bundle.js.map
+`),(({$width})=>$width),(({$height})=>$height),(({theme,$backgroundColor})=>$backgroundColor?theme.colors[$backgroundColor]:"transparent"),(({theme,$padding,$px,$py})=>$padding?theme.spacing[$padding]:`${$py?theme.spacing[$py]:"0"} ${$px?theme.spacing[$px]:"0"}`),(({theme,$pl})=>$pl&&theme.spacing[$pl]),(({theme,$pr})=>$pr&&theme.spacing[$pr]),(({theme,$pt})=>$pt&&theme.spacing[$pt]),(({theme,$pb})=>$pb&&theme.spacing[$pb]),(({theme,$margin,$mx,$my})=>$margin?theme.spacing[$margin]:`${$my?theme.spacing[$my]:"0"} ${$mx?theme.spacing[$mx]:"0"}`),(({theme,$ml})=>$ml&&theme.spacing[$ml]),(({theme,$mr})=>$mr&&theme.spacing[$mr]),(({theme,$mt})=>$mt&&theme.spacing[$mt]),(({theme,$mb})=>$mb&&theme.spacing[$mb]),(({theme,$radius})=>$radius&&theme.radius[$radius]),(({$sx})=>$sx&&$sx))}}]);
+//# sourceMappingURL=components-atomic-TextArea-TextArea-stories.60ce00b1.iframe.bundle.js.map
