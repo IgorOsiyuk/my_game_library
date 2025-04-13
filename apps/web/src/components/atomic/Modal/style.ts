@@ -30,24 +30,43 @@ const ModalOverlay = styled.div<{ $isOpen: boolean }>`
 const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.s_32};
+  width: 100%;
+  max-height: 90vh;
   background-color: ${({ theme }) => theme.colors.darkSecondary};
   border-radius: ${({ theme }) => theme.radius.rounded_large};
-  padding: ${({ theme }) => theme.spacing.s_32} 0;
-  width: 100%;
-  height: 100%;
-  animation: ${modalFadeIn} 0.3s ease-out;
+  animation: ${modalFadeIn} 0.75s ease-out;
   position: relative;
-  overflow-y: scroll;
 `;
 
 const ModalHeader = styled.div`
-  /* position: relative; */
-  /* padding: ${({ theme }) => theme.spacing.s_32}; */
+  padding: ${({ theme }) => theme.spacing.s_24};
+  /* border-bottom: 1px solid ${({ theme }) => theme.colors.grey}; */
+  flex-shrink: 0;
+  position: relative;
 `;
 
 const ModalBody = styled.div`
-  /* padding: ${({ theme }) => theme.spacing.s_16}; */
+  padding: ${({ theme }) => theme.spacing.s_16};
+  overflow-y: auto;
+  flex-grow: 1;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: ${({ theme }) => theme.colors.dark};
+    border-radius: ${({ theme }) => theme.radius.rounded_small};
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.colors.grey};
+    border-radius: ${({ theme }) => theme.radius.rounded_small};
+
+    &:hover {
+      background: ${({ theme }) => theme.colors.greySecondary};
+    }
+  }
 `;
 
 const CloseButton = styled.div`

@@ -165,6 +165,9 @@ const GlobalStyles = createGlobalStyle`
     -webkit-tap-highlight-color: transparent;
     font-smooth: always;
     -webkit-font-smoothing: antialiased;
+    cursor: default; 
+    caret-color: transparent;
+  
   }
 
   img {
@@ -199,6 +202,12 @@ const GlobalStyles = createGlobalStyle`
     font-family: inherit;
     background: none;
     outline: none;
+  }
+  input, 
+  textarea, 
+  [contenteditable="true"] {
+    caret-color: ${({ theme }) => theme.colors.white};
+    cursor: text;
   }
 `;
 
