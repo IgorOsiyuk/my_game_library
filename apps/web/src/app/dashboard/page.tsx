@@ -10,15 +10,16 @@ import ViewOptions, { ViewType } from '@/components/ViewOptions';
 import PlusIcon from '@/icons/plus.svg';
 
 import Grid from '@/atomic/Grid';
+import CreateReviewModal from '@/components/CreateReviewModal';
 import GameCard from '@/components/GameCard';
 import GameCardTile from '@/components/GameCardTile';
 import { games } from '@/data/games';
 import SearchIcon from '@/icons/search.svg';
 import { useState } from 'react';
 import { css } from 'styled-components';
-
 export default function Dashboard() {
   const [currentView, setCurrentView] = useState<ViewType>(ViewType.CARD);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <FlexBox $py="s_24" $direction="column" $gap="s_56">
@@ -104,6 +105,8 @@ export default function Dashboard() {
           </FlexBox>
         )}
       </FlexBox>
+      <Button onClick={() => setIsOpen(true)}>Открыть модальное окно</Button>
+      <CreateReviewModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </FlexBox>
   );
 }

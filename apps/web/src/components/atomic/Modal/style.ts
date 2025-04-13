@@ -33,17 +33,17 @@ const ModalContent = styled.div`
   gap: ${({ theme }) => theme.spacing.s_32};
   background-color: ${({ theme }) => theme.colors.darkSecondary};
   border-radius: ${({ theme }) => theme.radius.rounded_large};
-  padding: ${({ theme }) => theme.spacing.s_32};
+  padding: ${({ theme }) => theme.spacing.s_32} 0;
   width: 100%;
-  /* min-width: 400px; */
-  /* max-width: 90vw; */
-  /* max-height: 90vh; */
-  overflow-y: auto;
+  height: 100%;
   animation: ${modalFadeIn} 0.3s ease-out;
+  position: relative;
+  overflow-y: scroll;
 `;
 
 const ModalHeader = styled.div`
-  position: relative;
+  /* position: relative; */
+  /* padding: ${({ theme }) => theme.spacing.s_32}; */
 `;
 
 const ModalBody = styled.div`
@@ -53,8 +53,8 @@ const ModalBody = styled.div`
 const CloseButton = styled.div`
   cursor: pointer;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 32px;
+  right: 32px;
   transition: background-color 0.2s;
   border-radius: ${({ theme }) => theme.radius.rounded_xsmall};
 
