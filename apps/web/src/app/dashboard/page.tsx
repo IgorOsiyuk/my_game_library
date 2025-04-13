@@ -54,6 +54,7 @@ export default function Dashboard() {
             spacing="s_14"
             onClick={(e) => {
               e.preventDefault();
+              setIsOpen(true);
             }}
             icon={
               <SvgImage $height="20px" $width="20px" $fill="white">
@@ -105,7 +106,6 @@ export default function Dashboard() {
           </FlexBox>
         )}
       </FlexBox>
-      <Button onClick={() => setIsOpen(true)}>Открыть модальное окно</Button>
       <CreateReviewModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </FlexBox>
   );
