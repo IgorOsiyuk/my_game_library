@@ -17,6 +17,7 @@ export type Spacing = {
   s_44: string;
   s_48: string;
   s_56: string;
+  s_80: string;
   s_188: string;
 };
 
@@ -39,6 +40,7 @@ const spacing: Spacing = {
   s_44: '44px',
   s_48: '48px',
   s_56: '56px',
+  s_80: '80px',
   s_188: '188px',
 };
 

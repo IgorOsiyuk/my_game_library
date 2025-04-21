@@ -5,11 +5,18 @@ import Grid from '@/atomic/Grid';
 import Image from '@/atomic/Image';
 import SvgImage from '@/atomic/SvgImage';
 import Text from '@/atomic/Text';
+import { games } from '@/data/games';
 import ArrowIcon from '@/icons/arrow.svg';
 import DefaultCardImage from '@/images/default_card_image.jpg';
 import { useRouter } from 'next/navigation';
 import { css } from 'styled-components';
 import 'swiper/css';
+
+export async function generateStaticParams() {
+  return games.map((game) => ({
+    id: game.id,
+  }));
+}
 
 export default function Game() {
   const router = useRouter();

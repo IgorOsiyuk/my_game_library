@@ -10,14 +10,15 @@ interface InputIProps {
   icon?: ReactNode;
   isError?: boolean;
   error?: string;
+  type?: string;
 }
 
-function Input({ label, name, onChange, value, placeholder, icon, isError, error }: InputIProps) {
+function Input({ label, name, onChange, value, placeholder, icon, isError, error, type }: InputIProps) {
   return (
     <>
       <S.InputWrapper $isError={isError}>
         <S.Label>{label}</S.Label>
-        <S.Input name={name} value={value} placeholder={placeholder} onChange={onChange} />
+        <S.Input name={name} value={value} placeholder={placeholder} onChange={onChange} type={type} />
         {/* <S.IconWrapper>{icon}</S.IconWrapper> */}
         {icon}
       </S.InputWrapper>
