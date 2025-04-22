@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Param, Patch, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Patch, UseGuards, UseInterceptors } from '@nestjs/common';
 
 import { AuthGuard } from '../guards';
 
 import { UpdateUserDataDto } from './dtos';
+import { TransformUserInterceptor } from './interceptors';
 import { UserService } from './user.service';
 
 /**
@@ -18,11 +19,12 @@ export class UserController {
    *
    * @param userId - идентификатор пользователя
    * @param updateUserDataDto - данные для обновления
-   * @returns обновленный объект пользователя
+   * @returns обновленный объект пользователя с полем name
    * @requires Bearer токен для аутентификации
    */
   @Patch(':id/update-user-data')
   @UseGuards(AuthGuard)
+  @UseInterceptors(TransformUserInterceptor)
   async updateUserData(@Param('id') userId: string, @Body() updateUserDataDto: UpdateUserDataDto) {
     return this.userService.updateUserData(userId, updateUserDataDto);
   }

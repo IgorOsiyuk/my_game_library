@@ -32,7 +32,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmNzdiN
 ### Обновление пароля пользователя
 PATCH http://localhost:4000/user/f77b67fe-0b76-4291-95fa-23d09c3575b1/update-user-data
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmNzdiNjdmZS0wYjc2LTQyOTEtOTVmYS0yM2QwOWMzNTc1YjEiLCJpYXQiOjE3MjgyMzcyNjUsImV4cCI6MTcyODg0MjA2NX0.3v-rzt0F_Aq0D8dU7quU6NcBJQ-tkDmIFo2vzfgMmDo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmNzdiNjdmZS0wYjc2LTQyOTEtOTVmYS0yM2QwOWMzNTc1YjEiLCJpYXQiOjE3NDUzNDEwNDcsImV4cCI6MTc0NTM0MTEwN30.ZBKFHEVEUlV55MW4sxrLCRWqG3yYwZWDUu6ZOPZdZ0s
 
 {
     "password": "NewSecure@P4ssw0rd",
@@ -42,7 +42,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmNzdiN
 ### Обновление имени пользователя
 PATCH http://localhost:4000/user/f77b67fe-0b76-4291-95fa-23d09c3575b1/update-user-data
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmNzdiNjdmZS0wYjc2LTQyOTEtOTVmYS0yM2QwOWMzNTc1YjEiLCJpYXQiOjE3MjgyMzcyNjUsImV4cCI6MTcyODg0MjA2NX0.3v-rzt0F_Aq0D8dU7quU6NcBJQ-tkDmIFo2vzfgMmDo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmNzdiNjdmZS0wYjc2LTQyOTEtOTVmYS0yM2QwOWMzNTc1YjEiLCJpYXQiOjE3NDUzNDEwNDcsImV4cCI6MTc0NTM0MTEwN30.ZBKFHEVEUlV55MW4sxrLCRWqG3yYwZWDUu6ZOPZdZ0s
 
 {
     "name": "Игорь"
