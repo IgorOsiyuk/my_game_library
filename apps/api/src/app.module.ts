@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { DatabaseModule } from './database/database.module';
 import { EmailSenderModule } from './email-sender/email-sender.module';
+import { GamesModule } from './games/games.module';
 import { UserModule } from './user/user.module';
 
 @Module({
@@ -17,6 +18,7 @@ import { UserModule } from './user/user.module';
     DatabaseModule,
     UserModule,
     EmailSenderModule,
+    GamesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
