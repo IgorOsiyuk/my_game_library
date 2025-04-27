@@ -57,5 +57,5 @@ GET http://localhost:4000/games/search
 Content-Type: application/json
 
 {
-    "search": "elder scrollsoblivion"
+    "search": "warhammer"
 }

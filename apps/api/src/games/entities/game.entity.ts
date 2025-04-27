@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { GameGenre } from './game-genre.entity';
+import { GamePlatform } from './game-platform.entity';
 
 /**
  * Сущность игры
@@ -36,11 +37,20 @@ export class Game {
   gameGenres: GameGenre[];
 
   /**
+   * Связь с промежуточной таблицей GamePlatform
+   * Через эту связь можно получить платформы игры
+   */
+  @OneToMany(() => GamePlatform, (gamePlatform) => gamePlatform.game, {
+    cascade: true,
+  })
+  gamePlatforms: GamePlatform[];
+
+  /**
    * Рейтинг игры
    * Значение от 0 до 5 с десятичной точностью
    */
   @Column({ nullable: true })
-  rating: number;
+  rating: string;
 
   /**
    * URL изображения/обложки игры

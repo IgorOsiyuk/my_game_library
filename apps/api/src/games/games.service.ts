@@ -4,8 +4,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { GameGenre } from './entities/game-genre.entity';
+import { GamePlatform } from './entities/game-platform.entity';
 import { Game } from './entities/game.entity';
 import { Genre } from './entities/genre.entity';
+import { Platform } from './entities/platform.entity';
 
 /**
  * Сервис для работы с играми
@@ -21,6 +23,10 @@ export class GamesService {
     private gameGenreRepository: Repository<GameGenre>,
     @InjectRepository(Genre)
     private genreRepository: Repository<Genre>,
+    @InjectRepository(Platform)
+    private platformRepository: Repository<Platform>,
+    @InjectRepository(GamePlatform)
+    private gamePlatformRepository: Repository<GamePlatform>,
   ) {}
 
   /**
@@ -56,6 +62,7 @@ export class GamesService {
       slug: game['slug'],
       title: game['name'],
       genres: game['genres'].map((genre) => genre['name']),
+      platforms: game['platforms'] ? game['platforms'].map((platform) => platform['platform']['name']) : [],
       rating: game['rating'],
       image: game['background_image'],
     }));
@@ -69,7 +76,7 @@ export class GamesService {
   }
 
   /**
-   * Добавляет игру и её жанры в базу данных
+   * Добавляет игру, её жанры и платформы в базу данных
    * Проверяет существование игры перед добавлением, чтобы избежать дубликатов
    *
    * @param gameData - данные игры для добавления
@@ -120,8 +127,38 @@ export class GamesService {
       gameGenres.push(await this.gameGenreRepository.save(gameGenre));
     }
 
-    // Обновляем игру с добавленными связями
+    // Обновляем игру с добавленными связями с жанрами
     savedGame.gameGenres = gameGenres;
+
+    // Создаем связи с платформами
+    const gamePlatforms: GamePlatform[] = [];
+
+    // Проверяем, есть ли платформы в данных игры
+    if (gameData.platforms && gameData.platforms.length > 0) {
+      // Обрабатываем каждую платформу игры
+      for (const platformName of gameData.platforms) {
+        // Находим или создаем платформу
+        let platform = await this.platformRepository.findOne({ where: { name: platformName } });
+
+        // Если платформа не существует, создаем её
+        if (!platform) {
+          platform = new Platform();
+          platform.name = platformName;
+          platform = await this.platformRepository.save(platform);
+        }
+
+        // Создаем связь между игрой и платформой в промежуточной таблице
+        const gamePlatform = new GamePlatform();
+        gamePlatform.game = savedGame;
+        gamePlatform.platform = platform;
+
+        // Сохраняем связь и добавляем её в массив
+        gamePlatforms.push(await this.gamePlatformRepository.save(gamePlatform));
+      }
+
+      // Обновляем игру с добавленными связями с платформами
+      savedGame.gamePlatforms = gamePlatforms;
+    }
 
     return savedGame;
   }
