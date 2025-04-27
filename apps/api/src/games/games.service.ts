@@ -41,11 +41,23 @@ export class GamesService {
     // Создаем QueryBuilder для гибкого поиска
     const queryBuilder = this.gameRepository.createQueryBuilder('game');
 
-    // Ищем игры по точному совпадению slug или частичному совпадению title
-    queryBuilder.andWhere('(game.slug = :search OR game.title ILIKE :searchLike)', {
-      search: search,
-      searchLike: `%${search}%`,
-    });
+    // Разбиваем поисковый запрос на слова
+    const searchTerms = search.split(' ').filter((term) => term.length > 0);
+
+    // Для каждого слова добавляем условие поиска
+    if (searchTerms.length > 0) {
+      const whereConditions = searchTerms
+        .map((_, index) => `(game.slug ILIKE :term${index} OR game.title ILIKE :term${index})`)
+        .join(' OR ');
+
+      queryBuilder.where(whereConditions);
+
+      // Добавляем параметры для каждого слова
+      searchTerms.forEach((term, index) => {
+        queryBuilder.setParameter(`term${index}`, `%${term}%`);
+      });
+    }
+
     const games = await queryBuilder.getMany();
 
     // Если игры найдены в локальной БД, возвращаем их
@@ -62,7 +74,8 @@ export class GamesService {
       slug: game['slug'],
       title: game['name'],
       genres: game['genres'].map((genre) => genre['name']),
-      platforms: game['platforms'] ? game['platforms'].map((platform) => platform['platform']['name']) : [],
+      platforms: game['platforms'].map((platform) => platform['platform']['name']),
+      releaseDate: game['released'],
       rating: game['rating'],
       image: game['background_image'],
     }));
@@ -97,6 +110,7 @@ export class GamesService {
     const game = new Game();
     game.title = gameData.title;
     game.slug = gameData.slug;
+    game.releaseDate = gameData.releaseDate;
     game.rating = gameData.rating;
     game.image = gameData.image;
 

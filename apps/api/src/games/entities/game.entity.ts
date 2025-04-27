@@ -46,6 +46,13 @@ export class Game {
   gamePlatforms: GamePlatform[];
 
   /**
+   * Дата релиза игры
+   * Хранит полную дату выхода игры
+   */
+  @Column({ nullable: true })
+  releaseDate: Date;
+
+  /**
    * Рейтинг игры
    * Значение от 0 до 5 с десятичной точностью
    */
