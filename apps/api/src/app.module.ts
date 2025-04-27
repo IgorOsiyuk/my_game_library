@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { DatabaseModule } from './database/database.module';
 import { EmailSenderModule } from './email-sender/email-sender.module';
 import { GamesModule } from './games/games.module';
+import { ObjectStorageModule } from './object-storage/object-storage.module';
 import { UserModule } from './user/user.module';
 
 @Module({
@@ -19,6 +20,7 @@ import { UserModule } from './user/user.module';
     UserModule,
     EmailSenderModule,
     GamesModule,
+    ObjectStorageModule,
   ],
   controllers: [AppController],
   providers: [AppService],
