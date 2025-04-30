@@ -14,6 +14,29 @@ import DefaultCardImage from '@/images/default_card_image.jpg';
 import { useRouter } from 'next/navigation';
 import { css } from 'styled-components';
 
+const review = {
+  id: '1',
+  title: 'God of War Ragnarök',
+  year: 2021,
+  image: DefaultCardImage.src,
+  status: 'Пройдено',
+  playTime: '32ч',
+  genres: ['Action', 'Adventure'],
+  rating: 1.0,
+  platforms: ['Playstation 4', 'PC', 'Mac'],
+  developers: ['CD PROJEKT RED'],
+  publishers: ['CD PROJEKT RED'],
+  plot: 'The Lich King Arthas has set in motion events that could lead to the extinction of all life on Azeroth. With the armies of the undead and the necromantic power of the plague threatening to sweep across the land, only the mightiest heroes can oppose the Lich King&lsquo;s will and end his reign of terror for all time. Learn the craft of spell augmentation with the new Inscription profession. Brave the harsh new continent of Northrend, the icy domain of the Lich King. Engage in epic siege warfare, deploying mighty siege engines to lay waste to destructible buildings in your path. Transform your hero&apos;s look with new character-customization options, including new hairstyles and dances. Explore perilous new dungeons filled with some of the deadliest creatures -- and greatest treasures.',
+  review:
+    'The Lich King Arthas has set in motion events that could lead to the extinction of all life on Azeroth. With the armies of the undead and the necromantic power of the plague threatening to sweep across the land, only the mightiest heroes can oppose the Lich King&apos;s will and end his reign of terror for all time. Learn the craft of spell augmentation with the new Inscription profession. Brave the harsh new continent of Northrend, the icy domain of the Lich King. Engage in epic siege warfare, deploying mighty siege engines to lay waste to destructible buildings in your path. Transform your hero&apos;s look with new character-customization options, including new hairstyles and dances. Explore perilous new dungeons filled with some of the deadliest creatures -- and greatest treasures.',
+  score: 1.0,
+  plotScore: 1.0,
+  artScore: 1.0,
+  gameplayScore: 1.0,
+  difficulty: 'Легкая',
+  trophies: 5,
+};
+
 export default function Game() {
   const router = useRouter();
 

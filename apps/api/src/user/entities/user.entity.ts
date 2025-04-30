@@ -6,9 +6,12 @@ import {
   CreateDateColumn,
   Entity,
   Index,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+import { Review } from '../../reviews/entities/review.entity';
 
 @Entity()
 export class User {
@@ -25,11 +28,24 @@ export class User {
   @Column()
   name: string;
 
-  @CreateDateColumn({ name: 'created_data' })
-  createdAt: string;
+  @OneToMany(() => Review, (review) => review.user)
+  reviews: Review[];
 
-  @UpdateDateColumn({ name: 'updated_data' })
-  updatedAt: string;
+  @CreateDateColumn({
+    name: 'created_data',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+  })
+  createdAt: Date;
+
+  @UpdateDateColumn({
+    name: 'updated_data',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
 
   @AfterInsert()
   logInsert() {

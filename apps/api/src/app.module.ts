@@ -8,6 +8,7 @@ import { DatabaseModule } from './database/database.module';
 import { EmailSenderModule } from './email-sender/email-sender.module';
 import { GamesModule } from './games/games.module';
 import { ObjectStorageModule } from './object-storage/object-storage.module';
+import { ReviewsModule } from './reviews/reviews.module';
 import { UserModule } from './user/user.module';
 
 @Module({
@@ -21,6 +22,7 @@ import { UserModule } from './user/user.module';
     EmailSenderModule,
     GamesModule,
     ObjectStorageModule,
+    ReviewsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

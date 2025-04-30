@@ -59,3 +59,25 @@ Content-Type: application/json
 {
     "search": "mortal kombat 12"
 }
+
+### Получение всех отзывов пользователя
+GET http://localhost:4000/reviews
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjOTc2M2M4Yy1kMjM2LTQwMjktYjQ4Yy0yNjQ4ZDFhNDVjZGMiLCJpYXQiOjE3NDYwMjAzNTYsImV4cCI6MTc0NjAyMDQxNn0.m6opFM6cC_LL6zjYw4rSm9WINMbs-KYVUZd_tlb-Dzc
+
+### Создание нового отзыва
+POST http://localhost:4000/reviews
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjOTc2M2M4Yy1kMjM2LTQwMjktYjQ4Yy0yNjQ4ZDFhNDVjZGMiLCJpYXQiOjE3NDYwMjAyODksImV4cCI6MTc0NjAyMDM0OX0.FdwEDIumEjG3mYHt--tGdogv3nAHqAgfIxhhrJ-uITM
+
+{
+    "status": "В процессе",
+    "playTime": "32ч",
+    "rating": 4.5,
+    "score": 4.5,
+    "plotScore": 4.0,
+    "artScore": 5.0,
+    "gameplayScore": 4.5,
+    "difficulty": "Легкая",
+    "trophies": 5,
+    "review": "Отличная игра с захватывающим сюжетом и великолепной графикой. Боевая система глубокая и интересная, хотя некоторые боссы излишне сложные. Обязательна к прохождению всем любителям жанра."
+}
