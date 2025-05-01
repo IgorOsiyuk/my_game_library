@@ -17,6 +17,7 @@ import { Review } from './entities/review.entity';
  * - Загрузки изображений через ObjectStorageService
  * - Получения отзывов пользователя
  * - Преобразования данных между DTO и сущностями
+ * - Управления избранными отзывами
  */
 @Injectable()
 export class ReviewsService {
@@ -74,6 +75,24 @@ export class ReviewsService {
       trophies: Number(createReviewDto.trophies),
       img: imgUrl,
       user: { id: userId },
+    });
+
+    return this.reviewRepository.save(review);
+  }
+
+  /**
+   * Переключает статус избранного для отзыва
+   * @param reviewId - ID отзыва
+   * @param userId - ID пользователя, которому принадлежит отзыв
+   * @returns Promise<Review> Обновленный отзыв
+   * @throws {NotFoundException} Если отзыв не найден
+   */
+  async addToFavorite(reviewId: string, userId: string): Promise<Review> {
+    const review = await this.reviewRepository.findOne({
+      where: {
+        id: reviewId,
+        user: { id: userId },
+      },
     });
 
     return this.reviewRepository.save(review);

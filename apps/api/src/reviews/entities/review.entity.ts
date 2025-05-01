@@ -13,9 +13,9 @@ import { ReviewStatus } from './review-status.enum';
  */
 @Entity('reviews')
 export class Review {
-  /** Уникальный идентификатор отзыва */
-  @PrimaryGeneratedColumn()
-  id: number;
+  /** Уникальный идентификатор отзыва в формате UUID */
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   /** Заголовок отзыва */
   @Column()
@@ -68,6 +68,10 @@ export class Review {
   /** Текст отзыва */
   @Column('text')
   review: string;
+
+  /** Флаг, указывающий добавлен ли отзыв в избранное */
+  @Column({ default: false })
+  isFavorite: boolean;
 
   /** Пользователь, создавший отзыв */
   @ManyToOne(() => User, (user) => user.reviews)

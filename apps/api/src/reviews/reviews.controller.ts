@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   ParseFilePipeBuilder,
   Post,
   Request,
@@ -25,6 +26,7 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB в байтах
  * Предоставляет API эндпоинты для:
  * - Получения списка отзывов пользователя
  * - Создания новых отзывов с возможностью загрузки изображений
+ * - Управления избранными отзывами
  *
  * Все эндпоинты защищены AuthGuard для аутентификации пользователей
  */
@@ -71,5 +73,18 @@ export class ReviewsController {
     img?: Express.Multer.File,
   ) {
     return this.reviewsService.create(req['userId'], createReviewDto, img);
+  }
+
+  /**
+   * Переключает статус избранного для отзыва
+   * @route POST /reviews/:id/toggle-favorite
+   * @param id - ID отзыва
+   * @param req - Объект запроса с данными пользователя
+   * @returns Обновленный отзыв
+   */
+  @Post('favorite/:id')
+  @UseGuards(AuthGuard)
+  addToFavorite(@Param('id') id: string, @Request() req: Request) {
+    return this.reviewsService.addToFavorite(id, req['userId']);
   }
 }
