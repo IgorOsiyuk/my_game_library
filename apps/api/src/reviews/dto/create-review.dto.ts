@@ -1,4 +1,4 @@
-import { IsEnum, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
+import { IsEnum, IsOptional, IsString } from 'class-validator';
 
 import { ReviewStatus } from '../entities/review-status.enum';
 
@@ -8,39 +8,34 @@ export class CreateReviewDto {
   status?: ReviewStatus;
 
   @IsString()
+  title: string;
+
+  @IsOptional()
+  imgUrl?: string;
+
+  @IsString()
   playTime: string;
 
-  @IsNumber()
-  @Min(0)
-  @Max(5)
-  rating: number;
+  @IsString()
+  rating: string;
 
-  @IsNumber()
-  @Min(0)
-  @Max(5)
-  score: number;
+  @IsString()
+  score: string;
 
-  @IsNumber()
-  @Min(0)
-  @Max(5)
-  plotScore: number;
+  @IsString()
+  plotScore: string;
 
-  @IsNumber()
-  @Min(0)
-  @Max(5)
-  artScore: number;
+  @IsString()
+  artScore: string;
 
-  @IsNumber()
-  @Min(0)
-  @Max(5)
-  gameplayScore: number;
+  @IsString()
+  gameplayScore: string;
 
   @IsString()
   difficulty: string;
 
-  @IsNumber()
-  @Min(0)
-  trophies: number;
+  @IsString()
+  trophies: string;
 
   @IsString()
   review: string;

@@ -9,6 +9,12 @@ export class Review {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  title: string;
+
+  @Column({ nullable: true })
+  img: string;
+
   @Column({
     type: 'enum',
     enum: ReviewStatus,

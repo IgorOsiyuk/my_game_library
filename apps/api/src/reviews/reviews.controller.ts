@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Request, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 import { AuthGuard } from '../guards';
 
-import { CreateReviewDto } from './dto/create-review.dto';
+import { CreateReviewDto } from './dto';
 import { ReviewsService } from './reviews.service';
 
 @Controller('reviews')
@@ -17,7 +18,8 @@ export class ReviewsController {
 
   @Post()
   @UseGuards(AuthGuard)
-  create(@Request() req: Request, @Body() createReviewDto: CreateReviewDto) {
-    return this.reviewsService.create(req['userId'], createReviewDto);
+  @UseInterceptors(FileInterceptor('img'))
+  create(@Request() req: Request, @Body() createReviewDto: CreateReviewDto, @UploadedFile() img?: Express.Multer.File) {
+    return this.reviewsService.create(req['userId'], createReviewDto, img);
   }
 }
