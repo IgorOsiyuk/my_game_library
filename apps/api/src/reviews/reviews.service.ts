@@ -85,9 +85,8 @@ export class ReviewsService {
    * @param reviewId - ID отзыва
    * @param userId - ID пользователя, которому принадлежит отзыв
    * @returns Promise<Review> Обновленный отзыв
-   * @throws {NotFoundException} Если отзыв не найден
    */
-  async toggleFavorite(reviewId: string, userId: string): Promise<Review> {
+  async toggleFavorite(reviewId: string, userId: string) {
     const review = await this.reviewRepository.findOne({
       where: {
         id: reviewId,
@@ -96,6 +95,6 @@ export class ReviewsService {
     });
     review.isFavorite = !review.isFavorite;
 
-    return this.reviewRepository.save(review);
+    return 'Вы успешно добавили отзыв в избранное';
   }
 }
