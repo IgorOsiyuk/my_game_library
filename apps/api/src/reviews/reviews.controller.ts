@@ -18,16 +18,44 @@ import { ReviewsService } from './reviews.service';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB в байтах
 
+/**
+ * Контроллер для управления отзывами об играх
+ * @controller ReviewsController
+ *
+ * Предоставляет API эндпоинты для:
+ * - Получения списка отзывов пользователя
+ * - Создания новых отзывов с возможностью загрузки изображений
+ *
+ * Все эндпоинты защищены AuthGuard для аутентификации пользователей
+ */
 @Controller('reviews')
 export class ReviewsController {
   constructor(private readonly reviewsService: ReviewsService) {}
 
+  /**
+   * Получает все отзывы текущего пользователя
+   * @route GET /reviews
+   * @param req - Объект запроса с данными пользователя
+   * @returns Массив отзывов пользователя
+   */
   @Get()
   @UseGuards(AuthGuard)
   findAll(@Request() req: Request) {
     return this.reviewsService.findAll(req['userId']);
   }
 
+  /**
+   * Создает новый отзыв об игре
+   * @route POST /reviews
+   * @param req - Объект запроса с данными пользователя
+   * @param createReviewDto - DTO с данными отзыва
+   * @param img - Загружаемое изображение (опционально)
+   * @returns Данные созданного отзыва
+   *
+   * Ограничения для изображения:
+   * - Максимальный размер: 5 MB
+   * - Тип файла: только изображения
+   */
   @Post()
   @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('img'))

@@ -8,6 +8,16 @@ import { ObjectStorageService } from '../object-storage/object-storage.service';
 import { CreateReviewDto } from './dto';
 import { Review } from './entities/review.entity';
 
+/**
+ * Сервис для управления отзывами пользователей об играх
+ * @service ReviewsService
+ *
+ * Предоставляет бизнес-логику для:
+ * - Создания новых отзывов
+ * - Загрузки изображений через ObjectStorageService
+ * - Получения отзывов пользователя
+ * - Преобразования данных между DTO и сущностями
+ */
 @Injectable()
 export class ReviewsService {
   constructor(
@@ -16,6 +26,11 @@ export class ReviewsService {
     private objectStorageService: ObjectStorageService,
   ) {}
 
+  /**
+   * Получает все отзывы конкретного пользователя
+   * @param userId - ID пользователя
+   * @returns Promise<Review[]> Массив отзывов пользователя
+   */
   async findAll(userId: string) {
     return this.reviewRepository.find({
       where: {
@@ -26,6 +41,18 @@ export class ReviewsService {
     });
   }
 
+  /**
+   * Создает новый отзыв и загружает изображение если оно предоставлено
+   * @param userId - ID пользователя, создающего отзыв
+   * @param createReviewDto - Данные для создания отзыва
+   * @param img - Файл изображения (опционально)
+   * @returns Promise<string> URL загруженного изображения
+   *
+   * Процесс:
+   * 1. Загружает изображение если оно предоставлено
+   * 2. Преобразует строковые значения в числовые для оценок
+   * 3. Создает и сохраняет отзыв в базе данных
+   */
   async create(userId: string, createReviewDto: CreateReviewDto, img: Express.Multer.File) {
     let imgUrl: string | undefined;
 
@@ -48,8 +75,7 @@ export class ReviewsService {
       img: imgUrl,
       user: { id: userId },
     });
-    this.reviewRepository.save(review);
-    console.log(review);
-    return imgUrl;
+
+    return this.reviewRepository.save(review);
   }
 }
