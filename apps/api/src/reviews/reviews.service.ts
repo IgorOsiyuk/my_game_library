@@ -87,13 +87,14 @@ export class ReviewsService {
    * @returns Promise<Review> Обновленный отзыв
    * @throws {NotFoundException} Если отзыв не найден
    */
-  async addToFavorite(reviewId: string, userId: string): Promise<Review> {
+  async toggleFavorite(reviewId: string, userId: string): Promise<Review> {
     const review = await this.reviewRepository.findOne({
       where: {
         id: reviewId,
         user: { id: userId },
       },
     });
+    review.isFavorite = !review.isFavorite;
 
     return this.reviewRepository.save(review);
   }

@@ -160,5 +160,5 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjOTc2M
 }
 
 ### Добавление отзыва в избранное
-POST http://localhost:4000/reviews/favorite/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjOTc2M2M4Yy1kMjM2LTQwMjktYjQ4Yy0yNjQ4ZDFhNDVjZGMiLCJpYXQiOjE3NDYwMjAyODksImV4cCI6MTc0NjAyMDM0OX0.FdwEDIumEjG3mYHt--tGdogv3nAHqAgfIxhhrJ-uITM
+POST http://localhost:4000/reviews/favorite/7253011b-d4c2-4a40-afb5-bd7e6e6569c0
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjOTc2M2M4Yy1kMjM2LTQwMjktYjQ4Yy0yNjQ4ZDFhNDVjZGMiLCJpYXQiOjE3NDYwMjAyODksImV4cCI6MTc0NjAyMDM0OX0.FdwEDIumEjG3mYHt--tGdogv3nAHqAgfIxhhrJ-uITM

@@ -84,7 +84,7 @@ export class ReviewsController {
    */
   @Post('favorite/:id')
   @UseGuards(AuthGuard)
-  addToFavorite(@Param('id') id: string, @Request() req: Request) {
-    return this.reviewsService.addToFavorite(id, req['userId']);
+  toggleFavorite(@Param('id') id: string, @Request() req: Request) {
+    return this.reviewsService.toggleFavorite(id, req['userId']);
   }
 }
