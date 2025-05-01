@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ObjectStorageService } from '../object-storage/object-storage.service';
 
 import { CreateReviewDto } from './dto';
+import { ReviewStatus } from './entities/review-status.enum';
 import { Review } from './entities/review.entity';
 
 /**
@@ -28,16 +29,17 @@ export class ReviewsService {
   ) {}
 
   /**
-   * Получает все отзывы конкретного пользователя
+   * Получает отзывы пользователя с возможностью фильтрации по статусу
    * @param userId - ID пользователя
+   * @param status - Статус отзыва для фильтрации (опционально)
    * @returns Promise<Review[]> Массив отзывов пользователя
    */
-  async findAll(userId: string) {
+  async findAll(userId: string, status?: ReviewStatus, isFavorite?: boolean) {
     return this.reviewRepository.find({
       where: {
-        user: {
-          id: userId,
-        },
+        user: { id: userId },
+        ...(status && { status }),
+        ...(isFavorite && { isFavorite }),
       },
     });
   }
@@ -96,5 +98,43 @@ export class ReviewsService {
     review.isFavorite = !review.isFavorite;
 
     return 'Вы успешно добавили отзыв в избранное';
+  }
+
+  /**
+   * Получает статистику по отзывам пользователя
+   * @param userId - ID пользователя
+   * @returns Promise<{total: number, byStatus: Record<ReviewStatus, number>}>
+   */
+  async getStats(userId: string) {
+    // Получаем общее количество отзывов
+    const total = await this.reviewRepository.count({
+      where: { user: { id: userId } },
+    });
+
+    // Получаем количество отзывов по каждому статусу
+    const byStatus = await this.reviewRepository
+      .createQueryBuilder('review')
+      .select('review.status', 'status')
+      .addSelect('COUNT(*)', 'count')
+      .where('review.user = :userId', { userId })
+      .groupBy('review.status')
+      .getRawMany();
+
+    // Преобразуем результат в объект
+    const statusCounts = Object.values(ReviewStatus).reduce((acc, status) => {
+      acc[status] = 0;
+      return acc;
+    }, {});
+
+    byStatus.forEach((item) => {
+      if (item.status) {
+        statusCounts[item.status] = parseInt(item.count);
+      }
+    });
+
+    return {
+      total,
+      totalByStatus: statusCounts,
+    };
   }
 }

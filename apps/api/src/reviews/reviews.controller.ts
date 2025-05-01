@@ -5,6 +5,7 @@ import {
   Param,
   ParseFilePipeBuilder,
   Post,
+  Query,
   Request,
   UploadedFile,
   UseGuards,
@@ -15,6 +16,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '../guards';
 
 import { CreateReviewDto } from './dto';
+import { ReviewStatus } from './entities/review-status.enum';
 import { ReviewsService } from './reviews.service';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB в байтах
@@ -30,20 +32,21 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB в байтах
  *
  * Все эндпоинты защищены AuthGuard для аутентификации пользователей
  */
+@UseGuards(AuthGuard)
 @Controller('reviews')
 export class ReviewsController {
   constructor(private readonly reviewsService: ReviewsService) {}
 
   /**
-   * Получает все отзывы текущего пользователя
+   * Получает отзывы пользователя с возможностью фильтрации по статусу
    * @route GET /reviews
+   * @query status - Статус отзыва для фильтрации (опционально)
    * @param req - Объект запроса с данными пользователя
    * @returns Массив отзывов пользователя
    */
   @Get()
-  @UseGuards(AuthGuard)
-  findAll(@Request() req: Request) {
-    return this.reviewsService.findAll(req['userId']);
+  findAll(@Request() req: Request, @Query('status') status?: ReviewStatus, @Query('isFavorite') isFavorite?: boolean) {
+    return this.reviewsService.findAll(req['userId'], status, isFavorite);
   }
 
   /**
@@ -59,7 +62,6 @@ export class ReviewsController {
    * - Тип файла: только изображения
    */
   @Post()
-  @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('img'))
   create(
     @Request() req: Request,
@@ -83,8 +85,18 @@ export class ReviewsController {
    * @returns Обновленный отзыв
    */
   @Post('favorite/:id')
-  @UseGuards(AuthGuard)
   toggleFavorite(@Param('id') id: string, @Request() req: Request) {
     return this.reviewsService.toggleFavorite(id, req['userId']);
+  }
+
+  /**
+   * Получает статистику по отзывам пользователя
+   * @route GET /reviews/stats
+   * @param req - Объект запроса с данными пользователя
+   * @returns Объект со статистикой отзывов
+   */
+  @Get('stats')
+  getStats(@Request() req: Request) {
+    return this.reviewsService.getStats(req['userId']);
   }
 }

@@ -10,6 +10,8 @@ import { UserService } from './user.service';
  * Контроллер для управления пользователями
  * Предоставляет API-эндпоинты для работы с данными пользователей
  */
+
+@UseGuards(AuthGuard)
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -23,7 +25,6 @@ export class UserController {
    * @requires Bearer токен для аутентификации
    */
   @Patch(':id/update-user-data')
-  @UseGuards(AuthGuard)
   @UseInterceptors(TransformUserInterceptor)
   async updateUserData(@Param('id') userId: string, @Body() updateUserDataDto: UpdateUserDataDto) {
     return this.userService.updateUserData(userId, updateUserDataDto);
@@ -37,7 +38,6 @@ export class UserController {
    * @requires Bearer токен для аутентификации
    */
   @Delete(':id')
-  @UseGuards(AuthGuard)
   async deleteUser(@Param('id') userId: string) {
     return this.userService.deleteUser(userId);
   }
