@@ -137,4 +137,19 @@ export class ReviewsService {
       totalByStatus: statusCounts,
     };
   }
+
+  /**
+   * Получает отдельный отзыв по ID
+   * @param reviewId - ID отзыва
+   * @param userId - ID пользователя
+   * @returns Promise<Review> Отзыв
+   */
+  async findOne(reviewId: string, userId: string) {
+    return this.reviewRepository.findOne({
+      where: {
+        id: reviewId,
+        user: { id: userId },
+      },
+    });
+  }
 }

@@ -30,7 +30,7 @@ export class AuthService {
     const existedUser = await this.userRepository.findOneBy({ email });
 
     if (existedUser) {
-      throw new BadRequestException('Email is already used');
+      throw new BadRequestException('The email and/or password you specified are incorrect.');
     }
 
     const hashedPassword = await argon2.hash(password);

@@ -99,4 +99,16 @@ export class ReviewsController {
   getStats(@Request() req: Request) {
     return this.reviewsService.getStats(req['userId']);
   }
+
+  /**
+   * Получает отдельный отзыв по ID
+   * @route GET /reviews/:id
+   * @param id - ID отзыва
+   * @param req - Объект запроса с данными пользователя
+   * @returns Отзыв
+   */
+  @Get(':id')
+  findOne(@Param('id') id: string, @Request() req: Request) {
+    return this.reviewsService.findOne(id, req['userId']);
+  }
 }

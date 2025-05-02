@@ -16,7 +16,6 @@ interface SideNavIProps {
 }
 
 const SideNav = ({ signOutHandler }: SideNavIProps) => {
-  // const axiosAuth = useAxiosAuth();
   return (
     <Box $radius={'rounded_medium'} $height={'100%'} $backgroundColor={'dark'} $px={'s_8'} $py={'s_24'}>
       <FlexBox $direction="column" $justify="space-between" $height="100%">

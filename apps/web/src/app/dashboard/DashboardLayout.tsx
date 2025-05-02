@@ -3,6 +3,8 @@
 import Box from '@/atomic/Box';
 import Grid from '@/atomic/Grid';
 import SideNav from '@/components/SideNav';
+import useAxiosAuth from '@/lib/hooks/useAxiosAuth';
+import { signOut } from 'next-auth/react';
 import { css } from 'styled-components';
 
 export default function DashboardLayout({
@@ -10,7 +12,7 @@ export default function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const axiosAuth = useAxiosAuth();
+  const axiosAuth = useAxiosAuth();
 
   return (
     <Grid
@@ -21,14 +23,12 @@ export default function DashboardLayout({
         min-height: 100dvh;
       `}
     >
-      <Box>
-        <SideNav
-          signOutHandler={(e) => {
-            e.preventDefault();
-            //   axiosAuth.post('/auth/logout').then(() => signOut({ callbackUrl: '/signout' }));
-          }}
-        />
-      </Box>
+      <SideNav
+        signOutHandler={(e) => {
+          e.preventDefault();
+          axiosAuth.post('/auth/logout').then(() => signOut({ callbackUrl: '/signout' }));
+        }}
+      />
       <Box>{children}</Box>
       {/* <div className="col-start-3 -col-end-1 flex flex-col">
         <div className="px-4 py-8">

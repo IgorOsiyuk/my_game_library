@@ -1,24 +1,23 @@
 import { ReactNode } from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import * as S from './style';
 
 interface InputIProps {
   label?: string;
-  name: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  value: string | number;
   placeholder: string;
   icon?: ReactNode;
   isError?: boolean;
   error?: string;
   type?: string;
+  register: UseFormRegisterReturn<string>;
 }
 
-function Input({ label, name, onChange, value, placeholder, icon, isError, error, type }: InputIProps) {
+function Input({ label, placeholder, icon, isError, error, type, register }: InputIProps) {
   return (
     <>
       <S.InputWrapper $isError={isError}>
         <S.Label>{label}</S.Label>
-        <S.Input name={name} value={value} placeholder={placeholder} onChange={onChange} type={type} />
+        <S.Input placeholder={placeholder} type={type} {...register} />
         {/* <S.IconWrapper>{icon}</S.IconWrapper> */}
         {icon}
       </S.InputWrapper>

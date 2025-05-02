@@ -23,6 +23,7 @@ interface ButtonIProps {
   as?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   sx?: ((context: ExecutionContext) => ReturnType<typeof css>) | ReturnType<typeof css>;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 const Button = ({
@@ -37,17 +38,19 @@ const Button = ({
   as = 'button',
   onClick,
   sx,
+  type,
 }: ButtonIProps) => {
   return (
     <S.Button
+      type={type}
       as={as}
-      color={color}
-      radius={radius}
-      buttonSize={buttonSize}
-      textSize={textSize}
-      spacing={spacing}
+      $color={color}
+      $radius={radius}
+      $buttonSize={buttonSize}
+      $textSize={textSize}
+      $spacing={spacing}
       onClick={onClick}
-      isActive={isActive}
+      $isActive={isActive}
       $sx={sx}
     >
       {icon}

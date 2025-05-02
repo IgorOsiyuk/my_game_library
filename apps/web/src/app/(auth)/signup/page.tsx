@@ -1,27 +1,33 @@
 'use client';
 
 import Button, { SizeEnum } from '@/atomic/Button';
-
 import FlexBox from '@/atomic/FlexBox';
 import Input from '@/atomic/Input';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { css } from 'styled-components';
 
+type FormValues = {
+  name: string;
+  email: string;
+  password: string;
+};
+
 export default function Signup() {
   const router = useRouter();
+  const { register, handleSubmit } = useForm<FormValues>({
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+    },
+    mode: 'onBlur',
+  });
 
-  const [value, setValue] = useState('');
-
-  const handleSubmit = async (event: React.BaseSyntheticEvent) => {
+  const onSubmit = async (formValues: FormValues) => {
     const toastId = toast.loading('Загрузка...');
-
-    event.preventDefault();
-
-    const formData = new FormData(event.target);
-    const formValues = Object.fromEntries(formData);
     try {
       await axios.post('/api/auth/signUp', {
         body: { ...formValues },
@@ -39,35 +45,41 @@ export default function Signup() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <FlexBox $direction="column" $gap="s_24">
         <FlexBox $direction="column" $gap="s_14">
           <Input
-            label="name"
-            name="name"
-            onChange={(e) => setValue(e.target.value)}
+            type="text"
+            label="Имя"
             placeholder="Ваш ник"
-            value={value}
+            register={register('name', {
+              required: true,
+            })}
           />
           <Input
-            label="email"
-            name="email"
-            onChange={(e) => setValue(e.target.value)}
+            type="email"
+            label="Email"
             placeholder="Ваша почта"
-            value={value}
+            register={register('email', {
+              required: true,
+            })}
           />
           <Input
-            label="password"
-            name="password"
-            onChange={(e) => setValue(e.target.value)}
+            type="password"
+            label="Пароль"
             placeholder="Пароль"
-            value={value}
+            register={register('password', {
+              required: true,
+            })}
           />
         </FlexBox>
         <Button
           buttonSize={SizeEnum.FULL}
           color="accent"
           spacing="s_24"
+          radius="rounded_small"
+          textSize="button"
+          isActive={false}
           sx={css`
             justify-content: center;
           `}
