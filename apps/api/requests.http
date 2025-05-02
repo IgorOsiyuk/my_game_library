@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ### Verify registration Token
-GET http://localhost:4000/auth/verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmNzdiNjdmZS0wYjc2LTQyOTEtOTVmYS0yM2QwOWMzNTc1YjEiLCJpYXQiOjE3MjgyMzY1ODcsImV4cCI6MTcyODMyMjk4N30.wJwgSr2e4yVIxUcpnl_Z5gmmrhCsgYqwD40L_nOQVsg
+GET http://localhost:4000/auth/verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1YjBlOTc0OS0wNDExLTQyY2MtYjE1Zi05NDQ5NzdkNGZlNWMiLCJpYXQiOjE3NDYxOTI4NjcsImV4cCI6MTc0NjI3OTI2N30.9p0MTkuFRur7fhOLFky6HmooZAuYwj1TT7M165fpRmg
 
 ### Login
 POST http://localhost:4000/auth/login

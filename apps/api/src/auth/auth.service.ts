@@ -55,7 +55,7 @@ export class AuthService {
       },
     );
 
-    this.emailSenderService.sendVerificationEmail({
+    await this.emailSenderService.sendVerificationEmail({
       email,
       name,
       verificationUrl: `${this.publicDomain}/auth/verify/${verificationToken}`,
@@ -100,7 +100,7 @@ export class AuthService {
         accessToken,
         refreshToken,
       };
-    } catch (error) {
+    } catch {
       throw new UnauthorizedException('Your verification token is expired or not valid');
     }
   }
