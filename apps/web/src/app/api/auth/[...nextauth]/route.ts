@@ -5,6 +5,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
+      id: 'credentials',
       name: 'Credentials',
       credentials: {
         password: {},
@@ -24,6 +25,27 @@ const handler = NextAuth({
               },
             },
           )
+          .then((res) => {
+            return res.data;
+          })
+          .catch((err) => {
+            return { error: JSON.stringify(err.response.data) };
+          });
+      },
+    }),
+    CredentialsProvider({
+      id: 'verify-email',
+      name: 'SingIn after verify',
+      credentials: {
+        verifyToken: {},
+      },
+      async authorize(credentials, req) {
+        return await axios
+          .get(`/auth/verify/${credentials?.verifyToken}`, {
+            headers: {
+              'User-Agent': req.headers?.['user-agent'],
+            },
+          })
           .then((res) => {
             return res.data;
           })

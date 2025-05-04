@@ -58,7 +58,7 @@ export class AuthService {
     await this.emailSenderService.sendVerificationEmail({
       email,
       name,
-      verificationUrl: `${this.publicDomain}/auth/verify/${verificationToken}`,
+      verificationUrl: `${this.publicDomain}/verify/${verificationToken}`,
     });
 
     return {
@@ -69,7 +69,7 @@ export class AuthService {
   async verifyToken(token: string, userAgent: string) {
     const { VERIFICATION_TOKEN_SECRET, JWT_REFRESH_TOKEN_TTL, JWT_ACCESS_TOKEN_TTL } = this.getConfigJWTVariables();
     try {
-      const payload = this.jwtService.verifyAsync(token, {
+      const payload = await this.jwtService.verifyAsync(token, {
         secret: VERIFICATION_TOKEN_SECRET,
       });
       const userId = payload['userId'];
@@ -78,6 +78,10 @@ export class AuthService {
 
       if (!user) {
         throw new NotFoundException('This user does not exist');
+      }
+
+      if (user.isVerified) {
+        throw new UnauthorizedException('Your verification token is expired or not valid');
       }
 
       const accessToken = this.generateToken({ userId }, JWT_ACCESS_TOKEN_TTL);
@@ -173,7 +177,7 @@ export class AuthService {
 
     const isMatch = await argon2.verify(lastToken.refreshToken, token);
     if (!lastToken || !isMatch || lastToken.isOnBlackList) {
-      throw new UnauthorizedException('Access denied 2');
+      throw new UnauthorizedException('Access denied');
     }
 
     if (lastToken) {
