@@ -174,9 +174,11 @@ export class AuthService {
     }
 
     const lastToken = await this.findLastCreatedToken(userAgent, userId);
-
+    if (!lastToken) {
+      throw new UnauthorizedException('Access denied');
+    }
     const isMatch = await argon2.verify(lastToken.refreshToken, token);
-    if (!lastToken || !isMatch || lastToken.isOnBlackList) {
+    if (!isMatch || lastToken.isOnBlackList) {
       throw new UnauthorizedException('Access denied');
     }
 
@@ -210,9 +212,9 @@ export class AuthService {
   private async findLastCreatedToken(userAgent: string, userId: string) {
     const lastCreatedToken = await this.tokenRepository
       .createQueryBuilder('token')
-      .where({
-        device: userAgent,
-      })
+      // .where({
+      //   device: userAgent,
+      // })
       .leftJoinAndSelect('token.userId', 'user', 'user.userId =:userId', { userId })
       .orderBy('token.createdAt', 'DESC')
       .getOne();
