@@ -9,14 +9,12 @@ import FilterOptions from '@/components/FilterOptions';
 import ViewOptions, { ViewType } from '@/components/ViewOptions';
 import PlusIcon from '@/icons/plus.svg';
 
-import Grid from '@/atomic/Grid';
 import CreateReviewModal from '@/components/CreateReviewModal';
-import GameCard from '@/components/GameCard';
-import GameCardTile from '@/components/GameCardTile';
-import { games } from '@/data/games';
 import SearchIcon from '@/icons/search.svg';
 import { useState } from 'react';
 import { css } from 'styled-components';
+import GamesContainer from './components/GamesContainer';
+
 export default function Dashboard() {
   const [currentView, setCurrentView] = useState<ViewType>(ViewType.CARD);
   const [isOpen, setIsOpen] = useState(false);
@@ -74,37 +72,9 @@ export default function Dashboard() {
           <FilterOptions />
           <ViewOptions currentView={currentView} onViewChange={setCurrentView} />
         </FlexBox>
-        {currentView === ViewType.CARD ? (
-          <Grid $width="100%" $gap="s_24" $columns="repeat(5,1fr)">
-            {games.map((game) => (
-              <GameCard
-                key={game.id}
-                title={game.title}
-                playTime={game.playTime}
-                genres={game.genres}
-                rating={game.rating}
-                status={game.status}
-                image={game.image}
-              />
-            ))}
-          </Grid>
-        ) : (
-          <FlexBox $gap="s_8" $wrap="wrap">
-            {games.map((game) => (
-              <GameCardTile
-                key={game.id}
-                title={game.title}
-                playTime={game.playTime}
-                genres={game.genres}
-                rating={game.rating}
-                image={game.image}
-                platform={game.platform}
-                developer={game.developer}
-                status={game.status}
-              />
-            ))}
-          </FlexBox>
-        )}
+
+        {/* Загружаем данные непосредственно в компоненте */}
+        <GamesContainer currentView={currentView} />
       </FlexBox>
       <CreateReviewModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </FlexBox>

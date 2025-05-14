@@ -28,7 +28,8 @@
       "@/images/*": ["./public/images/*"],
       "@/styles/*": ["./src/styles/*"],
       "@/data/*": ["./src/data/*"]
-    }
+    },
+    "target": "ES2017"
   },
   "include": [
     "next-env.d.ts",
