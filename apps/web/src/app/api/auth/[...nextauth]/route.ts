@@ -1,4 +1,5 @@
 import axios from '@/lib/axios';
+import refreshAccessToken from '@/lib/refreshToken';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
@@ -73,11 +74,36 @@ const handler = NextAuth({
       return true;
     },
     async jwt({ token, user }) {
-      return { ...token, ...user };
+      if (user) {
+        token.accessToken = user.accessToken;
+        token.accessTokenExpiresIn = Date.now() + user.accessTokenExpiresIn;
+        token.refreshToken = user.refreshToken;
+        return token;
+      }
+
+      if (Date.now() < token.accessTokenExpiresIn) return token;
+
+      if (token.error) {
+        return { ...token, error: 'RefreshAccessTokenError' };
+      }
+
+      const refreshedToken = await refreshAccessToken(token);
+
+      return refreshedToken;
     },
     async session({ session, token }) {
-      session.accessToken = token.accessToken as string;
-      session.refreshToken = token.refreshToken as string;
+      if (token.error === 'RefreshAccessTokenError') {
+        return {
+          ...session,
+          error: 'RefreshAccessTokenError',
+        };
+      }
+
+      session.user = token;
+      // session.accessToken = token.accessToken;
+      // session.refreshToken = token.refreshToken;
+      // session.accessTokenExpiresIn = token.accessTokenExpiresIn;
+      // session.refreshTokenExpiresIn = token.refreshTokenExpiresIn;
 
       return session;
     },

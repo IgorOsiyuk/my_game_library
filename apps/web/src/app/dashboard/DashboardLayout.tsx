@@ -3,6 +3,7 @@
 import Box from '@/atomic/Box';
 import Grid from '@/atomic/Grid';
 import SideNav from '@/components/SideNav';
+import useAutoLogout from '@/lib/hooks/useAutoLogout';
 import useAxiosAuth from '@/lib/hooks/useAxiosAuth';
 import { signOut } from 'next-auth/react';
 import { css } from 'styled-components';
@@ -13,6 +14,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   const axiosAuth = useAxiosAuth();
+  useAutoLogout();
 
   return (
     <Grid

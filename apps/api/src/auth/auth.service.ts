@@ -102,6 +102,7 @@ export class AuthService {
       this.userAuthTokensRepository.save(user);
       return {
         accessToken,
+        accessTokenExpiresIn: Number(JWT_ACCESS_TOKEN_TTL),
         refreshToken,
       };
     } catch {
@@ -150,6 +151,7 @@ export class AuthService {
 
     return {
       accessToken,
+      accessTokenExpiresIn: Number(JWT_ACCESS_TOKEN_TTL),
       refreshToken,
     };
   }
@@ -205,6 +207,7 @@ export class AuthService {
 
     return {
       accessToken,
+      accessTokenExpiresIn: Number(JWT_ACCESS_TOKEN_TTL),
       refreshToken,
     };
   }
