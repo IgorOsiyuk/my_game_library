@@ -1,10 +1,9 @@
 'use client';
 
+import { logout } from '@/actions/logout';
 import Box from '@/atomic/Box';
 import Grid from '@/atomic/Grid';
 import SideNav from '@/components/SideNav';
-import useAutoLogout from '@/lib/hooks/useAutoLogout';
-import useAxiosAuth from '@/lib/hooks/useAxiosAuth';
 import { signOut } from 'next-auth/react';
 import { css } from 'styled-components';
 
@@ -13,9 +12,8 @@ export default function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const axiosAuth = useAxiosAuth();
-  useAutoLogout();
-
+  // const axiosAuth = useAxiosAuth();
+  // const session = useAutoLogout();
   return (
     <Grid
       $columns="minmax(224px, 1.5fr) 10.5fr"
@@ -28,7 +26,8 @@ export default function DashboardLayout({
       <SideNav
         signOutHandler={(e) => {
           e.preventDefault();
-          axiosAuth.post('/auth/logout').then(() => signOut({ callbackUrl: '/signout' }));
+          // axiosAuth.post('/auth/logout').then(() => signOut({ callbackUrl: '/signout' }));
+          logout().then(() => signOut({ callbackUrl: '/signout' }));
         }}
       />
       <Box>{children}</Box>

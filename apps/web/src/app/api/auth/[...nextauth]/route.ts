@@ -1,9 +1,9 @@
 import axios from '@/lib/axios';
 import refreshAccessToken from '@/lib/refreshToken';
-import NextAuth from 'next-auth';
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       id: 'credentials',
@@ -117,6 +117,8 @@ const handler = NextAuth({
       return baseUrl;
     },
   },
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

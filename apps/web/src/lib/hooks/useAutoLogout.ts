@@ -5,9 +5,11 @@ export default function useAutoLogout() {
   const { data: session } = useSession();
 
   useEffect(() => {
-    if (session?.error === 'RefreshAccessTokenError') {
+    if (session?.user.error === 'RefreshAccessTokenError') {
       // Сессия невалидна, выполняем автоматический выход
       signOut({ callbackUrl: '/signin' });
     }
   }, [session]);
+
+  return session;
 }
