@@ -120,6 +120,14 @@ export class ReviewsService {
       .groupBy('review.status')
       .getRawMany();
 
+    // Получаем количество избранных отзывов
+    const favoritesCount = await this.reviewRepository.count({
+      where: {
+        user: { id: userId },
+        isFavorite: true,
+      },
+    });
+
     // Преобразуем результат в объект
     const statusCounts = Object.values(ReviewStatus).reduce((acc, status) => {
       acc[status] = 0;
@@ -134,7 +142,10 @@ export class ReviewsService {
 
     return {
       total,
-      totalByStatus: statusCounts,
+      totalByStatus: {
+        ...statusCounts,
+        favorites: favoritesCount,
+      },
     };
   }
 

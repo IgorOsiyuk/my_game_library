@@ -7,7 +7,29 @@ import Text from '@/atomic/Text';
 import PlusIcon from '@/icons/plus.svg';
 import { css } from 'styled-components';
 
-const FilterOptions = () => {
+export enum FilterType {
+  ALL = 'ALL',
+  COMPLETED = 'COMPLETED',
+  IN_PROGRESS = 'IN_PROGRESS',
+  ABANDONED = 'ABANDONED',
+  PLANNED = 'PLANNED',
+  FAVORITE = 'FAVORITE',
+}
+
+export interface FilterOptionsProps {
+  selectedFilter: FilterType;
+  onFilterChange: (filter: FilterType) => void;
+  reviewCounts?: {
+    total: number;
+    completed: number;
+    inProgress: number;
+    abandoned: number;
+    planned: number;
+    favorites: number;
+  };
+}
+
+const FilterOptions = ({ selectedFilter, onFilterChange, reviewCounts }: FilterOptionsProps) => {
   return (
     <FlexBox
       $gap="s_12"
@@ -29,72 +51,84 @@ const FilterOptions = () => {
     >
       <Button
         textSize="body_M"
-        color={true ? 'accent' : 'darkSecondary'}
+        color={selectedFilter === 'ALL' ? 'accent' : 'darkSecondary'}
         spacing="s_12"
         onClick={(e) => {
           e.preventDefault();
-        }}
-      >
-        Все (24)
-      </Button>
-      <Button
-        color="darkSecondary"
-        spacing="s_12"
-        onClick={(e) => {
-          e.preventDefault();
+          onFilterChange(FilterType.ALL);
         }}
       >
         <Text color="greySecondary" size="body_M">
-          Пройдено (12)
+          Все ({reviewCounts?.total || 0})
         </Text>
       </Button>
       <Button
-        color="darkSecondary"
+        color={selectedFilter === FilterType.COMPLETED ? 'accent' : 'darkSecondary'}
         spacing="s_12"
         onClick={(e) => {
           e.preventDefault();
+          onFilterChange(FilterType.COMPLETED);
         }}
       >
         <Text color="greySecondary" size="body_M">
-          В процессе (5)
+          Пройдено ({reviewCounts?.completed || 0})
         </Text>
       </Button>
       <Button
-        color="darkSecondary"
+        color={selectedFilter === FilterType.IN_PROGRESS ? 'accent' : 'darkSecondary'}
         spacing="s_12"
         onClick={(e) => {
           e.preventDefault();
+          onFilterChange(FilterType.IN_PROGRESS);
         }}
       >
         <Text color="greySecondary" size="body_M">
-          Заброшенo (3)
+          В процессе ({reviewCounts?.inProgress || 0})
         </Text>
       </Button>
       <Button
-        color="darkSecondary"
+        color={selectedFilter === FilterType.ABANDONED ? 'accent' : 'darkSecondary'}
         spacing="s_12"
         onClick={(e) => {
           e.preventDefault();
+          onFilterChange(FilterType.ABANDONED);
         }}
       >
         <Text color="greySecondary" size="body_M">
-          Запланированo (4)
+          Заброшено ({reviewCounts?.abandoned || 0})
         </Text>
       </Button>
       <Button
-        color="darkSecondary"
+        color={selectedFilter === FilterType.PLANNED ? 'accent' : 'darkSecondary'}
         spacing="s_12"
         onClick={(e) => {
           e.preventDefault();
+          onFilterChange(FilterType.PLANNED);
+        }}
+      >
+        <Text color="greySecondary" size="body_M">
+          Запланировано ({reviewCounts?.planned || 0})
+        </Text>
+      </Button>
+      <Button
+        color={selectedFilter === FilterType.FAVORITE ? 'accent' : 'darkSecondary'}
+        spacing="s_12"
+        onClick={(e) => {
+          e.preventDefault();
+          onFilterChange(FilterType.FAVORITE);
         }}
         icon={
-          <SvgImage $height="16px" $width="16px" $fill="greySecondary">
+          <SvgImage
+            $height="16px"
+            $width="16px"
+            $fill={selectedFilter === FilterType.FAVORITE ? 'white' : 'greySecondary'}
+          >
             <PlusIcon />
           </SvgImage>
         }
       >
         <Text color="greySecondary" size="body_M">
-          Избранные
+          Избранные ({reviewCounts?.favorites || 0})
         </Text>
       </Button>
     </FlexBox>

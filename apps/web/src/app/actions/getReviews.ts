@@ -4,7 +4,7 @@ import { authOptions } from '@/api/auth/[...nextauth]/route';
 import axios from 'axios';
 import { getServerSession } from 'next-auth';
 
-export async function logout() {
+export async function getReviews(status?: string, isFavorite?: boolean) {
   try {
     const session = await getServerSession(authOptions);
 
@@ -12,20 +12,19 @@ export async function logout() {
       return { success: false, error: 'Нет активной сессии' };
     }
 
-    const response = await axios.post(
-      process.env.NEXT_PUBLIC_BASE_URL + '/auth/logout',
-      {}, // пустое тело запроса
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session?.user.accessToken}`,
-        },
+    // Формируем URL с query параметром status если он передан
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL + '/reviews';
+
+    const response = await axios.get(`${baseUrl}?status=${status || ''}${isFavorite ? '&isFavorite=true' : ''}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${session?.user.accessToken}`,
       },
-    );
+    });
 
     return { success: true, data: response.data };
   } catch (error) {
-    console.error('Ошибка при выходе из системы:', error);
+    // console.error('Ошибка при получении отзывов:', error);
 
     // Проверяем, является ли ошибка ошибкой ответа от axios
     if (axios.isAxiosError(error)) {
@@ -42,7 +41,7 @@ export async function logout() {
     // Общая обработка других ошибок
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Неизвестная ошибка при выходе из системы',
+      error: error instanceof Error ? error.message : 'Неизвестная ошибка при получении отзывов',
     };
   }
 }

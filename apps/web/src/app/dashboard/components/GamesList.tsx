@@ -6,9 +6,32 @@ import GameCard from '@/components/GameCard';
 import GameCardTile from '@/components/GameCardTile';
 import { ViewType } from '@/components/ViewOptions';
 import { Game } from '@/data/games';
+import GamesSkeleton from './GamesSkeleton';
 
 // Компонент для отображения карточек игр
-const GamesList = ({ games, currentView }: { games: Game[]; currentView: ViewType }) => {
+const GamesList = ({
+  games,
+  currentView,
+  isLoading,
+  error,
+}: {
+  games: Game[];
+  currentView: ViewType;
+  isLoading: boolean;
+  error: string | null;
+}) => {
+  if (error) {
+    return (
+      <FlexBox $justify="center" $align="center" $width="100%" $padding="s_24">
+        <p>{error}</p>
+      </FlexBox>
+    );
+  }
+
+  if (isLoading) {
+    return <GamesSkeleton currentView={currentView} />;
+  }
+
   if (games.length === 0) {
     return (
       <FlexBox $justify="center" $align="center" $width="100%" $padding="s_24">
