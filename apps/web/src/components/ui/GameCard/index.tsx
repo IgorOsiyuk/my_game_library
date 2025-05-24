@@ -3,10 +3,11 @@ import FlexBox from '@/atomic/FlexBox';
 import Image from '@/atomic/Image';
 import SvgImage from '@/atomic/SvgImage';
 import Text from '@/atomic/Text';
-import StatusLabel, { StatusEnum } from '@/components/StatusLabel';
+import StatusLabel from '@/components/StatusLabel';
 import HeartIcon from '@/icons/heart.svg';
 import InfoIcon from '@/icons/info.svg';
 import StarIcon from '@/icons/star.svg';
+import { GameStatus, GameStatusVariantMap } from '@/types/gameStatus';
 import { css } from 'styled-components';
 
 interface GameCardIProps {
@@ -14,7 +15,7 @@ interface GameCardIProps {
   playTime?: string;
   genres: string[];
   rating: string;
-  status?: StatusEnum;
+  status?: GameStatus;
   image: string;
   isLarge?: boolean;
 }
@@ -46,7 +47,7 @@ const GameCard = ({ title, playTime, genres, rating, status, image, isLarge = fa
               right: 0;
             `}
           >
-            <StatusLabel label="Пройдено" variant={status} />
+            <StatusLabel label={status} variant={GameStatusVariantMap[status]} />
           </Box>
         )}
         <Image

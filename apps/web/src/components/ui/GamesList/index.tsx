@@ -20,16 +20,16 @@ const GamesList = ({
   isLoading: boolean;
   error: string | null;
 }) => {
+  if (isLoading) {
+    return <GamesSkeleton currentView={currentView} />;
+  }
+
   if (error) {
     return (
       <FlexBox $justify="center" $align="center" $width="100%" $padding="s_24">
         <p>{error}</p>
       </FlexBox>
     );
-  }
-
-  if (isLoading) {
-    return <GamesSkeleton currentView={currentView} />;
   }
 
   if (games.length === 0) {

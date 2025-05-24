@@ -3,6 +3,7 @@
 import { getReviews } from '@/actions/getReviews';
 import { FilterType } from '@/components/FilterOptions';
 import { games } from '@/data/games';
+import { GameStatus } from '@/types/gameStatus';
 import { signOut } from 'next-auth/react';
 import { useEffect, useState, useTransition } from 'react';
 import { toast } from 'react-hot-toast';
@@ -11,24 +12,17 @@ interface UseReviewsDataProps {
   filter?: FilterType;
 }
 
-enum ReviewStatus {
-  IN_PROGRESS = 'В процессе',
-  COMPLETED = 'Пройдено',
-  ABANDONED = 'Заброшено',
-  PLANNED = 'Запланировано',
-}
-
 // Маппинг FilterType в ReviewStatus для API
-const mapFilterToStatus = (filter?: FilterType): ReviewStatus | undefined => {
+const mapFilterToStatus = (filter?: FilterType): GameStatus | undefined => {
   switch (filter) {
     case FilterType.COMPLETED:
-      return ReviewStatus.COMPLETED;
+      return GameStatus.COMPLETED;
     case FilterType.IN_PROGRESS:
-      return ReviewStatus.IN_PROGRESS;
+      return GameStatus.IN_PROGRESS;
     case FilterType.ABANDONED:
-      return ReviewStatus.ABANDONED;
+      return GameStatus.ABANDONED;
     case FilterType.PLANNED:
-      return ReviewStatus.PLANNED;
+      return GameStatus.PLANNED;
     case FilterType.ALL:
     case FilterType.FAVORITE:
     default:
@@ -48,7 +42,7 @@ export function useReviewsData({ filter }: UseReviewsDataProps = {}) {
       const isFavorite = filter === FilterType.FAVORITE;
       try {
         const status = mapFilterToStatus(filter);
-        const response = await getReviews(status, isFavorite);
+        const response = await getReviews(status as string, isFavorite);
 
         toast.dismiss(toastId);
 
@@ -61,7 +55,6 @@ export function useReviewsData({ filter }: UseReviewsDataProps = {}) {
           setIsLoading(false);
           return;
         }
-        console.log('response', response.data);
         // Используем startTransition для плавного обновления UI
         startTransition(() => {
           setReviews(response.data);

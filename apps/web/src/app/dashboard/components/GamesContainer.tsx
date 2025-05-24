@@ -2,29 +2,25 @@
 
 import FlexBox from '@/atomic/FlexBox';
 import FilterOptions, { FilterType } from '@/components/FilterOptions';
+import GamesList from '@/components/GamesList';
 import ViewOptions, { ViewType } from '@/components/ViewOptions';
+import { useGetStats } from '@/lib/hooks/useGetStats';
 import { useReviewsData } from '@/lib/hooks/useReviewsData';
 import { useState } from 'react';
-import GamesList from './GamesList';
 
 export default function GamesContainer() {
   const [currentView, setCurrentView] = useState<ViewType>(ViewType.CARD);
   const [selectedFilter, setSelectedFilter] = useState<FilterType>(FilterType.ALL);
   const { reviews, error, isLoading } = useReviewsData({ filter: selectedFilter });
+  const { stats, isLoading: statsIsLoading } = useGetStats();
   return (
     <FlexBox $direction="column" $gap="s_32">
-      <FlexBox $justify="space-between">
+      <FlexBox $justify="space-between" $width="100%">
         <FilterOptions
+          isLoading={statsIsLoading}
           selectedFilter={selectedFilter}
           onFilterChange={setSelectedFilter}
-          reviewCounts={{
-            total: reviews.length,
-            completed: 1,
-            inProgress: 1,
-            abandoned: 1,
-            planned: 1,
-            favorites: 1,
-          }}
+          reviewCounts={stats}
         />
         <ViewOptions currentView={currentView} onViewChange={setCurrentView} />
       </FlexBox>

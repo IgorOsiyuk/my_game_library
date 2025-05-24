@@ -4,9 +4,10 @@ import Grid from '@/atomic/Grid';
 import Image from '@/atomic/Image';
 import SvgImage from '@/atomic/SvgImage';
 import Text from '@/atomic/Text';
-import StatusLabel, { StatusEnum } from '@/components/StatusLabel';
+import StatusLabel from '@/components/StatusLabel';
 import InfoIcon from '@/icons/info.svg';
 import StarIcon from '@/icons/star.svg';
+import { GameStatus, GameStatusVariantMap } from '@/types/gameStatus';
 import { css } from 'styled-components';
 
 interface GameCardTileProps {
@@ -14,7 +15,7 @@ interface GameCardTileProps {
   playTime: string;
   genres: string[];
   rating: string;
-  status?: StatusEnum;
+  status?: GameStatus;
   image: string;
   platform: string;
   developer: string;
@@ -91,7 +92,7 @@ const GameCardTile = ({ title, playTime, genres, rating, status, image, platform
       </FlexBox>
       <Box />
       <FlexBox $gap="s_20" $align="center" $justify="flex-end">
-        {status && <StatusLabel label="Пройдено" variant={status} />}
+        {status && <StatusLabel label={status} variant={GameStatusVariantMap[status]} />}
         <Box
           as={'button'}
           $sx={({ theme }) => css`

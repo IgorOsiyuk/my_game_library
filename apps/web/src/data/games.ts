@@ -1,4 +1,4 @@
-import { StatusEnum } from '@/components/StatusLabel';
+import { GameStatus } from '@/types/gameStatus';
 
 export interface Game {
   id: string;
@@ -6,7 +6,7 @@ export interface Game {
   playTime: string;
   genres: string[];
   rating: string;
-  status?: StatusEnum;
+  status?: GameStatus;
   image: string;
   platform: string;
   developer: string;
@@ -19,7 +19,7 @@ export const games: Game[] = [
     playTime: '26h',
     genres: ['Action', 'Adventure'],
     rating: '4.9',
-    status: StatusEnum.SUCCESS,
+    status: GameStatus.COMPLETED,
     image: '/images/default_card_image.jpg',
     platform: 'Playstation',
     developer: 'Santa Monica Studio',
@@ -30,7 +30,7 @@ export const games: Game[] = [
     playTime: '32h',
     genres: ['Action', 'Survival'],
     rating: '4.8',
-    status: StatusEnum.SUCCESS,
+    status: GameStatus.COMPLETED,
     image: '/images/default_card_image.jpg',
     platform: 'Playstation',
     developer: 'Naughty Dog',
@@ -41,7 +41,7 @@ export const games: Game[] = [
     playTime: '45h',
     genres: ['Action', 'RPG'],
     rating: '4.7',
-    status: StatusEnum.SUCCESS,
+    status: GameStatus.COMPLETED,
     image: '/images/default_card_image.jpg',
     platform: 'PC',
     developer: 'FromSoftware',
@@ -52,7 +52,7 @@ export const games: Game[] = [
     playTime: '68h',
     genres: ['Action', 'Adventure', 'Open World'],
     rating: '4.9',
-    status: StatusEnum.SUCCESS,
+    status: GameStatus.COMPLETED,
     image: '/images/default_card_image.jpg',
     platform: 'PC',
     developer: 'Rockstar Games',
@@ -63,7 +63,7 @@ export const games: Game[] = [
     playTime: '42h',
     genres: ['Action', 'RPG', 'Open World'],
     rating: '4.6',
-    status: StatusEnum.SUCCESS,
+    status: GameStatus.COMPLETED,
     image: '/images/default_card_image.jpg',
     platform: 'PC',
     developer: 'CD Projekt Red',
