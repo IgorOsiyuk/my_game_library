@@ -13,3 +13,12 @@ export const GameStatusVariantMap = {
   [GameStatus.ABANDONED]: StatusEnum.ERROR,
   [GameStatus.PLANNED]: StatusEnum.WARNING,
 };
+
+export interface Stats {
+  total: number;
+  inProgress: number;
+  completed: number;
+  abandoned: number;
+  planned: number;
+  favorites: number;
+}

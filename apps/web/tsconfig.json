@@ -28,7 +28,8 @@
       "@/images/*": ["./public/images/*"],
       "@/styles/*": ["./src/styles/*"],
       "@/data/*": ["./src/data/*"],
-      "@/types/*": ["./src/types/*"]
+      "@/types/*": ["./src/types/*"],
+      "@/stores/*": ["./src/stores/*"]
     },
     "target": "ES2017"
   },

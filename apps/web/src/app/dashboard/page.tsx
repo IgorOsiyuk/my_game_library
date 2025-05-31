@@ -15,7 +15,6 @@ import GamesContainer from './components/GamesContainer';
 
 export default function Dashboard() {
   const [isOpen, setIsOpen] = useState(false);
-
   return (
     <FlexBox $py="s_24" $direction="column" $gap="s_56">
       <FlexBox $align="center" $justify="space-between" $width="100%">

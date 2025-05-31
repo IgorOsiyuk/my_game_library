@@ -2,7 +2,7 @@
 
 import { getReviews } from '@/actions/getReviews';
 import { FilterType } from '@/components/FilterOptions';
-import { games } from '@/data/games';
+import { Game } from '@/types/game';
 import { GameStatus } from '@/types/gameStatus';
 import { signOut } from 'next-auth/react';
 import { useEffect, useState, useTransition } from 'react';
@@ -31,7 +31,7 @@ const mapFilterToStatus = (filter?: FilterType): GameStatus | undefined => {
 };
 
 export function useReviewsData({ filter }: UseReviewsDataProps = {}) {
-  const [reviews, setReviews] = useState(games);
+  const [reviews, setReviews] = useState<Game[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isPending, startTransition] = useTransition();

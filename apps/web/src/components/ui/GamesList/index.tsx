@@ -5,7 +5,7 @@ import Grid from '@/atomic/Grid';
 import GameCard from '@/components/GameCard';
 import GameCardTile from '@/components/GameCardTile';
 import { ViewType } from '@/components/ViewOptions';
-import { Game } from '@/data/games';
+import { Game } from '@/types/game';
 import GamesSkeleton from './GamesSkeleton';
 
 // Компонент для отображения карточек игр
