@@ -14,11 +14,13 @@ const GamesList = ({
   currentView,
   isLoading,
   error,
+  setFavorite,
 }: {
   games: Game[];
   currentView: ViewType;
   isLoading: boolean;
   error: string | null;
+  setFavorite: (id: string) => void;
 }) => {
   if (isLoading) {
     return <GamesSkeleton currentView={currentView} />;
@@ -47,12 +49,15 @@ const GamesList = ({
           {games.map((game: Game) => (
             <GameCard
               key={game.id}
+              id={game.id}
+              isFavorite={game.isFavorite}
               title={game.title}
               playTime={game.playTime || '0h'}
               genres={game.genres || []}
               rating={game.rating || '0'}
               status={game.status}
               image={game.image || '/images/default_card_image.jpg'}
+              setFavorite={setFavorite}
             />
           ))}
         </Grid>
@@ -60,6 +65,7 @@ const GamesList = ({
         <FlexBox $gap="s_8" $wrap="wrap">
           {games.map((game: Game) => (
             <GameCardTile
+              id={game.id}
               key={game.id}
               title={game.title}
               playTime={game.playTime || '0h'}

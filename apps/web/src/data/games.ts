@@ -10,6 +10,7 @@ export interface Game {
   image: string;
   platform: string;
   developer: string;
+  isFavorite: boolean;
 }
 
 export const games: Game[] = [
@@ -23,6 +24,7 @@ export const games: Game[] = [
     image: '/images/default_card_image.jpg',
     platform: 'Playstation',
     developer: 'Santa Monica Studio',
+    isFavorite: false,
   },
   {
     id: '2',
@@ -34,6 +36,7 @@ export const games: Game[] = [
     image: '/images/default_card_image.jpg',
     platform: 'Playstation',
     developer: 'Naughty Dog',
+    isFavorite: false,
   },
   {
     id: '3',
@@ -45,6 +48,7 @@ export const games: Game[] = [
     image: '/images/default_card_image.jpg',
     platform: 'PC',
     developer: 'FromSoftware',
+    isFavorite: false,
   },
   {
     id: '4',
@@ -56,6 +60,7 @@ export const games: Game[] = [
     image: '/images/default_card_image.jpg',
     platform: 'PC',
     developer: 'Rockstar Games',
+    isFavorite: false,
   },
   {
     id: '5',
@@ -67,6 +72,7 @@ export const games: Game[] = [
     image: '/images/default_card_image.jpg',
     platform: 'PC',
     developer: 'CD Projekt Red',
+    isFavorite: false,
   },
 ];
 

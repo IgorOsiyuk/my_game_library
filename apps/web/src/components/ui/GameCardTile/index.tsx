@@ -11,6 +11,7 @@ import { GameStatus, GameStatusVariantMap } from '@/types/gameStatus';
 import { css } from 'styled-components';
 
 interface GameCardTileProps {
+  id: string;
   title: string;
   playTime: string;
   genres: string[];
@@ -21,7 +22,17 @@ interface GameCardTileProps {
   developer: string;
 }
 
-const GameCardTile = ({ title, playTime, genres, rating, status, image, platform, developer }: GameCardTileProps) => {
+const GameCardTile = ({
+  id,
+  title,
+  playTime,
+  genres,
+  rating,
+  status,
+  image,
+  platform,
+  developer,
+}: GameCardTileProps) => {
   return (
     <Grid
       $columns="341px 1fr 1fr 1fr 1fr 1fr 2fr 1fr"

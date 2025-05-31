@@ -11,16 +11,30 @@ import { GameStatus, GameStatusVariantMap } from '@/types/gameStatus';
 import { css } from 'styled-components';
 
 interface GameCardIProps {
+  id: string;
   title: string;
   playTime?: string;
   genres: string[];
+  isFavorite: boolean;
   rating: string;
   status?: GameStatus;
   image: string;
   isLarge?: boolean;
+  setFavorite: (id: string) => void;
 }
 
-const GameCard = ({ title, playTime, genres, rating, status, image, isLarge = false }: GameCardIProps) => {
+const GameCard = ({
+  id,
+  title,
+  playTime,
+  genres,
+  rating,
+  status,
+  image,
+  isLarge = false,
+  isFavorite,
+  setFavorite,
+}: GameCardIProps) => {
   return (
     <FlexBox
       $width="100%"
@@ -95,20 +109,24 @@ const GameCard = ({ title, playTime, genres, rating, status, image, isLarge = fa
           </FlexBox>
           <FlexBox $gap="s_8" $align="center">
             <Box
+              onClick={(e) => {
+                e.preventDefault();
+                setFavorite(id);
+              }}
               as={'button'}
               $sx={({ theme }) => css`
                 cursor: pointer;
                 &:hover {
                   svg {
                     path {
-                      fill: ${theme.colors.red};
+                      fill: ${!isFavorite ? theme.colors.red : theme.colors.greySecondary};
                       transition: fill 0.3s ease;
                     }
                   }
                 }
               `}
             >
-              <SvgImage $height="16px" $width="16px" $fill="greySecondary">
+              <SvgImage $height="16px" $width="16px" $fill={isFavorite ? 'red' : 'greySecondary'}>
                 <HeartIcon />
               </SvgImage>
             </Box>

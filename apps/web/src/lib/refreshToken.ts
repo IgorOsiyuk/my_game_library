@@ -24,12 +24,6 @@ export default async function refreshAccessToken(token: JWT, retryCount = 0) {
   } catch (error) {
     console.error('Ошибка обновления токена:', error);
 
-    if (retryCount < 2) {
-      console.warn(`Повторная попытка обновления токена... Попытка ${retryCount + 1}`);
-      return await refreshAccessToken(token, retryCount + 1); // Автоповтор до 2 раз
-    }
-
-    // Финальный сбой: принудительный выход
     return {
       ...token,
       error: 'RefreshAccessTokenError',

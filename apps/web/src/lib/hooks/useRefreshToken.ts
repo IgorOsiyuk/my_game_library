@@ -9,13 +9,14 @@ const useRefreshToken = () => {
       {},
       {
         headers: {
-          Authorization: `Bearer ${session?.refreshToken}`,
+          Authorization: `Bearer ${session?.user.refreshToken}`,
         },
       },
     );
     if (session) {
-      session.accessToken = res.data.accessToken;
-      session.refreshToken = res.data.refreshToken;
+      session.user.accessToken = res.data.accessToken;
+      session.user.refreshToken = res.data.refreshToken;
+      session.user.accessTokenExpiresIn = Date.now() + res.data.accessTokenExpiresIn;
     } else {
       signOut({ callbackUrl: '/signout' });
     }

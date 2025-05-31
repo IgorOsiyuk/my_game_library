@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
@@ -89,15 +89,26 @@ export class ReviewsService {
    * @returns Promise<Review> Обновленный отзыв
    */
   async toggleFavorite(reviewId: string, userId: string) {
+    console.log('toggleFavorite', reviewId, userId);
     const review = await this.reviewRepository.findOne({
       where: {
         id: reviewId,
         user: { id: userId },
       },
     });
-    review.isFavorite = !review.isFavorite;
 
-    return 'Вы успешно добавили отзыв в избранное';
+    if (!review) {
+      throw new NotFoundException('Отзыв не найден');
+    }
+
+    review.isFavorite = !review.isFavorite;
+    await this.reviewRepository.save(review);
+    const message = review.isFavorite
+      ? 'Вы успешно добавили отзыв в избранное'
+      : 'Вы успешно удалили отзыв из избранного';
+    return {
+      message: message,
+    };
   }
 
   /**
