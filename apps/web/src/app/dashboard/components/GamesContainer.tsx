@@ -5,13 +5,13 @@ import FlexBox from '@/atomic/FlexBox';
 import FilterOptions, { FilterType } from '@/components/FilterOptions';
 import GamesList from '@/components/GamesList';
 import ViewOptions, { ViewType } from '@/components/ViewOptions';
-import { useAppStore } from '@/stores/providers/storeProvider';
+import { useAppData } from '@/lib/hooks/useAppData';
 import { useState } from 'react';
 
 export default function GamesContainer() {
   const [currentView, setCurrentView] = useState<ViewType>(ViewType.CARD);
   const [selectedFilter, setSelectedFilter] = useState<FilterType>(FilterType.ALL);
-  const { reviews, stats, isLoading, error } = useAppStore((state) => state);
+  const { reviews, stats, isLoading, error } = useAppData();
 
   return (
     <FlexBox $direction="column" $gap="s_32">

@@ -12,6 +12,8 @@ export type AppState = {
 export type AppActions = {
   setReviews: (reviews: Review[]) => void;
   setStats: (stats: Stats) => void;
+  setLoading: (isLoading: boolean) => void;
+  setError: (error: string | null) => void;
   resetStore: () => void;
   updateReview: (reviewId: string, updatedReview: Partial<Review>) => void;
   addReview: (review: Review) => void;
@@ -30,9 +32,22 @@ export const defaultInitState: AppState = {
     planned: 0,
     favorites: 0,
   },
-  isLoading: false,
+  isLoading: true,
   error: null,
 };
+
+// Функция для создания initState на основе загруженных данных
+export const createInitState = (
+  reviews: Review[] = [],
+  stats: Stats = defaultInitState.stats,
+  isLoading: boolean = false,
+  error: string | null = null,
+): AppState => ({
+  reviews,
+  stats,
+  isLoading,
+  error,
+});
 
 export const createAppStore = (initState: AppState = defaultInitState) => {
   return createStore<AppStore>()((set, get) => ({
@@ -42,11 +57,11 @@ export const createAppStore = (initState: AppState = defaultInitState) => {
 
     setStats: (stats: Stats) => set({ stats }),
 
-    resetStore: () => set(defaultInitState),
-
     setLoading: (isLoading: boolean) => set({ isLoading }),
 
     setError: (error: string | null) => set({ error }),
+
+    resetStore: () => set(defaultInitState),
 
     updateReview: (reviewId, updatedReview) =>
       set((state) => ({
