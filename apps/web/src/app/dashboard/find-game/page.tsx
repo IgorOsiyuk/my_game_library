@@ -2,12 +2,8 @@
 
 import Box from '@/atomic/Box';
 import FlexBox from '@/atomic/FlexBox';
-import Grid from '@/atomic/Grid';
 import Text from '@/atomic/Text';
-import GameCard from '@/components/GameCard';
-import GameScoreSlider from '@/components/GameScoreSlider';
 import SearchComponent from '@/components/SearchComponent';
-import { games } from '@/data/games';
 import { useState } from 'react';
 export default function FindGame() {
   const [gameScore, setGameScore] = useState(0);
@@ -21,17 +17,17 @@ export default function FindGame() {
         </Box>
         <SearchComponent />
       </FlexBox>
-      <FlexBox $direction="column" $gap="s_24">
+      {/* <FlexBox $direction="column" $gap="s_24">
         <Text color="white" size="body_M" fontWeight="light">
           10 совпадений
         </Text>
         <Grid $width="100%" $gap="s_24" $columns="repeat(5,1fr)">
-          {games.map((game) => (
+          {[].map((game) => (
             <GameCard key={game.id} title={game.title} genres={game.genres} rating={game.rating} image={game.image} />
           ))}
         </Grid>
-      </FlexBox>
-      <GameScoreSlider
+      </FlexBox> */}
+      {/* <GameScoreSlider
         min={0}
         max={5}
         step={0.1}
@@ -39,7 +35,7 @@ export default function FindGame() {
         onChange={setGameScore}
         value={gameScore}
         label="Оцени игру"
-      />
+      /> */}
     </FlexBox>
   );
 }
