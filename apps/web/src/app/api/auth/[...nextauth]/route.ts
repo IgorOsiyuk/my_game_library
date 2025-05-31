@@ -83,11 +83,11 @@ export const authOptions: NextAuthOptions = {
 
       if (Date.now() < token.accessTokenExpiresIn) return token;
 
-      if (token.error) {
+      const refreshedToken = await refreshAccessToken(token);
+
+      if (refreshedToken.error) {
         return { ...token, error: 'RefreshAccessTokenError' };
       }
-
-      const refreshedToken = await refreshAccessToken(token);
 
       return refreshedToken;
     },

@@ -11,7 +11,13 @@ import { useState } from 'react';
 export default function GamesContainer() {
   const [currentView, setCurrentView] = useState<ViewType>(ViewType.CARD);
   const [selectedFilter, setSelectedFilter] = useState<FilterType>(FilterType.ALL);
-  const { reviews, stats, isLoading, error } = useAppData();
+  const { reviews, stats, isLoading, error, toggleFavorite } = useAppData();
+
+  const toggleFavoriteHandler = (id: string) => {
+    setToFavorite(id).then(() => {
+      toggleFavorite(id);
+    });
+  };
 
   return (
     <FlexBox $direction="column" $gap="s_32">
@@ -29,7 +35,7 @@ export default function GamesContainer() {
         error={error}
         games={reviews}
         currentView={currentView}
-        setFavorite={setToFavorite}
+        setFavorite={toggleFavoriteHandler}
       />
     </FlexBox>
   );

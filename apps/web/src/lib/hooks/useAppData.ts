@@ -17,6 +17,7 @@ export const useAppData = () => {
   const updateReview = useAppStore((state) => state.updateReview);
   const addReview = useAppStore((state) => state.addReview);
   const removeReview = useAppStore((state) => state.removeReview);
+  const toggleFavorite = useAppStore((state) => state.toggleFavorite);
 
   return {
     // Data
@@ -34,5 +35,6 @@ export const useAppData = () => {
     updateReview,
     addReview,
     removeReview,
+    toggleFavorite,
   };
 };

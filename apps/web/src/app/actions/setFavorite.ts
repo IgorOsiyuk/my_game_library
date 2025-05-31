@@ -23,7 +23,6 @@ export async function setFavorite(id: string) {
         },
       },
     );
-
     const data = response.data.message;
     return { success: true, data: data };
   } catch (error) {

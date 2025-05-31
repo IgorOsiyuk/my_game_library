@@ -9,14 +9,17 @@ async function setToFavorite(id: string) {
   try {
     const response = await setFavorite(id);
     toast.dismiss(toastId);
-    toast.success(response.data.message);
+    toast.success(response.data);
     if (!response.success) {
+      toast.error(response.error || 'Ошибка при добавлении в избранное');
+
       if (response.statusCode === 401) {
         signOut({ callbackUrl: '/signin' });
       }
-      toast.error(response.error || 'Ошибка при добавлении в избранное');
+
       return;
     }
+    return response;
   } catch (err: any) {
     toast.dismiss(toastId);
     const errorMessage = err.message || 'Непредвиденная ошибка при добавлении в избранное';

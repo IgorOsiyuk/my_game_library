@@ -18,6 +18,7 @@ export type AppActions = {
   updateReview: (reviewId: string, updatedReview: Partial<Review>) => void;
   addReview: (review: Review) => void;
   removeReview: (reviewId: string) => void;
+  toggleFavorite: (reviewId: string) => void;
 };
 
 export type AppStore = AppState & AppActions;
@@ -77,5 +78,35 @@ export const createAppStore = (initState: AppState = defaultInitState) => {
       set((state) => ({
         reviews: state.reviews.filter((review) => review.id !== reviewId),
       })),
+
+    toggleFavorite: (reviewId: string) =>
+      set((state) => {
+        // Находим отзыв для определения текущего состояния
+        const targetReview = state.reviews.find((review) => review.id === reviewId);
+
+        if (!targetReview) {
+          return state; // Если отзыв не найден, возвращаем неизмененное состояние
+        }
+
+        const wasInFavorites = targetReview.isFavorite;
+        const willBeInFavorites = !wasInFavorites;
+
+        // Обновляем отзывы
+        const updatedReviews = state.reviews.map((review) =>
+          review.id === reviewId ? { ...review, isFavorite: willBeInFavorites } : review,
+        );
+
+        // Обновляем статистику
+        const statsChange = willBeInFavorites ? 1 : -1;
+        const updatedStats: Stats = {
+          ...state.stats,
+          favorites: Math.max(0, state.stats.favorites + statsChange),
+        };
+
+        return {
+          reviews: updatedReviews,
+          stats: updatedStats,
+        };
+      }),
   }));
 };
