@@ -32,6 +32,9 @@ export const Button = styled.button<ButtonIProps>`
       }
       cursor: pointer;
       transition: all 0.25s;
+      * {
+        pointer-events: none;
+      }
     `;
   }}
   ${({ $sx }) => $sx && $sx};

@@ -1,8 +1,13 @@
 'use client';
-import html2canvas from 'html2canvas';
-import { useRef, useState } from 'react';
+import Box from '@/atomic/Box';
+import Button from '@/atomic/Button';
+import SvgImage from '@/atomic/SvgImage';
+import BinIcon from '@/icons/bin.svg';
+import { useRef } from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
-interface Image {
+import { css } from 'styled-components';
+
+export interface CollageImage {
   id: string;
   src: string;
   width: number;
@@ -10,109 +15,175 @@ interface Image {
 }
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
-const MyGridLayout = () => {
-  const [images, setImages] = useState<Image[]>([]);
-  const [nextId, setNextId] = useState(4);
 
-  const addImage = () => {
-    const newImage = {
-      id: nextId.toString(),
-      src: `https://dummyimage.com/${Math.floor(Math.random() * 400) + 200}x${Math.floor(Math.random() * 300) + 200}/000/fff`,
-      width: Math.floor(Math.random() * 2 + 1),
-      height: Math.floor(Math.random() * 2 + 1),
-    };
-    setImages([...images, newImage]);
-    setNextId(nextId + 1);
-  };
-
-  const removeImage = (id: string) => {
-    console.log(id);
-    setImages(images.filter((image) => image.id !== id));
-  };
-
-  const layout = images.map((image, index) => ({
-    i: image.id,
-    x: (index % 8) * 2,
-    y: Math.floor(index / 8),
-    w: image.width,
-    h: image.height,
-  }));
+const MyGridLayout = ({ images, removeImage }: { images: CollageImage[]; removeImage: (id: string) => void }) => {
   const galleryRef = useRef<HTMLDivElement | null>(null);
 
-  const exportAsImage = async () => {
-    const el = document.getElementById('test');
-    if (el) {
-      // const area = el.getBoundingClientRect();
-      await html2canvas(el, { useCORS: true }).then(function (canvas) {
-        const a = document.createElement('a');
-        a.href = canvas.toDataURL('image/jpg');
-        a.download = 'My file name.jpg';
-        a.click();
-        a.remove();
-      });
-      // const image = canvas.toDataURL('image/png');
-      // const link = document.createElement('a');
-      // link.href = image;
-      // link.download = 'gallery-layout.png';
-      // link.click();
-    }
-  };
+  // Базовая конфигурация layout
+  const layout = images.map((image, index) => ({
+    i: image.id,
+    x: (index % 4) * 2, // Базовое размещение в 4 колонки
+    y: Math.floor(index / 4),
+    w: image.width,
+    h: image.height,
+    minW: 1,
+    minH: 1,
+  }));
+
+  // Базовые breakpoints
+  const breakpoints = { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 };
+  const cols = { lg: 24, md: 10, sm: 6, xs: 4, xxs: 2 };
 
   return (
-    <div>
-      <h1>Галерея изображений</h1>
-      <button onClick={addImage} style={{ marginBottom: '10px' }}>
-        Добавить изображение
-      </button>
-      <button onClick={() => exportAsImage()} style={{ marginBottom: '20px' }}>
-        Export as PNG
-      </button>
-      <div ref={galleryRef} id="test">
-        <ResponsiveGridLayout
-          className="layout"
-          // layouts={{ lg: layout, md: layout, sm: layout, xs: layout, xxs: layout }}
-          layouts={{ lg: layout, md: layout, sm: layout, xs: layout, xxs: layout }}
-          cols={{ lg: 8, md: 6, sm: 4, xs: 4, xxs: 2 }}
-          // rowHeight={100}
-          // width={1200}
-
-          isResizable={true}
-          isDraggable={true}
-        >
-          {images.map((image) => (
-            <div key={image.id} style={{ position: 'relative' }}>
-              <img src={image.src} alt={image.id} style={{ width: '100%', height: '100%', objectFit: 'fill' }} />
-              <div
+    <Box
+      ref={galleryRef}
+      id="collage"
+      $sx={({ theme }) => css`
+        background-color: ${theme.colors.darkSecondary};
+        overflow: hidden;
+        min-height: 100px;
+        min-width: 100px;
+      `}
+    >
+      <ResponsiveGridLayout
+        className="layout"
+        isDraggable={true}
+        isResizable={true}
+        allowOverlap={true}
+        margin={[0, 0]}
+        containerPadding={[0, 0]}
+        useCSSTransforms={true}
+      >
+        {images.map((image) => (
+          <div key={image.id} style={{ position: 'relative', overflow: 'hidden' }}>
+            <img
+              src={image.src}
+              alt={image.id}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+              }}
+            />
+            <Box
+              data-grid-static="true"
+              $sx={css`
+                position: absolute;
+                top: 4px;
+                right: 4px;
+                z-index: 1000;
+                pointer-events: auto;
+              `}
+            >
+              <Button
+                // as="button"
+                // className="delete-button-container"
                 onClick={(e) => {
+                  e.stopPropagation();
                   e.preventDefault();
-
                   removeImage(image.id);
                 }}
-                style={{
-                  position: 'absolute',
-                  top: 5,
-                  right: 5,
-                  background: 'red',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '5px',
-                  cursor: 'pointer',
-                  zIndex: 22,
+                onMouseDown={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
                 }}
+                sx={({ theme }) => css`
+                  position: 'absolute';
+                  top: '4px';
+                  right: '4px';
+                  z-index: 1000;
+                  background-color: ${theme.colors.white};
+                  border-radius: ${theme.radius.rounded_small};
+                  padding: ${theme.spacing.s_4};
+                  margin: 0;
+                  cursor: pointer;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  &:hover {
+                    background-color: ${theme.colors.greySecondary};
+                    svg {
+                      path {
+                        fill: ${theme.colors.white};
+                        transition: fill 0.3s ease;
+                      }
+                    }
+                  }
+                `}
               >
-                Удалить
-              </div>
-            </div>
-          ))}
-        </ResponsiveGridLayout>
-      </div>
-      {/* style=
-      {{
-        '.react-grid-item.react-grid-placeholder': {
-          opacity: 1,
-        },
-      }} */}
-    </div>
+                <SvgImage $width="16px" $height="16px" $fill="greySecondary">
+                  <BinIcon />
+                </SvgImage>
+              </Button>
+            </Box>
+          </div>
+        ))}
+      </ResponsiveGridLayout>
+
+      <style jsx global>{`
+        .react-grid-layout {
+          position: relative;
+        }
+
+        .react-grid-item {
+          transition: all 200ms ease;
+          transition-property: left, top;
+          border-radius: 4px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .react-grid-item:hover {
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .react-grid-item.cssTransforms {
+          transition-property: transform;
+        }
+
+        .delete-button-container {
+          pointer-events: auto !important;
+          touch-action: none !important;
+          z-index: 1000 !important;
+          position: relative !important;
+        }
+
+        .delete-button-container * {
+          pointer-events: auto !important;
+          touch-action: none !important;
+        }
+
+        .delete-button-container:hover {
+          transform: scale(1.1);
+          transition: transform 0.1s ease;
+        }
+
+        .react-grid-item > .react-resizable-handle {
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          bottom: 0;
+          right: 0;
+          -webkit-mask-image: url('/icons/resize.svg');
+          mask-image: url('/icons/resize.svg');
+          background-color: red;
+          background-position: bottom right;
+          padding: 0 3px 3px 0;
+          background-repeat: no-repeat;
+          background-origin: content-box;
+          box-sizing: border-box;
+          cursor: se-resize;
+        }
+
+        .react-grid-placeholder {
+          background: rgba(0, 0, 0, 0.1);
+          opacity: 0.2;
+          transition-duration: 100ms;
+          z-index: 2;
+          user-select: none;
+          border-radius: 4px;
+        }
+      `}</style>
+    </Box>
   );
 };
 

@@ -22,6 +22,7 @@ interface ButtonIProps {
   isActive?: boolean;
   as?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  onMouseDown?: MouseEventHandler<HTMLButtonElement>;
   sx?: ((context: ExecutionContext) => ReturnType<typeof css>) | ReturnType<typeof css>;
   type?: 'button' | 'submit' | 'reset';
 }
@@ -37,6 +38,7 @@ const Button = ({
   isActive = false,
   as = 'button',
   onClick,
+  onMouseDown,
   sx,
   type,
 }: ButtonIProps) => {
@@ -50,6 +52,7 @@ const Button = ({
       $textSize={textSize}
       $spacing={spacing}
       onClick={onClick}
+      onMouseDown={onMouseDown}
       $isActive={isActive}
       $sx={sx}
     >
