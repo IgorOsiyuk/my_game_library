@@ -6,6 +6,7 @@ import { toast } from 'react-hot-toast';
 
 async function setToFavorite(id: string) {
   const toastId = toast.loading('Добавление в избранное...');
+
   try {
     const response = await setFavorite(id);
     toast.dismiss(toastId);

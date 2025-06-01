@@ -1,8 +1,7 @@
 'use server';
 
-import { authOptions } from '@/api/auth/[...nextauth]/route';
 import axios from 'axios';
-import { getServerSession } from 'next-auth';
+import { Session } from 'next-auth';
 
 export interface StatsResponse {
   total: number;
@@ -24,12 +23,10 @@ export interface ResponseData {
   };
 }
 
-export async function getStats() {
+export async function getStats(session: Session | null) {
   try {
-    const session = await getServerSession(authOptions);
-
     if (!session) {
-      return { success: false, error: 'Нет активной сессии' };
+      return { success: false, error: 'Нет активной сессии', statusCode: 401 };
     }
 
     const url = process.env.NEXT_PUBLIC_BASE_URL + '/reviews/stats';

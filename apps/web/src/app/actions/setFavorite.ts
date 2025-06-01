@@ -7,10 +7,10 @@ import { isAxiosError } from 'axios';
 import { getServerSession } from 'next-auth';
 
 export async function setFavorite(id: string) {
+  const session = await getServerSession(authOptions);
   try {
-    const session = await getServerSession(authOptions);
     if (!session) {
-      return { success: false, error: 'Нет активной сессии' };
+      return { success: false, error: 'Нет активной сессии', statusCode: 401 };
     }
 
     const url = process.env.NEXT_PUBLIC_BASE_URL + '/reviews/favorite/' + id;
@@ -29,7 +29,6 @@ export async function setFavorite(id: string) {
     if (isAxiosError(error)) {
       const statusCode = error.response?.status;
       const errorMessage = error.response?.data?.message || error.message;
-      console.log(error);
       return {
         success: false,
         error: `Ошибка сервера (${statusCode}): ${errorMessage}`,

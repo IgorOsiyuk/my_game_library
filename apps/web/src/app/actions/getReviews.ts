@@ -1,15 +1,12 @@
 'use server';
 
-import { authOptions } from '@/api/auth/[...nextauth]/route';
 import axios from 'axios';
-import { getServerSession } from 'next-auth';
+import { Session } from 'next-auth';
 
-export async function getReviews(status?: string, isFavorite?: boolean) {
+export async function getReviews(session: Session | null, status?: string, isFavorite?: boolean) {
   try {
-    const session = await getServerSession(authOptions);
-
     if (!session) {
-      return { success: false, error: 'Нет активной сессии' };
+      return { success: false, error: 'Нет активной сессии', statusCode: 401 };
     }
 
     // Формируем URL с query параметром status если он передан

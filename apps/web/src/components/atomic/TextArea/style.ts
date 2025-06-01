@@ -17,6 +17,7 @@ const TextArea = styled.textarea<{ $isError?: boolean }>`
       color: ${theme.colors.white};
       width: 100%;
       height: 100%;
+      resize: vertical;
     `;
   }}
 `;

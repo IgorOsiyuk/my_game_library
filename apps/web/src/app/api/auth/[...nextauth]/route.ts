@@ -82,7 +82,7 @@ export const authOptions: NextAuthOptions = {
       }
 
       if (Date.now() < token.accessTokenExpiresIn) return token;
-
+      console.log('refresh token in jwt callback');
       const refreshedToken = await refreshAccessToken(token);
 
       if (refreshedToken.error) {

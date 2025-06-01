@@ -1,18 +1,19 @@
 'use client';
 
-import setToFavorite from '@/api/setToFavorite';
 import FlexBox from '@/atomic/FlexBox';
 import FilterOptions, { FilterType } from '@/components/FilterOptions';
 import GamesList from '@/components/GamesList';
 import ViewOptions, { ViewType } from '@/components/ViewOptions';
 import { useAppData } from '@/lib/hooks/useAppData';
+import { useInititalData } from '@/lib/hooks/useInititalData';
+import setToFavorite from '@/lib/setToFavorite';
 import { useState } from 'react';
 
 export default function GamesContainer() {
   const [currentView, setCurrentView] = useState<ViewType>(ViewType.CARD);
   const [selectedFilter, setSelectedFilter] = useState<FilterType>(FilterType.ALL);
   const { reviews, stats, isLoading, error, toggleFavorite } = useAppData();
-
+  useInititalData();
   const toggleFavoriteHandler = (id: string) => {
     setToFavorite(id).then(() => {
       toggleFavorite(id);

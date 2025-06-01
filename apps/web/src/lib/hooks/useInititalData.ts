@@ -1,39 +1,20 @@
 'use client';
 
-import { getInitialData } from '@/actions/getInitialData';
-import { StatsResponse } from '@/actions/getStats';
-import { Review } from '@/types/reviews';
+import axios from 'axios';
 import { signOut } from 'next-auth/react';
-import { useEffect, useState, useTransition } from 'react';
+import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-
-interface InitialData {
-  reviews: Review[];
-  stats: StatsResponse;
-}
+import { useAppData } from './useAppData';
 
 export function useInititalData() {
-  const [initialData, setInitialData] = useState<InitialData>({
-    reviews: [],
-    stats: {
-      total: 0,
-      inProgress: 0,
-      completed: 0,
-      abandoned: 0,
-      planned: 0,
-      favorites: 0,
-    },
-  });
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isPending, startTransition] = useTransition();
+  const { setReviews, setStats, setLoading, setError } = useAppData();
 
   useEffect(() => {
     const fetchReviews = async () => {
       const toastId = toast.loading('Загрузка отзывов...');
       try {
-        const response = await getInitialData();
-
+        const { data: response } = await axios.get(`/api/dashboard`);
+        console.log(response);
         toast.dismiss(toastId);
 
         if (!response.success) {
@@ -42,29 +23,23 @@ export function useInititalData() {
           }
           setError(response.error || 'Ошибка при получении отзывов');
           toast.error(response.error || 'Ошибка при получении отзывов');
-          setIsLoading(false);
+          setLoading(false);
           return;
         }
-        // Используем startTransition для плавного обновления UI
-        startTransition(() => {
-          setInitialData(response.data as InitialData);
-          setIsLoading(false);
-        });
+        setReviews(response.data.reviews);
+        setStats(response.data.stats);
+        setLoading(false);
       } catch (err: any) {
         toast.dismiss(toastId);
         const errorMessage = err.message || 'Непредвиденная ошибка при загрузке отзывов';
         setError(errorMessage);
         toast.error(errorMessage);
-        setIsLoading(false);
+        setLoading(false);
       }
     };
 
     fetchReviews();
   }, []);
 
-  return {
-    initialData,
-    error,
-    isLoading: isLoading || isPending,
-  };
+  return;
 }

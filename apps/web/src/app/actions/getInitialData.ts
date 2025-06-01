@@ -1,9 +1,8 @@
 'use server';
 
-import { authOptions } from '@/api/auth/[...nextauth]/route';
 import { Review } from '@/types/reviews';
 import axios from 'axios';
-import { getServerSession } from 'next-auth';
+import { Session } from 'next-auth';
 import { ResponseData, StatsResponse } from './getStats';
 
 interface InitialDataResponse {
@@ -16,12 +15,10 @@ interface InitialDataResponse {
   statusCode?: number;
 }
 
-export async function getInitialData(): Promise<InitialDataResponse> {
+export async function getInitialData(session: Session | null): Promise<InitialDataResponse> {
   try {
-    const session = await getServerSession(authOptions);
-
     if (!session) {
-      return { success: false, error: 'Нет активной сессии' };
+      return { success: false, error: 'Нет активной сессии', statusCode: 401 };
     }
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
