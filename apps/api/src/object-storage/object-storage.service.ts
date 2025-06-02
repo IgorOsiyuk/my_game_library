@@ -28,7 +28,7 @@ export class ObjectStorageService {
     }
 
     return {
-      url: `${this.minioHost}:${this.minioPort}/${this.minioBucket}/${fileName}`,
+      url: `http://${this.minioHost}:${this.minioPort}/${this.minioBucket}/${fileName}`,
     };
   }
 

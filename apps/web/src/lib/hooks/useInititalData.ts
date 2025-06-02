@@ -30,7 +30,7 @@ export function useInititalData() {
         const reviews = response.data.reviews.map((review: Review) => ({
           ...review,
           status: review.status as GameStatus,
-          img: '',
+          img: review.img,
         }));
         console.log(reviews);
         setReviews(reviews);

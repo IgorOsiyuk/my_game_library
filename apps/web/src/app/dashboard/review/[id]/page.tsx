@@ -10,7 +10,6 @@ import ArrowIcon from '@/icons/arrow.svg';
 import PencilIcon from '@/icons/pencil.svg';
 import ShareIcon from '@/icons/share.svg';
 import BoarIcon from '@/icons/wild-boar.svg';
-import DefaultCardImage from '@/images/default_card_image.jpg';
 import { useAppData } from '@/lib/hooks/useAppData';
 import { useGetReview } from '@/lib/hooks/useGetReview';
 import { GameStatusVariantMap } from '@/lib/utils';
@@ -68,7 +67,7 @@ export default function Game() {
                   overflow: hidden;
                 `}
               >
-                <Image alt="card-image" src={DefaultCardImage.src} width={337} height={337} />
+                <Image alt="card-image" src={selectedReview.img} width={337} height={337} />
               </Box>
             </FlexBox>
             <FlexBox $gap="s_12">

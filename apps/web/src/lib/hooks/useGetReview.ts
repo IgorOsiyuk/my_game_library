@@ -33,7 +33,7 @@ export function useGetReview() {
         const review = {
           ...response.data.review,
           status: response.data.review.status as GameStatus,
-          img: '',
+          img: response.data.review.img,
         };
         setSelectedReview(review);
         setLoading(false);

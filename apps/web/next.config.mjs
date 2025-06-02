@@ -12,6 +12,12 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'dummyimage.com',
       },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '9000',
+        pathname: '/test/**',
+      },
     ],
   },
   webpack: (config) => {
