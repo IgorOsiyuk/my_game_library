@@ -7,7 +7,8 @@ import Text from '@/atomic/Text';
 import StatusLabel from '@/components/StatusLabel';
 import InfoIcon from '@/icons/info.svg';
 import StarIcon from '@/icons/star.svg';
-import { GameStatus, GameStatusVariantMap } from '@/types/gameStatus';
+import { GameStatusVariantMap } from '@/lib/utils';
+import { GameStatus } from '@/types/game';
 import { css } from 'styled-components';
 
 interface GameCardTileProps {

@@ -34,7 +34,13 @@ export default function GamesContainer() {
       <GamesList
         isLoading={isLoading}
         error={error}
-        games={reviews}
+        games={reviews.map((review) => ({
+          ...review,
+          img: review.img || '',
+          genres: [],
+          platform: '',
+          developer: '',
+        }))}
         currentView={currentView}
         setFavorite={toggleFavoriteHandler}
       />

@@ -1,4 +1,9 @@
-import { GameStatus } from './gameStatus';
+export enum GameStatus {
+  IN_PROGRESS = 'В процессе',
+  COMPLETED = 'Пройдено',
+  ABANDONED = 'Заброшено',
+  PLANNED = 'Запланировано',
+}
 
 export type Game = {
   id: string;

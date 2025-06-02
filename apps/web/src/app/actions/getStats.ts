@@ -1,27 +1,8 @@
 'use server';
 
+import { Stats, StatsResponse } from '@/types/stats';
 import axios from 'axios';
 import { Session } from 'next-auth';
-
-export interface StatsResponse {
-  total: number;
-  inProgress: number;
-  completed: number;
-  abandoned: number;
-  planned: number;
-  favorites: number;
-}
-
-export interface ResponseData {
-  total: number;
-  totalByStatus: {
-    'В процессе': number;
-    Пройдено: number;
-    Заброшено: number;
-    Запланировано: number;
-    favorites: number;
-  };
-}
 
 export async function getStats(session: Session | null) {
   try {
@@ -37,8 +18,8 @@ export async function getStats(session: Session | null) {
         Authorization: `Bearer ${session?.user.accessToken}`,
       },
     });
-    const data = response.data as ResponseData;
-    const returnData = {
+    const data = response.data as StatsResponse;
+    const returnData: Stats = {
       total: data.total,
       inProgress: data.totalByStatus['В процессе'],
       completed: data.totalByStatus['Пройдено'],

@@ -18,6 +18,7 @@ export default function SideNavContainer() {
       if (!response.success) {
         // Обработка ошибки из action
         toast.error(response.error || 'Ошибка при выходе из системы');
+        signOut({ callbackUrl: '/signin' });
         return;
       }
 

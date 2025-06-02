@@ -1,16 +1,15 @@
-import { getInitialData } from '@/actions/getInitialData';
+import { getReviewData } from '@/actions/getReviewData';
+import { authOptions } from '@/api/auth/[...nextauth]/route';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
-import { authOptions } from '../auth/[...nextauth]/route';
 
-// Обработчик GET-запросов для получения данных о панели управления
-export async function GET() {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const session = await getServerSession(authOptions);
-
   try {
-    const dashboardData = await getInitialData(session);
+    const reviewData = await getReviewData(session, id);
 
-    return NextResponse.json(dashboardData);
+    return NextResponse.json(reviewData);
   } catch (error: any) {
     return NextResponse.json({
       success: false,

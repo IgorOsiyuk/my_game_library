@@ -7,10 +7,12 @@ import StatusLabel from '@/components/StatusLabel';
 import HeartIcon from '@/icons/heart.svg';
 import InfoIcon from '@/icons/info.svg';
 import StarIcon from '@/icons/star.svg';
-import { GameStatus, GameStatusVariantMap } from '@/types/gameStatus';
+import { GameStatusVariantMap } from '@/lib/utils';
+import { GameStatus } from '@/types/game';
+import { useRouter } from 'next/navigation';
 import { css } from 'styled-components';
 
-interface GameCardIProps {
+export interface GameCardIProps {
   id: string;
   title: string;
   playTime?: string;
@@ -35,6 +37,7 @@ const GameCard = ({
   isFavorite,
   setFavorite,
 }: GameCardIProps) => {
+  const router = useRouter();
   return (
     <FlexBox
       $width="100%"
@@ -64,19 +67,35 @@ const GameCard = ({
             <StatusLabel label={status} variant={GameStatusVariantMap[status]} />
           </Box>
         )}
-        <Image
-          alt="card-image"
-          src={image}
-          fill
-          sizes="100vw"
-          style={{
-            objectFit: 'cover',
+        <Box
+          onClick={() => {
+            router.push(`/dashboard/review/${id}`);
           }}
           $sx={css`
             width: 100%;
             height: 100%;
+            cursor: pointer;
+            &:hover {
+              opacity: 0.8;
+              transition: opacity 0.3s ease;
+            }
           `}
-        />
+        >
+          <Image
+            alt="card-image"
+            src={image}
+            fill
+            sizes="100vw"
+            style={{
+              objectFit: 'cover',
+            }}
+            $sx={css`
+              width: 100%;
+              height: 100%;
+              pointer-events: none;
+            `}
+          />
+        </Box>
       </FlexBox>
       <FlexBox $direction="column" $width="100%" $padding="s_16" $gap="s_24" $backgroundColor="dark">
         <FlexBox $direction="column" $gap="s_8">

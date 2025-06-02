@@ -7,9 +7,11 @@ export const useAppData = () => {
   const stats = useAppStore((state) => state.stats);
   const isLoading = useAppStore((state) => state.isLoading);
   const error = useAppStore((state) => state.error);
+  const selectedReview = useAppStore((state) => state.selectedReview);
 
   // Actions
   const setReviews = useAppStore((state) => state.setReviews);
+  const setSelectedReview = useAppStore((state) => state.setSelectedReview);
   const setStats = useAppStore((state) => state.setStats);
   const setLoading = useAppStore((state) => state.setLoading);
   const setError = useAppStore((state) => state.setError);
@@ -23,11 +25,13 @@ export const useAppData = () => {
     // Data
     reviews,
     stats,
+    selectedReview,
     isLoading,
     error,
 
     // Actions
     setReviews,
+    setSelectedReview,
     setStats,
     setLoading,
     setError,

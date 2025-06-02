@@ -1,20 +1,23 @@
 'use client';
 
-import { GameStatus, Review } from '@/stores/store';
+import { GameStatus } from '@/stores/store';
 import axios from 'axios';
 import { signOut } from 'next-auth/react';
+import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppData } from './useAppData';
 
-export function useInititalData() {
-  const { setReviews, setStats, setLoading, setError } = useAppData();
+export function useGetReview() {
+  const { setSelectedReview, setLoading, setError } = useAppData();
+
+  const params = useParams();
 
   useEffect(() => {
     const fetchReviews = async () => {
-      const toastId = toast.loading('Загрузка отзывов...');
+      const toastId = toast.loading('Загрузка отзыва...');
       try {
-        const { data: response } = await axios.get(`/api/dashboard`);
+        const { data: response } = await axios.get(`/api/dashboard/review/${params.id}`);
         console.log(response);
         toast.dismiss(toastId);
 
@@ -22,19 +25,17 @@ export function useInititalData() {
           if (response.statusCode === 401) {
             signOut({ callbackUrl: '/signin' });
           }
-          setError(response.error || 'Ошибка при получении отзывов');
-          toast.error(response.error || 'Ошибка при получении отзывов');
+          setError(response.error || 'Ошибка при получении отзыва');
+          toast.error(response.error || 'Ошибка при получении отзыва');
           setLoading(false);
           return;
         }
-        const reviews = response.data.reviews.map((review: Review) => ({
-          ...review,
-          status: review.status as GameStatus,
+        const review = {
+          ...response.data.review,
+          status: response.data.review.status as GameStatus,
           img: '',
-        }));
-        console.log(reviews);
-        setReviews(reviews);
-        setStats(response.data.stats);
+        };
+        setSelectedReview(review);
         setLoading(false);
       } catch (err: any) {
         toast.dismiss(toastId);

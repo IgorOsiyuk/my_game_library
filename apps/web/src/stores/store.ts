@@ -1,9 +1,41 @@
-import { Stats } from '@/types/gameStatus';
-import { Review } from '@/types/reviews';
 import { createStore } from 'zustand/vanilla';
+
+interface Stats {
+  total: number;
+  inProgress: number;
+  completed: number;
+  abandoned: number;
+  planned: number;
+  favorites: number;
+}
+
+export enum GameStatus {
+  IN_PROGRESS = 'В процессе',
+  COMPLETED = 'Пройдено',
+  ABANDONED = 'Заброшено',
+  PLANNED = 'Запланировано',
+}
+
+export interface Review {
+  id: string;
+  title: string;
+  img: string;
+  status: GameStatus;
+  playTime: string;
+  rating: string;
+  score: number;
+  plotScore: number;
+  artScore: number;
+  gameplayScore: number;
+  difficulty: string;
+  trophies: number;
+  review: string;
+  isFavorite: boolean;
+}
 
 export type AppState = {
   reviews: Review[];
+  selectedReview: Review | null;
   stats: Stats;
   isLoading: boolean;
   error: string | null;
@@ -11,6 +43,7 @@ export type AppState = {
 
 export type AppActions = {
   setReviews: (reviews: Review[]) => void;
+  setSelectedReview: (review: Review | null) => void;
   setStats: (stats: Stats) => void;
   setLoading: (isLoading: boolean) => void;
   setError: (error: string | null) => void;
@@ -25,6 +58,7 @@ export type AppStore = AppState & AppActions;
 
 export const defaultInitState: AppState = {
   reviews: [],
+  selectedReview: null,
   stats: {
     total: 0,
     inProgress: 0,
@@ -45,6 +79,7 @@ export const createInitState = (
   error: string | null = null,
 ): AppState => ({
   reviews,
+  selectedReview: null,
   stats,
   isLoading,
   error,
@@ -55,6 +90,8 @@ export const createAppStore = (initState: AppState = defaultInitState) => {
     ...initState,
 
     setReviews: (reviews: Review[]) => set({ reviews }),
+
+    setSelectedReview: (review: Review | null) => set({ selectedReview: review }),
 
     setStats: (stats: Stats) => set({ stats }),
 

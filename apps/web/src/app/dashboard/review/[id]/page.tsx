@@ -5,18 +5,25 @@ import Grid from '@/atomic/Grid';
 import Image from '@/atomic/Image';
 import SvgImage from '@/atomic/SvgImage';
 import Text from '@/atomic/Text';
-import StatusLabel, { StatusEnum } from '@/components/StatusLabel';
+import StatusLabel from '@/components/StatusLabel';
 import ArrowIcon from '@/icons/arrow.svg';
 import PencilIcon from '@/icons/pencil.svg';
 import ShareIcon from '@/icons/share.svg';
 import BoarIcon from '@/icons/wild-boar.svg';
 import DefaultCardImage from '@/images/default_card_image.jpg';
+import { useAppData } from '@/lib/hooks/useAppData';
+import { useGetReview } from '@/lib/hooks/useGetReview';
+import { GameStatusVariantMap } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { css } from 'styled-components';
 
 export default function Game() {
   const router = useRouter();
-
+  useGetReview();
+  const { selectedReview } = useAppData();
+  if (!selectedReview) {
+    return <div>Loading...</div>;
+  }
   return (
     <FlexBox $direction="column" $gap="s_32">
       <Box
@@ -105,10 +112,10 @@ export default function Game() {
           </FlexBox>
           <Box>
             <FlexBox $direction="column" $gap="s_24" $width="auto" $align="flex-start">
-              <StatusLabel label="Пройдено" variant={StatusEnum.INFO} />
+              <StatusLabel label={selectedReview.status} variant={GameStatusVariantMap[selectedReview.status]} />
               <FlexBox $direction="column" $gap="s_32">
                 <Text size="title_L" color="white">
-                  God of War Ragnarök
+                  {selectedReview.title}
                 </Text>
                 <Grid $columns="4fr 2fr" $gap="s_20">
                   <FlexBox $direction="column" $gap="s_14">
@@ -247,13 +254,13 @@ export default function Game() {
                   </FlexBox>
                   <FlexBox $direction="column" $gap="s_14">
                     <Text size="body_M" color="greySecondary">
-                      Время прохождения: 32ч
+                      Время прохождения: {selectedReview.playTime}
                     </Text>
                     <Text size="body_M" color="greySecondary">
-                      Сложность: легкая
+                      Сложность: {selectedReview.difficulty}
                     </Text>
                     <Text size="body_M" color="greySecondary">
-                      Трофеи: 5 из 20
+                      Трофеи: {selectedReview.trophies}
                     </Text>
                   </FlexBox>
                 </Grid>
@@ -280,10 +287,7 @@ export default function Game() {
                   Отзыв
                 </Text>
                 <Text size="body_M" color="white" fontWeight="light">
-                  The Lich King Arthas has set in motion events that could lead to the extinction of all life on
-                  Azeroth. With the armies of the undead and the necromantic power of the plague threatening to sweep
-                  across the land, only the mightiest heroes can oppose the Lich King&apos;s will and end his reign of
-                  terror for all time.
+                  {selectedReview.review}
                 </Text>
               </FlexBox>
             </FlexBox>
@@ -308,7 +312,7 @@ export default function Game() {
             </Text>
             <FlexBox $gap="s_8" $wrap="nowrap">
               <Text size="title_L" color="yellow" fontWeight="bold">
-                1.0
+                {selectedReview.score}
               </Text>
               <SvgImage $height="52px" $width="52px">
                 <BoarIcon />
@@ -321,7 +325,7 @@ export default function Game() {
             </Text>
             <FlexBox $gap="s_8" $wrap="nowrap">
               <Text size="title_L" color="yellow" fontWeight="bold">
-                1.0
+                {selectedReview.plotScore}
               </Text>
               <SvgImage $height="52px" $width="52px">
                 <BoarIcon />
@@ -334,7 +338,7 @@ export default function Game() {
             </Text>
             <FlexBox $gap="s_8" $wrap="nowrap">
               <Text size="title_L" color="yellow" fontWeight="bold">
-                1.0
+                {selectedReview.artScore}
               </Text>
               <SvgImage $height="52px" $width="52px">
                 <BoarIcon />
@@ -347,7 +351,7 @@ export default function Game() {
             </Text>
             <FlexBox $gap="s_8" $wrap="nowrap">
               <Text size="title_L" color="yellow" fontWeight="bold">
-                1.0
+                {selectedReview.gameplayScore}
               </Text>
               <SvgImage $height="52px" $width="52px">
                 <BoarIcon />

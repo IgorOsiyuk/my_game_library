@@ -1,4 +1,4 @@
-import { GameStatus } from '@/types/gameStatus';
+import { GameStatus } from '@/types/game';
 
 export interface Game {
   id: string;

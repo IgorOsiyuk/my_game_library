@@ -1,14 +1,18 @@
-import { GameStatus } from './gameStatus';
-
 export type Review = {
   id: string;
   title: string;
+  img: string;
+  status?: string;
   playTime: string;
-  genres: string[];
   rating: string;
-  status?: GameStatus;
-  image: string;
-  platform: string;
-  developer: string;
+  score: number;
+  plotScore: number;
+  artScore: number;
+  gameplayScore: number;
+  difficulty: string;
+  trophies: number;
+  review: string;
   isFavorite: boolean;
+  createdAt?: string;
+  updatedAt?: string;
 };

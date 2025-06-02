@@ -1,9 +1,11 @@
 'use server';
 
+import { authOptions } from '@/api/auth/[...nextauth]/route';
 import axios from 'axios';
-import { Session } from 'next-auth';
+import { getServerSession } from 'next-auth';
 
-export async function logout(session: Session | null) {
+export async function logout() {
+  const session = await getServerSession(authOptions);
   try {
     if (!session) {
       return { success: false, error: 'Нет активной сессии', statusCode: 401 };

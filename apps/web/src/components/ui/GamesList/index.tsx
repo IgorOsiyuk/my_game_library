@@ -5,23 +5,32 @@ import Grid from '@/atomic/Grid';
 import GameCard from '@/components/GameCard';
 import GameCardTile from '@/components/GameCardTile';
 import { ViewType } from '@/components/ViewOptions';
-import { Game } from '@/types/game';
+import { GameStatus } from '@/types/game';
 import GamesSkeleton from './GamesSkeleton';
 
 // Компонент для отображения карточек игр
-const GamesList = ({
-  games,
-  currentView,
-  isLoading,
-  error,
-  setFavorite,
-}: {
+interface Game {
+  id: string;
+  title: string;
+  playTime: string;
+  genres: string[];
+  rating: string;
+  status?: GameStatus;
+  img: string;
+  platform: string;
+  developer: string;
+  isFavorite: boolean;
+}
+
+interface GamesListProps {
   games: Game[];
   currentView: ViewType;
   isLoading: boolean;
   error: string | null;
   setFavorite: (id: string) => void;
-}) => {
+}
+
+const GamesList = ({ games, currentView, isLoading, error, setFavorite }: GamesListProps) => {
   if (isLoading) {
     return <GamesSkeleton currentView={currentView} />;
   }
@@ -46,7 +55,7 @@ const GamesList = ({
     <>
       {currentView === ViewType.CARD ? (
         <Grid $width="100%" $gap="s_24" $columns="repeat(5,1fr)">
-          {games.map((game: Game) => (
+          {games.map((game) => (
             <GameCard
               key={game.id}
               id={game.id}
@@ -56,14 +65,14 @@ const GamesList = ({
               genres={game.genres || []}
               rating={game.rating || '0'}
               status={game.status}
-              image={game.image || '/images/default_card_image.jpg'}
+              image={game.img || '/images/default_card_image.jpg'}
               setFavorite={setFavorite}
             />
           ))}
         </Grid>
       ) : (
         <FlexBox $gap="s_8" $wrap="wrap">
-          {games.map((game: Game) => (
+          {games.map((game) => (
             <GameCardTile
               id={game.id}
               key={game.id}
@@ -71,7 +80,7 @@ const GamesList = ({
               playTime={game.playTime || '0h'}
               genres={game.genres || []}
               rating={game.rating || '0'}
-              image={game.image || '/images/default_card_image.jpg'}
+              image={game.img || '/images/default_card_image.jpg'}
               platform={game.platform || 'Unknown'}
               developer={game.developer || 'Unknown'}
               status={game.status}

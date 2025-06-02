@@ -1,29 +1,26 @@
 'use server';
 
 import { Review } from '@/types/reviews';
-import { Stats, StatsResponse } from '@/types/stats';
 import axios from 'axios';
 import { Session } from 'next-auth';
 
-interface InitialDataResponse {
+interface ReviewDataResponse {
   success: boolean;
   data?: {
-    reviews: Review[];
-    stats: Stats;
+    review: Review;
   };
   error?: string;
   statusCode?: number;
 }
 
-export async function getInitialData(session: Session | null): Promise<InitialDataResponse> {
+export async function getReviewData(session: Session | null, id: string): Promise<ReviewDataResponse> {
   try {
     if (!session) {
       return { success: false, error: 'Нет активной сессии', statusCode: 401 };
     }
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-    const reviewsUrl = `${baseUrl}/reviews`;
-    const statsUrl = `${baseUrl}/reviews/stats`;
+    const reviewsUrl = `${baseUrl}/reviews/${id}`;
 
     const headers = {
       'Content-Type': 'application/json',
@@ -31,27 +28,15 @@ export async function getInitialData(session: Session | null): Promise<InitialDa
     };
 
     // Выполняем оба запроса параллельно
-    const [reviewsResponse, statsResponse] = await Promise.all([
-      axios.get(reviewsUrl, { headers }),
-      axios.get(statsUrl, { headers }),
-    ]);
+    const reviewResponse = await axios.get(reviewsUrl, { headers });
 
     // Обрабатываем данные статистики
-    const statsData = statsResponse.data as StatsResponse;
-    const processedStats: Stats = {
-      total: statsData.total,
-      inProgress: statsData.totalByStatus['В процессе'],
-      completed: statsData.totalByStatus['Пройдено'],
-      abandoned: statsData.totalByStatus['Заброшено'],
-      planned: statsData.totalByStatus['Запланировано'],
-      favorites: statsData.totalByStatus.favorites,
-    };
+    const reviewData = reviewResponse.data as Review;
 
     return {
       success: true,
       data: {
-        reviews: reviewsResponse.data,
-        stats: processedStats,
+        review: reviewData,
       },
     };
   } catch (error) {
