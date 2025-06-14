@@ -1,4 +1,5 @@
 import Text from '@/atomic/Text';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import * as S from './style';
 
 interface RadioIProps {
@@ -7,12 +8,13 @@ interface RadioIProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   checked?: boolean;
   value: string;
+  register: UseFormRegisterReturn<string>;
 }
 
-const GameStatus = ({ label, checked, onChange, name, value }: RadioIProps) => {
+const GameStatus = ({ label, checked, value, register }: RadioIProps) => {
   return (
     <S.RadioContainer as="label">
-      <S.HiddenRadio type="radio" checked={checked} onChange={onChange} name={name} value={value} />
+      <S.HiddenRadio type="radio" checked={checked} value={value} {...register} />
       <S.Label>
         <Text color="greySecondary" size="body_M">
           {label}

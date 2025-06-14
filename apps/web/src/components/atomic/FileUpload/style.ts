@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components';
 
-const UploadContainer = styled.div<{ $isDragging: boolean }>`
+const UploadContainer = styled.div<{ $isDragging: boolean; $isError?: boolean }>`
   width: 100%;
   height: 100%;
-  border: 1px solid ${({ theme }) => theme.colors.grey};
+  border: 1px solid ${({ theme, $isError }) => ($isError ? theme.colors.red : theme.colors.grey)};
   border-radius: ${({ theme }) => theme.radius.rounded_xmedium};
   background-color: ${({ theme }) => theme.colors.darkSecondary};
   transition: all 0.2s;
@@ -51,4 +51,16 @@ const RemoveButton = styled.div`
   }
 `;
 
-export { HiddenInput, PreviewImage, RemoveButton, UploadContainer };
+const Error = styled.div`
+  ${({ theme }) => {
+    return css`
+      padding: ${theme.spacing.s_8} ${theme.spacing.s_12};
+      font-size: ${theme.fontSizes.tech};
+      font-weight: ${theme.fontWeights.medium};
+      color: ${theme.colors.red};
+      width: 100%;
+    `;
+  }}
+`;
+
+export { Error, HiddenInput, PreviewImage, RemoveButton, UploadContainer };

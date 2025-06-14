@@ -2,6 +2,7 @@ import Box from '@/atomic/Box';
 import FlexBox from '@/atomic/FlexBox';
 import { Slider } from '@/atomic/Slider';
 import Text from '@/atomic/Text';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import { css } from 'styled-components';
 
 interface SliderProps {
@@ -9,11 +10,11 @@ interface SliderProps {
   max?: number;
   step?: number;
   defaultValue?: number;
-  value: number;
-  onChange: (value: number) => void;
+  register: UseFormRegisterReturn<string>;
   showEmoji?: boolean;
   label?: string;
   className?: string;
+  value?: number;
 }
 
 const getEmojiForValue = (value: number, max: number): string => {
@@ -30,10 +31,10 @@ const GameScoreSlider = ({
   max = 5,
   step = 0.1,
   defaultValue = 0,
-  value,
-  onChange,
+  register,
   showEmoji = true,
   label,
+  value = 0,
 }: SliderProps) => {
   return (
     <Box
@@ -69,7 +70,7 @@ const GameScoreSlider = ({
         </FlexBox>
       )}
       <Box $width="100%" $mt="s_16">
-        <Slider min={min} max={max} step={step} defaultValue={defaultValue} onChange={onChange} />
+        <Slider min={min} max={max} step={step} defaultValue={defaultValue} register={register} value={value} />
       </Box>
     </Box>
   );

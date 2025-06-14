@@ -12,6 +12,10 @@ const Label = styled.div`
   padding: ${({ theme }) => theme.spacing.s_12};
   border-radius: ${({ theme }) => theme.radius.rounded_small};
   background-color: ${({ theme }) => theme.colors.darkSecondary};
+  cursor: pointer;
+  & * {
+    pointer-events: none;
+  }
   &:hover {
     span {
       color: ${({ theme }) => theme.colors.white};
