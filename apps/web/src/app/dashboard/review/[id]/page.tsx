@@ -5,13 +5,14 @@ import Grid from '@/atomic/Grid';
 import Image from '@/atomic/Image';
 import SvgImage from '@/atomic/SvgImage';
 import Text from '@/atomic/Text';
+import ScoresPanel from '@/components/ScoresPanel';
 import StatusLabel from '@/components/StatusLabel';
 import ArrowIcon from '@/icons/arrow.svg';
+import FavoriteIcon from '@/icons/heart.svg';
 import PencilIcon from '@/icons/pencil.svg';
-import ShareIcon from '@/icons/share.svg';
-import BoarIcon from '@/icons/wild-boar.svg';
 import { useAppData } from '@/lib/hooks/useAppData';
 import { useGetReview } from '@/lib/hooks/useGetReview';
+import setToFavorite from '@/lib/setToFavorite';
 import { GameStatusVariantMap } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { css } from 'styled-components';
@@ -19,10 +20,18 @@ import { css } from 'styled-components';
 export default function Game() {
   const router = useRouter();
   useGetReview();
-  const { selectedReview } = useAppData();
+  const { selectedReview, toggleFavorite } = useAppData();
+
+  const setFavorite = (id: string) => {
+    setToFavorite(id).then(() => {
+      toggleFavorite(id);
+    });
+  };
+
   if (!selectedReview) {
     return <div>Loading...</div>;
   }
+
   return (
     <FlexBox $direction="column" $gap="s_32">
       <Box
@@ -93,6 +102,9 @@ export default function Game() {
                 as={'button'}
                 $padding="s_12"
                 $backgroundColor="darkSecondary"
+                onClick={() => {
+                  setFavorite(selectedReview.id);
+                }}
                 $sx={({ theme }) => css`
                   border-radius: ${theme.radius.rounded_medium};
                   overflow: hidden;
@@ -103,8 +115,8 @@ export default function Game() {
                   }
                 `}
               >
-                <SvgImage $height="20px" $width="20px" $fill="white">
-                  <ShareIcon />
+                <SvgImage $height="20px" $width="20px" $fill={selectedReview.isFavorite ? 'red' : 'white'}>
+                  <FavoriteIcon />
                 </SvgImage>
               </Box>
             </FlexBox>
@@ -292,72 +304,12 @@ export default function Game() {
             </FlexBox>
           </Box>
         </FlexBox>
-        <FlexBox
-          $px="s_20"
-          $py="s_24"
-          $backgroundColor="dark"
-          $gap="s_32"
-          $direction="column"
-          $sx={({ theme }) => css`
-            border-radius: ${theme.radius.rounded_medium};
-            overflow: hidden;
-            margin-left: 142px;
-            flex: 0 0 auto;
-          `}
-        >
-          <FlexBox $direction="column" $gap="s_12">
-            <Text size="body_M" color="greySecondary">
-              Оценка игры
-            </Text>
-            <FlexBox $gap="s_8" $wrap="nowrap">
-              <Text size="title_L" color="yellow" fontWeight="bold">
-                {selectedReview.score}
-              </Text>
-              <SvgImage $height="52px" $width="52px">
-                <BoarIcon />
-              </SvgImage>
-            </FlexBox>
-          </FlexBox>
-          <FlexBox $direction="column" $gap="s_12">
-            <Text size="body_M" color="greySecondary">
-              Сюжет
-            </Text>
-            <FlexBox $gap="s_8" $wrap="nowrap">
-              <Text size="title_L" color="yellow" fontWeight="bold">
-                {selectedReview.plotScore}
-              </Text>
-              <SvgImage $height="52px" $width="52px">
-                <BoarIcon />
-              </SvgImage>
-            </FlexBox>
-          </FlexBox>
-          <FlexBox $direction="column" $gap="s_12">
-            <Text size="body_M" color="greySecondary">
-              Art
-            </Text>
-            <FlexBox $gap="s_8" $wrap="nowrap">
-              <Text size="title_L" color="yellow" fontWeight="bold">
-                {selectedReview.artScore}
-              </Text>
-              <SvgImage $height="52px" $width="52px">
-                <BoarIcon />
-              </SvgImage>
-            </FlexBox>
-          </FlexBox>
-          <FlexBox $direction="column" $gap="s_12">
-            <Text size="body_M" color="greySecondary">
-              Геймплей
-            </Text>
-            <FlexBox $gap="s_8" $wrap="nowrap">
-              <Text size="title_L" color="yellow" fontWeight="bold">
-                {selectedReview.gameplayScore}
-              </Text>
-              <SvgImage $height="52px" $width="52px">
-                <BoarIcon />
-              </SvgImage>
-            </FlexBox>
-          </FlexBox>
-        </FlexBox>
+        <ScoresPanel
+          score={selectedReview.score}
+          plotScore={selectedReview.plotScore}
+          artScore={selectedReview.artScore}
+          gameplayScore={selectedReview.gameplayScore}
+        />
       </FlexBox>
     </FlexBox>
   );

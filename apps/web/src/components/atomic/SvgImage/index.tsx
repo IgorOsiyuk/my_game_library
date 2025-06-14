@@ -10,6 +10,7 @@ interface SvgImageProps {
 const SvgImage = styled.div<SvgImageProps>`
   display: flex;
   align-items: center;
+  pointer-events: none;
   svg {
     width: ${({ $width }) => $width};
     height: ${({ $height }) => $height};

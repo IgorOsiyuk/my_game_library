@@ -3,7 +3,9 @@
 import { logout } from '@/actions/logout';
 import SideNav from '@/components/SideNav';
 import { signOut } from 'next-auth/react';
+import { usePathname } from 'next/navigation';
 import { toast } from 'react-hot-toast';
+import { mainNavigationItems } from './navigationConfig';
 
 export default function SideNavContainer() {
   const handleLogout = async (e: React.MouseEvent<HTMLElement>) => {
@@ -31,5 +33,16 @@ export default function SideNavContainer() {
     }
   };
 
-  return <SideNav signOutHandler={handleLogout} />;
+  const paths = usePathname();
+
+  return (
+    <SideNav
+      signOutHandler={handleLogout}
+      mainNavigationItems={mainNavigationItems.map((item) => ({
+        ...item,
+        isActive: paths === item.href,
+      }))}
+      bottomNavigationItems={[]}
+    />
+  );
 }

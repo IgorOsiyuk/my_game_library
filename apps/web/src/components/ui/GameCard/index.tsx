@@ -5,7 +5,6 @@ import SvgImage from '@/atomic/SvgImage';
 import Text from '@/atomic/Text';
 import StatusLabel from '@/components/StatusLabel';
 import HeartIcon from '@/icons/heart.svg';
-import InfoIcon from '@/icons/info.svg';
 import StarIcon from '@/icons/star.svg';
 import { GameStatusVariantMap } from '@/lib/utils';
 import { GameStatus } from '@/types/game';
@@ -128,28 +127,28 @@ const GameCard = ({
           </FlexBox>
           <FlexBox $gap="s_8" $align="center">
             <Box
-              onClick={(e) => {
-                e.preventDefault();
-                setFavorite(id);
-              }}
-              as={'button'}
-              $sx={({ theme }) => css`
-                cursor: pointer;
-                &:hover {
-                  svg {
-                    path {
-                      fill: ${!isFavorite ? theme.colors.red : theme.colors.greySecondary};
-                      transition: fill 0.3s ease;
-                    }
-                  }
-                }
-              `}
+            // onClick={(e) => {
+            //   e.preventDefault();
+            //   setFavorite(id);
+            // }}
+            // as={'button'}
+            // $sx={({ theme }) => css`
+            //   cursor: pointer;
+            //   &:hover {
+            //     svg {
+            //       path {
+            //         fill: ${!isFavorite ? theme.colors.red : theme.colors.greySecondary};
+            //         transition: fill 0.3s ease;
+            //       }
+            //     }
+            //   }
+            // `}
             >
               <SvgImage $height="16px" $width="16px" $fill={isFavorite ? 'red' : 'greySecondary'}>
                 <HeartIcon />
               </SvgImage>
             </Box>
-            <Box
+            {/* <Box
               as={'button'}
               $sx={({ theme }) => css`
                 cursor: pointer;
@@ -164,7 +163,7 @@ const GameCard = ({
               <SvgImage $height="16px" $width="16px" $fill="greySecondary">
                 <InfoIcon />
               </SvgImage>
-            </Box>
+            </Box> */}
           </FlexBox>
         </FlexBox>
       </FlexBox>

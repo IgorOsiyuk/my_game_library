@@ -116,33 +116,18 @@ export const createAppStore = (initState: AppState = defaultInitState) => {
         reviews: state.reviews.filter((review) => review.id !== reviewId),
       })),
 
-    toggleFavorite: (reviewId: string) =>
+    toggleFavorite: () =>
       set((state) => {
-        // Находим отзыв для определения текущего состояния
-        const targetReview = state.reviews.find((review) => review.id === reviewId);
-
-        if (!targetReview) {
-          return state; // Если отзыв не найден, возвращаем неизмененное состояние
-        }
-
-        const wasInFavorites = targetReview.isFavorite;
+        const wasInFavorites = state.selectedReview?.isFavorite;
         const willBeInFavorites = !wasInFavorites;
 
-        // Обновляем отзывы
-        const updatedReviews = state.reviews.map((review) =>
-          review.id === reviewId ? { ...review, isFavorite: willBeInFavorites } : review,
-        );
-
-        // Обновляем статистику
-        const statsChange = willBeInFavorites ? 1 : -1;
-        const updatedStats: Stats = {
-          ...state.stats,
-          favorites: Math.max(0, state.stats.favorites + statsChange),
-        };
-
         return {
-          reviews: updatedReviews,
-          stats: updatedStats,
+          selectedReview: state.selectedReview
+            ? {
+                ...state.selectedReview,
+                isFavorite: willBeInFavorites,
+              }
+            : null,
         };
       }),
   }));

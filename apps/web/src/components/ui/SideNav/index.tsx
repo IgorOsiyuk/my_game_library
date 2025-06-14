@@ -1,21 +1,26 @@
 import Box from '@/atomic/Box';
 import FlexBox from '@/atomic/FlexBox';
 import Image from '@/atomic/Image';
-import GameIcon from '@/icons/game.svg';
-import LibraryIcon from '@/icons/library.svg';
 import ProfileIcon from '@/icons/profile.svg';
-import SettingsIcon from '@/icons/settings.svg';
 import DefaultProfileImage from '@/images/default_profile_image.jpg';
 import { css } from 'styled-components';
 import Text from '../../atomic/Text';
 import NavLink from './NavLink';
 import SignOut from './SignOut';
 
+export type NavigationItem = {
+  href: string;
+  label: string;
+  icon: React.ReactNode;
+  isActive?: boolean;
+};
 interface SideNavIProps {
   signOutHandler: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  mainNavigationItems: NavigationItem[];
+  bottomNavigationItems: NavigationItem[];
 }
 
-const SideNav = ({ signOutHandler }: SideNavIProps) => {
+const SideNav = ({ signOutHandler, mainNavigationItems, bottomNavigationItems }: SideNavIProps) => {
   return (
     <Box $radius={'rounded_medium'} $height={'100%'} $backgroundColor={'dark'} $px={'s_8'} $py={'s_24'}>
       <FlexBox $direction="column" $justify="space-between" $height="100%">
@@ -36,13 +41,15 @@ const SideNav = ({ signOutHandler }: SideNavIProps) => {
             </Text>
           </FlexBox>
           <FlexBox $direction="column" $gap="s_4">
-            <NavLink href={'/dashboard'} label={'Моя библиотека'} icon={<LibraryIcon />} isActive />
-            <NavLink href={'/dashboard/games'} label={'Игры'} icon={<GameIcon />} />
-            <NavLink href={'/dashboard/user'} label={'Аккаунт'} icon={<ProfileIcon />} />
+            {mainNavigationItems.map((item) => (
+              <NavLink key={item.href} href={item.href} label={item.label} icon={item.icon} isActive={item.isActive} />
+            ))}
           </FlexBox>
         </FlexBox>
         <FlexBox $direction="column">
-          <NavLink href={'/dashboard'} label={'Настройки'} icon={<SettingsIcon />} />
+          {bottomNavigationItems.map((item) => (
+            <NavLink key={item.href} href={item.href} label={item.label} icon={item.icon} isActive={item.isActive} />
+          ))}
           <SignOut label={'Выйти'} icon={<ProfileIcon />} onClick={signOutHandler} />
         </FlexBox>
       </FlexBox>
