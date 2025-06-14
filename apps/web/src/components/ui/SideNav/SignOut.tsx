@@ -19,6 +19,9 @@ const SignOut = ({ label, icon, onClick }: SignOutIProps) => {
       $py={'s_12'}
       $sx={({ theme }) => css`
         cursor: pointer;
+        & * {
+          pointer-events: none;
+        }
         &:hover * {
           color: ${theme.colors.white};
           fill: ${theme.colors.white};

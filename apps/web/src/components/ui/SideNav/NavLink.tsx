@@ -23,6 +23,10 @@ const NavLink = ({ href, label, icon, isActive = false }: NavLinkIProps) => {
           $backgroundColor: 'grey',
         })}
         $sx={({ theme }) => css`
+          cursor: pointer;
+          & * {
+            pointer-events: none;
+          }
           &:hover {
             background-color: ${theme.colors.grey};
           }
