@@ -50,6 +50,7 @@ const CreateReviewModal = ({ isOpen, onClose }: CreateReviewModalProps) => {
       artScore: 0,
       gameplayScore: 0,
       reviewText: '',
+      gameImage: undefined,
     },
     mode: 'onChange',
   });
@@ -214,7 +215,11 @@ const CreateReviewModal = ({ isOpen, onClose }: CreateReviewModalProps) => {
                 isError={!!errors.difficulty}
                 error={errors.difficulty?.message}
               />
-              <Box $height="206px">
+              <Box
+                $sx={css`
+                  min-height: 206px;
+                `}
+              >
                 <TextArea
                   placeholder="Сюжет"
                   register={register('plotDescription', {
@@ -252,7 +257,11 @@ const CreateReviewModal = ({ isOpen, onClose }: CreateReviewModalProps) => {
                   register={register('gameplayScore', { required: true, valueAsNumber: true })}
                 />
               </FlexBox>
-              <Box $height="206px">
+              <Box
+                $sx={css`
+                  min-height: 206px;
+                `}
+              >
                 <TextArea
                   placeholder="Напиши отзыв"
                   register={register('reviewText', {

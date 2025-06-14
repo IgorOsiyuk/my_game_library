@@ -1,10 +1,16 @@
 import Box from '@/atomic/Box';
 import FlexBox from '@/atomic/FlexBox';
+import Image from '@/atomic/Image';
 import { Slider } from '@/atomic/Slider';
 import Text from '@/atomic/Text';
+import Rating0Img from '@/images/rating-0.png';
+import Rating1Img from '@/images/rating-1.png';
+import Rating2Img from '@/images/rating-2.png';
+import Rating3Img from '@/images/rating-3.png';
+import Rating4Img from '@/images/rating-4.png';
+import { StaticImageData } from 'next/image';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { css } from 'styled-components';
-
 interface SliderProps {
   min?: number;
   max?: number;
@@ -17,13 +23,12 @@ interface SliderProps {
   value?: number;
 }
 
-const getEmojiForValue = (value: number, max: number): string => {
-  const percentage = value / max;
-  if (percentage <= 0.2) return '😡';
-  if (percentage <= 0.4) return '😤';
-  if (percentage <= 0.6) return '😐';
-  if (percentage <= 0.8) return '🙂';
-  return '😊';
+const getEmojiForValue = (value: number): StaticImageData => {
+  if (value <= 1) return Rating0Img;
+  if (value <= 2) return Rating1Img;
+  if (value <= 3) return Rating2Img;
+  if (value <= 4) return Rating3Img;
+  return Rating4Img;
 };
 
 const GameScoreSlider = ({
@@ -65,7 +70,22 @@ const GameScoreSlider = ({
                 {value.toFixed(1)}
               </Text>
             </Box>
-            {showEmoji && <Text size="body_M">{getEmojiForValue(value, max)}</Text>}
+            {showEmoji && (
+              <Image
+                alt="rating-image"
+                fill
+                sizes="100vw"
+                style={{
+                  objectFit: 'cover',
+                }}
+                $sx={css`
+                  width: 70px;
+                  height: 70px;
+                  pointer-events: none;
+                `}
+                src={getEmojiForValue(value)}
+              />
+            )}
           </FlexBox>
         </FlexBox>
       )}

@@ -21,21 +21,39 @@ const ModalOverlay = styled.div<{ $isOpen: boolean }>`
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: ${({ $isOpen }) => ($isOpen ? 'flex' : 'none')};
-  padding: 0 ${({ theme }) => theme.spacing.s_188};
+  padding: ${({ theme }) => theme.spacing.s_24} ${({ theme }) => theme.spacing.s_188};
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   z-index: 1000;
+  overflow-y: auto;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+
+  /* Transparent scrollbar */
+  &::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+
+  /* Firefox */
+  scrollbar-width: none;
 `;
 
 const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-height: 90vh;
+  height: auto;
+  max-height: none;
   background-color: ${({ theme }) => theme.colors.darkSecondary};
   border-radius: ${({ theme }) => theme.radius.rounded_large};
   animation: ${modalFadeIn} 0.75s ease-out;
   position: relative;
+  overflow: visible;
 `;
 
 const ModalHeader = styled.div`
@@ -47,26 +65,25 @@ const ModalHeader = styled.div`
 
 const ModalBody = styled.div`
   padding: ${({ theme }) => theme.spacing.s_16};
-  overflow-y: auto;
   flex-grow: 1;
+  overflow: visible;
 
+  /* Transparent scrollbar */
   &::-webkit-scrollbar {
-    width: 8px;
+    width: 0px;
+    background: transparent;
   }
 
   &::-webkit-scrollbar-track {
-    background: ${({ theme }) => theme.colors.dark};
-    border-radius: ${({ theme }) => theme.radius.rounded_small};
+    background: transparent;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.colors.grey};
-    border-radius: ${({ theme }) => theme.radius.rounded_small};
-
-    &:hover {
-      background: ${({ theme }) => theme.colors.greySecondary};
-    }
+    background: transparent;
   }
+
+  /* Firefox */
+  scrollbar-width: none;
 `;
 
 const CloseButton = styled.div`
