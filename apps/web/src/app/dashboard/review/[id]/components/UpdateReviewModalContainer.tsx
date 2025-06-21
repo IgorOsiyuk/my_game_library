@@ -1,6 +1,6 @@
-import { FormValues } from '@/actions/createReview';
+import { UpdateFormValues } from '@/actions/updateReview';
 import CreateReviewModal from '@/components/CreateReviewModal';
-import { useCreateReview } from '@/lib/hooks/useCreateReview';
+import { useUpdateReview } from '@/lib/hooks/useUpdateReview';
 import { Review } from '@/types/reviews';
 import { useForm } from 'react-hook-form';
 
@@ -11,9 +11,9 @@ interface UpdateReviewModalContainerIProps {
 }
 
 const UpdateReviewModalContainer = ({ isOpen, onClose, review }: UpdateReviewModalContainerIProps) => {
-  const createNewReview = useCreateReview();
-  console.log(review);
-  const form = useForm<FormValues>({
+  const updateExistingReview = useUpdateReview();
+
+  const form = useForm<UpdateFormValues>({
     defaultValues: {
       gameTitle: review?.title,
       developer: '',
@@ -23,12 +23,13 @@ const UpdateReviewModalContainer = ({ isOpen, onClose, review }: UpdateReviewMod
       gameStatus: review?.status,
       difficulty: review?.difficulty,
       plotDescription: '',
-      gameScore: review?.score,
-      plotScore: review?.plotScore,
-      artScore: review?.artScore,
-      gameplayScore: review?.gameplayScore,
-      reviewText: review?.review,
-      gameImage: review?.img,
+      gameScore: review?.score || 0,
+      plotScore: review?.plotScore || 0,
+      artScore: review?.artScore || 0,
+      gameplayScore: review?.gameplayScore || 0,
+      reviewText: review?.review || '',
+      gameImage: undefined,
+      imgUrl: review?.img,
     },
     mode: 'onChange',
   });
@@ -48,13 +49,17 @@ const UpdateReviewModalContainer = ({ isOpen, onClose, review }: UpdateReviewMod
   const watchedArtScore = watch('artScore');
   const watchedGameplayScore = watch('gameplayScore');
 
-  const onSubmit = async (formValues: FormValues) => {
-    createNewReview(formValues).then(() => {
+  const onSubmit = async (formValues: UpdateFormValues) => {
+    const dataToSend = {
+      ...formValues,
+      id: review?.id || '',
+    };
+    updateExistingReview(dataToSend).then(() => {
       onClose();
     });
   };
 
-  // Валидационные правила
+  // Валидационные правила (изображение не обязательно при обновлении)
   const validationRules = {
     gameTitle: {
       required: 'Название игры обязательно для заполнения',
@@ -64,16 +69,16 @@ const UpdateReviewModalContainer = ({ isOpen, onClose, review }: UpdateReviewMod
       },
     },
     developer: {
-      required: 'Разработчик обязателен для заполнения',
+      required: false, // Не обязательно при обновлении
     },
     genre: {
-      required: 'Жанр обязателен для заполнения',
+      required: false, // Не обязательно при обновлении
     },
     platform: {
-      required: 'Платформа обязательна для заполнения',
+      required: false, // Не обязательно при обновлении
     },
     releaseYear: {
-      required: 'Год выпуска обязателен для заполнения',
+      required: false, // Не обязательно при обновлении
       pattern: {
         value: /^\d{4}$/,
         message: 'Год должен состоять из 4 цифр',
@@ -94,7 +99,7 @@ const UpdateReviewModalContainer = ({ isOpen, onClose, review }: UpdateReviewMod
       required: 'Сложность обязательна для заполнения',
     },
     plotDescription: {
-      required: 'Описание сюжета обязательно для заполнения',
+      required: false, // Не обязательно при обновлении
       minLength: {
         value: 10,
         message: 'Описание должно содержать минимум 10 символов',
@@ -124,7 +129,7 @@ const UpdateReviewModalContainer = ({ isOpen, onClose, review }: UpdateReviewMod
       },
     },
     gameImage: {
-      required: 'Обложка игры обязательна для загрузки',
+      required: false, // Изображение не обязательно при обновлении
       validate: {
         fileSize: (file: File | null) => {
           if (!file) return true;
@@ -143,7 +148,6 @@ const UpdateReviewModalContainer = ({ isOpen, onClose, review }: UpdateReviewMod
       },
     },
   };
-
   return (
     <CreateReviewModal
       isOpen={isOpen}
@@ -153,6 +157,7 @@ const UpdateReviewModalContainer = ({ isOpen, onClose, review }: UpdateReviewMod
       control={control}
       errors={errors}
       validationRules={validationRules}
+      imgPreview={watch('imgUrl') || ''}
       watchedScores={{
         gameScore: watchedGameScore,
         plotScore: watchedPlotScore,

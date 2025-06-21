@@ -26,6 +26,7 @@ export interface CreateReviewModalProps {
     artScore: number;
     gameplayScore: number;
   };
+  imgPreview: string;
 }
 
 const CreateReviewModal = ({
@@ -37,6 +38,7 @@ const CreateReviewModal = ({
   errors,
   validationRules,
   watchedScores,
+  imgPreview,
 }: CreateReviewModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -49,7 +51,13 @@ const CreateReviewModal = ({
           `}
         >
           <Box $width="448px" $height="448px">
-            <FileUpload name="gameImage" control={control} accept="image/*" rules={validationRules.gameImage} />
+            <FileUpload
+              name="gameImage"
+              control={control}
+              accept="image/*"
+              rules={validationRules.gameImage}
+              imgPreview={imgPreview}
+            />
           </Box>
           <Box $width="100%">
             <FlexBox $direction="column" $gap="s_14" $width="100%">

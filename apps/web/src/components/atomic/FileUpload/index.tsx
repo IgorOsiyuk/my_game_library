@@ -16,6 +16,7 @@ interface FileUploadProps {
   isError?: boolean;
   error?: string;
   rules?: object;
+  imgPreview?: string;
 }
 
 export const FileUpload = ({
@@ -25,9 +26,11 @@ export const FileUpload = ({
   isError = false,
   error,
   rules = {},
+  imgPreview,
 }: FileUploadProps) => {
+  // console.log(imgPreview);
   const [isDragging, setIsDragging] = useState(false);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(control._getWatch(name));
+  const [previewUrl, setPreviewUrl] = useState<string | null>(imgPreview || null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
@@ -88,7 +91,7 @@ export const FileUpload = ({
           <Box $width="100%" $height="100%">
             <S.UploadContainer $isDragging={isDragging} $isError={isError || !!fieldError}>
               <FlexBox $direction="column" $align="center" $gap="s_8" $width="100%" $height="100%">
-                {previewUrl && value && !fieldError ? (
+                {previewUrl && !fieldError ? (
                   <Box
                     $sx={css`
                       position: relative;

@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { ObjectStorageService } from '../object-storage/object-storage.service';
 
-import { CreateReviewDto } from './dto';
+import { CreateReviewDto, UpdateReviewDto } from './dto';
 import { ReviewStatus } from './entities/review-status.enum';
 import { Review } from './entities/review.entity';
 
@@ -176,5 +176,63 @@ export class ReviewsService {
         user: { id: userId },
       },
     });
+  }
+
+  /**
+   * Обновляет существующий отзыв
+   * @param reviewId - ID отзыва для обновления
+   * @param userId - ID пользователя, которому принадлежит отзыв
+   * @param updateReviewDto - Данные для обновления отзыва
+   * @param img - Новый файл изображения (опционально)
+   * @returns Promise<Review> Обновленный отзыв
+   *
+   * Процесс:
+   * 1. Находит отзыв по ID и проверяет принадлежность пользователю
+   * 2. Загружает новое изображение если оно предоставлено
+   * 3. Обновляет только переданные поля
+   * 4. Преобразует строковые значения в числовые для оценок
+   * 5. Сохраняет обновленный отзыв в базе данных
+   */
+  async update(reviewId: string, userId: string, updateReviewDto: UpdateReviewDto, img?: Express.Multer.File) {
+    console.log(reviewId);
+    const review = await this.reviewRepository.findOne({
+      where: {
+        id: reviewId,
+        user: { id: userId },
+      },
+    });
+
+    if (!review) {
+      throw new NotFoundException('Отзыв не найден');
+    }
+
+    let imgUrl: string | undefined;
+
+    // Обрабатываем новое изображение
+    if (img) {
+      const fileName = `${uuidv4()}-${img.originalname}`;
+      const uploadResult = await this.objectStorageService.upload(fileName, img.buffer);
+      imgUrl = uploadResult.url;
+    } else if (updateReviewDto.imgUrl) {
+      imgUrl = updateReviewDto.imgUrl;
+    }
+
+    // Обновляем только переданные поля
+    Object.keys(updateReviewDto).forEach((key) => {
+      if (updateReviewDto[key] !== undefined) {
+        if (['artScore', 'gameplayScore', 'plotScore', 'rating', 'score', 'trophies'].includes(key)) {
+          review[key] = Number(updateReviewDto[key]);
+        } else {
+          review[key] = updateReviewDto[key];
+        }
+      }
+    });
+
+    // Обновляем изображение если было предоставлено
+    if (imgUrl) {
+      review.img = imgUrl;
+    }
+
+    return this.reviewRepository.save(review);
   }
 }

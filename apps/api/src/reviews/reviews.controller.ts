@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   ParseFilePipeBuilder,
+  Patch,
   Post,
   Query,
   Request,
@@ -15,7 +16,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 
 import { AuthGuard } from '../guards';
 
-import { CreateReviewDto } from './dto';
+import { CreateReviewDto, UpdateReviewDto } from './dto';
 import { ReviewStatus } from './entities/review-status.enum';
 import { ReviewsService } from './reviews.service';
 
@@ -110,5 +111,35 @@ export class ReviewsController {
   @Get(':id')
   findOne(@Param('id') id: string, @Request() req: Request) {
     return this.reviewsService.findOne(id, req['userId']);
+  }
+
+  /**
+   * Обновляет существующий отзыв об игре
+   * @route PATCH /reviews/:id
+   * @param id - ID отзыва для обновления
+   * @param req - Объект запроса с данными пользователя
+   * @param updateReviewDto - DTO с данными для обновления отзыва
+   * @param img - Новое изображение для загрузки (опционально)
+   * @returns Данные обновленного отзыва
+   *
+   * Ограничения для изображения:
+   * - Максимальный размер: 5 MB
+   * - Тип файла: только изображения
+   */
+  @Patch(':id')
+  @UseInterceptors(FileInterceptor('img'))
+  update(
+    @Param('id') id: string,
+    @Request() req: Request,
+    @Body() updateReviewDto: UpdateReviewDto,
+    @UploadedFile(
+      new ParseFilePipeBuilder()
+        .addMaxSizeValidator({ maxSize: MAX_FILE_SIZE })
+        .addFileTypeValidator({ fileType: 'image/*' })
+        .build({ fileIsRequired: false }),
+    )
+    img?: Express.Multer.File,
+  ) {
+    return this.reviewsService.update(id, req['userId'], updateReviewDto, img);
   }
 }
