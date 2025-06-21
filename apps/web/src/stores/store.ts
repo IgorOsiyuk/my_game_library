@@ -16,6 +16,15 @@ export enum GameStatus {
   PLANNED = 'Запланировано',
 }
 
+export enum FilterType {
+  ALL = 'ALL',
+  COMPLETED = 'COMPLETED',
+  IN_PROGRESS = 'IN_PROGRESS',
+  ABANDONED = 'ABANDONED',
+  PLANNED = 'PLANNED',
+  FAVORITE = 'FAVORITE',
+}
+
 export interface Review {
   id: string;
   title: string;
@@ -33,8 +42,30 @@ export interface Review {
   isFavorite: boolean;
 }
 
+// Функция для фильтрации отзывов
+const filterReviews = (reviews: Review[], filterType: FilterType): Review[] => {
+  switch (filterType) {
+    case FilterType.ALL:
+      return reviews;
+    case FilterType.COMPLETED:
+      return reviews.filter((review) => review.status === GameStatus.COMPLETED);
+    case FilterType.IN_PROGRESS:
+      return reviews.filter((review) => review.status === GameStatus.IN_PROGRESS);
+    case FilterType.ABANDONED:
+      return reviews.filter((review) => review.status === GameStatus.ABANDONED);
+    case FilterType.PLANNED:
+      return reviews.filter((review) => review.status === GameStatus.PLANNED);
+    case FilterType.FAVORITE:
+      return reviews.filter((review) => review.isFavorite);
+    default:
+      return reviews;
+  }
+};
+
 export type AppState = {
   reviews: Review[];
+  filteredReviews: Review[];
+  selectedFilter: FilterType;
   selectedReview: Review | null;
   stats: Stats;
   isLoading: boolean;
@@ -53,12 +84,16 @@ export type AppActions = {
   addReview: (review: Review) => void;
   removeReview: (reviewId: string) => void;
   toggleFavorite: (reviewId: string) => void;
+  setSelectedFilter: (filter: FilterType) => void;
+  applyFilter: () => void;
 };
 
 export type AppStore = AppState & AppActions;
 
 export const defaultInitState: AppState = {
   reviews: [],
+  filteredReviews: [],
+  selectedFilter: FilterType.ALL,
   selectedReview: null,
   stats: {
     total: 0,
@@ -80,6 +115,8 @@ export const createInitState = (
   error: string | null = null,
 ): AppState => ({
   reviews,
+  filteredReviews: reviews, // Изначально показываем все отзывы
+  selectedFilter: FilterType.ALL,
   selectedReview: null,
   stats,
   isLoading,
@@ -90,7 +127,11 @@ export const createAppStore = (initState: AppState = defaultInitState) => {
   return createStore<AppStore>()((set, get) => ({
     ...initState,
 
-    setReviews: (reviews: Review[]) => set({ reviews }),
+    setReviews: (reviews: Review[]) =>
+      set((state) => {
+        const filteredReviews = filterReviews(reviews, state.selectedFilter);
+        return { reviews, filteredReviews };
+      }),
 
     setSelectedReview: (review: Review | null) => set({ selectedReview: review }),
 
@@ -103,9 +144,13 @@ export const createAppStore = (initState: AppState = defaultInitState) => {
     resetStore: () => set(defaultInitState),
 
     updateReview: (reviewId, updatedReview) =>
-      set((state) => ({
-        reviews: state.reviews.map((review) => (review.id === reviewId ? { ...review, ...updatedReview } : review)),
-      })),
+      set((state) => {
+        const updatedReviews = state.reviews.map((review) =>
+          review.id === reviewId ? { ...review, ...updatedReview } : review,
+        );
+        const filteredReviews = filterReviews(updatedReviews, state.selectedFilter);
+        return { reviews: updatedReviews, filteredReviews };
+      }),
 
     updateSelectedReview: (updatedReview: Partial<Review>) =>
       set((state) => ({
@@ -113,28 +158,49 @@ export const createAppStore = (initState: AppState = defaultInitState) => {
       })),
 
     addReview: (review: Review) =>
-      set((state) => ({
-        reviews: [review, ...state.reviews],
-      })),
+      set((state) => {
+        const updatedReviews = [review, ...state.reviews];
+        const filteredReviews = filterReviews(updatedReviews, state.selectedFilter);
+        return { reviews: updatedReviews, filteredReviews };
+      }),
 
     removeReview: (reviewId: string) =>
-      set((state) => ({
-        reviews: state.reviews.filter((review) => review.id !== reviewId),
-      })),
-
-    toggleFavorite: () =>
       set((state) => {
-        const wasInFavorites = state.selectedReview?.isFavorite;
-        const willBeInFavorites = !wasInFavorites;
+        const updatedReviews = state.reviews.filter((review) => review.id !== reviewId);
+        const filteredReviews = filterReviews(updatedReviews, state.selectedFilter);
+        return { reviews: updatedReviews, filteredReviews };
+      }),
+
+    toggleFavorite: (reviewId: string) =>
+      set((state) => {
+        const updatedReviews = state.reviews.map((review) =>
+          review.id === reviewId ? { ...review, isFavorite: !review.isFavorite } : review,
+        );
+        const filteredReviews = filterReviews(updatedReviews, state.selectedFilter);
+
+        // Также обновляем selectedReview если это тот же отзыв
+        const updatedSelectedReview =
+          state.selectedReview?.id === reviewId
+            ? { ...state.selectedReview, isFavorite: !state.selectedReview.isFavorite }
+            : state.selectedReview;
 
         return {
-          selectedReview: state.selectedReview
-            ? {
-                ...state.selectedReview,
-                isFavorite: willBeInFavorites,
-              }
-            : null,
+          reviews: updatedReviews,
+          filteredReviews,
+          selectedReview: updatedSelectedReview,
         };
+      }),
+
+    setSelectedFilter: (filter: FilterType) =>
+      set((state) => {
+        const filteredReviews = filterReviews(state.reviews, filter);
+        return { selectedFilter: filter, filteredReviews };
+      }),
+
+    applyFilter: () =>
+      set((state) => {
+        const filteredReviews = filterReviews(state.reviews, state.selectedFilter);
+        return { filteredReviews };
       }),
   }));
 };

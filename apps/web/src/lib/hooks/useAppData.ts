@@ -4,6 +4,8 @@ import { useAppStore } from '@/stores/providers/storeProvider';
 
 export const useAppData = () => {
   const reviews = useAppStore((state) => state.reviews);
+  const filteredReviews = useAppStore((state) => state.filteredReviews);
+  const selectedFilter = useAppStore((state) => state.selectedFilter);
   const stats = useAppStore((state) => state.stats);
   const isLoading = useAppStore((state) => state.isLoading);
   const error = useAppStore((state) => state.error);
@@ -20,13 +22,17 @@ export const useAppData = () => {
   const addReview = useAppStore((state) => state.addReview);
   const removeReview = useAppStore((state) => state.removeReview);
   const toggleFavorite = useAppStore((state) => state.toggleFavorite);
+  const setSelectedFilter = useAppStore((state) => state.setSelectedFilter);
+  const applyFilter = useAppStore((state) => state.applyFilter);
   const updateSelectedReview = useAppStore((state) => state.updateSelectedReview);
 
   return {
     // Data
     reviews,
-    stats,
+    filteredReviews,
+    selectedFilter,
     selectedReview,
+    stats,
     isLoading,
     error,
 
@@ -41,6 +47,8 @@ export const useAppData = () => {
     addReview,
     removeReview,
     toggleFavorite,
+    setSelectedFilter,
+    applyFilter,
     updateSelectedReview,
   };
 };

@@ -1,19 +1,22 @@
 'use client';
 
 import FlexBox from '@/atomic/FlexBox';
-import FilterOptions, { FilterType } from '@/components/FilterOptions';
+import FilterOptions from '@/components/FilterOptions';
 import GamesList from '@/components/GamesList';
 import ViewOptions, { ViewType } from '@/components/ViewOptions';
 import setToFavorite from '@/lib/api/setToFavorite';
 import { useAppData } from '@/lib/hooks/useAppData';
+import { useFilter } from '@/lib/hooks/useFilter';
 import { useInititalData } from '@/lib/hooks/useInititalData';
 import { useState } from 'react';
 
 export default function GamesContainer() {
   const [currentView, setCurrentView] = useState<ViewType>(ViewType.CARD);
-  const [selectedFilter, setSelectedFilter] = useState<FilterType>(FilterType.ALL);
-  const { reviews, stats, isLoading, error, toggleFavorite } = useAppData();
+  const { stats, isLoading, error, toggleFavorite } = useAppData();
+  const { selectedFilter, filteredReviews, setFilter } = useFilter();
+
   useInititalData();
+
   const toggleFavoriteHandler = (id: string) => {
     setToFavorite(id).then(() => {
       toggleFavorite(id);
@@ -26,7 +29,7 @@ export default function GamesContainer() {
         <FilterOptions
           isLoading={isLoading}
           selectedFilter={selectedFilter}
-          onFilterChange={setSelectedFilter}
+          onFilterChange={setFilter}
           reviewCounts={stats}
         />
         <ViewOptions currentView={currentView} onViewChange={setCurrentView} />
@@ -34,7 +37,7 @@ export default function GamesContainer() {
       <GamesList
         isLoading={isLoading}
         error={error}
-        games={reviews.map((review) => ({
+        games={filteredReviews.map((review) => ({
           ...review,
           img: review.img || '',
           genres: [],

@@ -5,17 +5,9 @@ import FlexBox from '@/atomic/FlexBox';
 import SvgImage from '@/atomic/SvgImage';
 import Text from '@/atomic/Text';
 import PlusIcon from '@/icons/plus.svg';
+import { FilterType } from '@/stores/store';
 import { css } from 'styled-components';
 import SkeletonFilterOptions from './SkeletonFilterOptions';
-
-export enum FilterType {
-  ALL = 'ALL',
-  COMPLETED = 'COMPLETED',
-  IN_PROGRESS = 'IN_PROGRESS',
-  ABANDONED = 'ABANDONED',
-  PLANNED = 'PLANNED',
-  FAVORITE = 'FAVORITE',
-}
 
 interface ReviewCounts {
   total: number;
@@ -64,7 +56,7 @@ const FilterOptions = ({ selectedFilter, onFilterChange, reviewCounts, isLoading
       {reviewCounts.total > 0 && (
         <Button
           textSize="body_M"
-          color={selectedFilter === 'ALL' ? 'accent' : 'darkSecondary'}
+          color={selectedFilter === FilterType.ALL ? 'accent' : 'darkSecondary'}
           spacing="s_12"
           onClick={(e) => {
             e.preventDefault();
