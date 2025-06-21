@@ -4,9 +4,9 @@ import FlexBox from '@/atomic/FlexBox';
 import FilterOptions, { FilterType } from '@/components/FilterOptions';
 import GamesList from '@/components/GamesList';
 import ViewOptions, { ViewType } from '@/components/ViewOptions';
+import setToFavorite from '@/lib/api/setToFavorite';
 import { useAppData } from '@/lib/hooks/useAppData';
 import { useInititalData } from '@/lib/hooks/useInititalData';
-import setToFavorite from '@/lib/setToFavorite';
 import { useState } from 'react';
 
 export default function GamesContainer() {

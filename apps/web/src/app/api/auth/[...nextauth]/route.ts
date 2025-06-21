@@ -1,5 +1,5 @@
+import refreshAccessToken from '@/lib/api/refreshToken';
 import axios from '@/lib/axios';
-import refreshAccessToken from '@/lib/refreshToken';
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 

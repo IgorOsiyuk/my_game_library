@@ -1,5 +1,5 @@
 import { JWT } from 'next-auth/jwt';
-import axios from './axios';
+import axios from '../axios';
 
 export default async function refreshAccessToken(token: JWT, retryCount = 0) {
   console.log('refresh token in refreshToken function');

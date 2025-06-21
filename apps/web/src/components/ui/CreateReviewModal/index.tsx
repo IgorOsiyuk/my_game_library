@@ -5,6 +5,7 @@ import FlexBox from '@/atomic/FlexBox';
 import Input from '@/atomic/Input';
 import { Modal } from '@/atomic/Modal';
 import TextArea from '@/atomic/TextArea';
+import createNewReview from '@/lib/api/createNewReview';
 import { theme } from '@/styles/theme';
 import { GameStatus as GameStatusEnum } from '@/types/game';
 import { useForm } from 'react-hook-form';
@@ -62,6 +63,7 @@ const CreateReviewModal = ({ isOpen, onClose }: CreateReviewModalProps) => {
     setValue,
     formState: { errors },
     control,
+    reset,
   } = form;
 
   const watchedGameScore = watch('gameScore');
@@ -69,8 +71,10 @@ const CreateReviewModal = ({ isOpen, onClose }: CreateReviewModalProps) => {
   const watchedArtScore = watch('artScore');
   const watchedGameplayScore = watch('gameplayScore');
 
-  const onSubmit = (formValues: FormValues) => {
-    console.log('Form Data:', formValues);
+  const onSubmit = async (formValues: FormValues) => {
+    createNewReview(formValues).then(() => {
+      onClose();
+    });
   };
 
   return (
@@ -286,12 +290,32 @@ const CreateReviewModal = ({ isOpen, onClose }: CreateReviewModalProps) => {
                   align-items: center;
                   justify-content: center;
                 }
+                button:disabled {
+                  opacity: 0.5;
+                  cursor: not-allowed;
+                }
               `}
             >
-              <Button type="submit" buttonSize={SizeEnum.FULL} color="accent" spacing="s_24">
-                Save
+              <Button
+                type="submit"
+                buttonSize={SizeEnum.FULL}
+                color="accent"
+                spacing="s_24"
+                // $sx={css`
+                //   pointer-events: ${isSubmitting ? 'none' : 'auto'};
+                // `}
+              >
+                Сохранить
               </Button>
-              <Button type="button" buttonSize={SizeEnum.FULL} color="grey" spacing="s_24">
+              <Button
+                type="button"
+                buttonSize={SizeEnum.FULL}
+                color="grey"
+                spacing="s_24"
+                // $sx={css`
+                //   pointer-events: ${isSubmitting ? 'none' : 'auto'};
+                // `}
+              >
                 Delete game
               </Button>
             </FlexBox>
