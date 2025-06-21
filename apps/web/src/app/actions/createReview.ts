@@ -19,7 +19,8 @@ export type FormValues = {
   artScore: number;
   gameplayScore: number;
   reviewText: string;
-  gameImage?: File | string;
+  gameImage?: File;
+  imgUrl?: string;
 };
 
 export async function createReview(formData: FormValues) {
@@ -60,10 +61,14 @@ export async function createReview(formData: FormValues) {
       submitData.append('img', formData.gameImage);
     }
 
+    if (formData.imgUrl) {
+      submitData.append('imgUrl', formData.imgUrl);
+    }
+
     const response = await axios.post(url, submitData, {
       headers: {
         Authorization: `Bearer ${session?.user.accessToken}`,
-        'Content-Type': 'multipart/form-data',
+        'Content-Type': formData.imgUrl ? 'application/json' : 'multipart/form-data',
       },
     });
 

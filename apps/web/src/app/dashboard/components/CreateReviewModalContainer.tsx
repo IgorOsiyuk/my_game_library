@@ -1,7 +1,10 @@
 import { FormValues } from '@/actions/createReview';
+import { GameSearchResult } from '@/actions/searchGames';
 import CreateReviewModal from '@/components/CreateReviewModal';
 import { useCreateReview } from '@/lib/hooks/useCreateReview';
+import { useGameSearch } from '@/lib/hooks/useGameSearch';
 import { GameStatus as GameStatusEnum } from '@/types/game';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 interface CreateReviewModalContainerProps {
@@ -11,6 +14,8 @@ interface CreateReviewModalContainerProps {
 
 const CreateReviewModalContainer = ({ isOpen, onClose }: CreateReviewModalContainerProps) => {
   const createNewReview = useCreateReview();
+  const { searchResults, isSearching, updateSearchQuery, clearSearch, searchQuery } = useGameSearch();
+  const [showSearchDropdown, setShowSearchDropdown] = useState(false);
 
   const form = useForm<FormValues>({
     defaultValues: {
@@ -28,6 +33,7 @@ const CreateReviewModalContainer = ({ isOpen, onClose }: CreateReviewModalContai
       gameplayScore: 0,
       reviewText: '',
       gameImage: undefined,
+      imgUrl: '',
     },
     mode: 'onChange',
   });
@@ -46,14 +52,66 @@ const CreateReviewModalContainer = ({ isOpen, onClose }: CreateReviewModalContai
   const watchedPlotScore = watch('plotScore');
   const watchedArtScore = watch('artScore');
   const watchedGameplayScore = watch('gameplayScore');
+  const watchedGameTitle = watch('gameTitle');
+  const watchedImgUrl = watch('imgUrl');
+
+  // Обновляем поисковой запрос при изменении названия игры
+  // НО НЕ во время выбора игры из списка
+  useEffect(() => {
+    if (watchedGameTitle !== searchQuery) {
+      setShowSearchDropdown(true);
+      updateSearchQuery(watchedGameTitle);
+    }
+  }, [watchedGameTitle, updateSearchQuery, searchQuery]);
+
+  // Очищаем поиск при закрытии модалки
+  useEffect(() => {
+    if (!isOpen) {
+      clearSearch();
+      reset();
+      setShowSearchDropdown(false);
+    }
+  }, [isOpen, clearSearch]);
 
   const onSubmit = async (formValues: FormValues) => {
     createNewReview(formValues).then(() => {
+      clearSearch();
+      reset();
       onClose();
     });
   };
 
-  // Валидационные правила
+  // Обработчик выбора игры из результатов поиска
+  const handleSelectGame = (game: GameSearchResult) => {
+    // Сначала заполняем все поля
+    setShowSearchDropdown(false);
+    setValue('gameTitle', game.title);
+    if (game.developer) setValue('developer', game.developer);
+    if (game.genre) setValue('genre', game.genre);
+    if (game.platform) setValue('platform', game.platform);
+    if (game.releaseYear) setValue('releaseYear', game.releaseYear);
+    if (game.image) setValue('imgUrl', game.image);
+
+    setValue('developer', 'game.developer');
+    setValue('genre', 'game.genre');
+    setValue('platform', 'game.platform');
+    setValue('releaseYear', '2022');
+    setValue('gameStatus', GameStatusEnum.COMPLETED);
+    setValue('difficulty', 'Normal');
+    setValue('plotDescription', 'testtestasdasdasdastestasdasdasdastestasdasdasdastestasdasdasdastestasdasdasdas');
+    setValue('gameScore', 5);
+    setValue('plotScore', 5);
+    setValue('artScore', 5);
+    setValue('gameplayScore', 5);
+    setValue(
+      'reviewText',
+      'testasdasdasdastestasdasdasdastestasdasdasdastestasdasdasdastestasdasdasdastestasdasdasdas',
+    );
+
+    // Даем время на обновление полей, затем закрываем поиск
+  };
+
+  // Валидационные правила (динамические)
   const validationRules = {
     gameTitle: {
       required: 'Название игры обязательно для заполнения',
@@ -123,8 +181,15 @@ const CreateReviewModalContainer = ({ isOpen, onClose }: CreateReviewModalContai
       },
     },
     gameImage: {
-      required: 'Обложка игры обязательна для загрузки',
+      // Файл обязателен только если нет imgUrl из поиска
+      required: !watchedImgUrl ? 'Обложка игры обязательна для загрузки' : false,
       validate: {
+        // Если есть imgUrl из поиска, то файл необязателен
+        requiredOrPreview: (file: File | null) => {
+          if (watchedImgUrl) return true; // Есть превью из поиска - валидация пройдена
+          if (!file) return 'Обложка игры обязательна для загрузки';
+          return true;
+        },
         fileSize: (file: File | null) => {
           if (!file) return true;
           if (file.size > 1 * 1024 * 1024) {
@@ -142,9 +207,9 @@ const CreateReviewModalContainer = ({ isOpen, onClose }: CreateReviewModalContai
       },
     },
   };
-
   return (
     <CreateReviewModal
+      imgPreview={watchedImgUrl}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit(onSubmit)}
@@ -158,6 +223,11 @@ const CreateReviewModalContainer = ({ isOpen, onClose }: CreateReviewModalContai
         artScore: watchedArtScore,
         gameplayScore: watchedGameplayScore,
       }}
+      // Поисковые пропсы
+      searchResults={searchResults}
+      isSearching={isSearching}
+      onSelectGame={handleSelectGame}
+      showSearchDropdown={showSearchDropdown}
     />
   );
 };

@@ -53,7 +53,7 @@ DELETE http://localhost:4000/user/f77b67fe-0b76-4291-95fa-23d09c3575b1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmNzdiNjdmZS0wYjc2LTQyOTEtOTVmYS0yM2QwOWMzNTc1YjEiLCJpYXQiOjE3MjgyMzcyNjUsImV4cCI6MTcyODg0MjA2NX0.3v-rzt0F_Aq0D8dU7quU6NcBJQ-tkDmIFo2vzfgMmDo
 
 ### Получение всех игр
-GET http://localhost:4000/games/search
+POST http://localhost:4000/games/search
 Content-Type: application/json
 
 {

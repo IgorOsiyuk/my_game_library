@@ -1,6 +1,6 @@
 import CloseIcon from '@/icons/close.svg';
 import PlusIcon from '@/icons/plus.svg';
-import { ChangeEvent, DragEvent, useRef, useState } from 'react';
+import { ChangeEvent, DragEvent, useEffect, useRef, useState } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { css } from 'styled-components';
 import Box from '../Box';
@@ -28,10 +28,14 @@ export const FileUpload = ({
   rules = {},
   imgPreview,
 }: FileUploadProps) => {
-  // console.log(imgPreview);
+  console.log('imgPreview', imgPreview);
   const [isDragging, setIsDragging] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(imgPreview || null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setPreviewUrl(imgPreview || null);
+  }, [imgPreview]);
 
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();

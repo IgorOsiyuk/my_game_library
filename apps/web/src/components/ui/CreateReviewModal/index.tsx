@@ -1,3 +1,4 @@
+import { GameSearchResult } from '@/actions/searchGames';
 import Box from '@/atomic/Box';
 import Button, { SizeEnum } from '@/atomic/Button';
 import { FileUpload } from '@/atomic/FileUpload';
@@ -10,6 +11,7 @@ import { GameStatus as GameStatusEnum } from '@/types/game';
 import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
 import { css } from 'styled-components';
 import GameScoreSlider from '../GameScoreSlider';
+import GameSearchDropdown from '../GameSearchDropdown';
 import GameStatus from '../GameStatus';
 
 export interface CreateReviewModalProps {
@@ -26,7 +28,11 @@ export interface CreateReviewModalProps {
     artScore: number;
     gameplayScore: number;
   };
-  imgPreview: string;
+  imgPreview?: string;
+  searchResults?: GameSearchResult[];
+  isSearching?: boolean;
+  onSelectGame?: (game: GameSearchResult) => void;
+  showSearchDropdown?: boolean;
 }
 
 const CreateReviewModal = ({
@@ -39,6 +45,10 @@ const CreateReviewModal = ({
   validationRules,
   watchedScores,
   imgPreview,
+  searchResults = [],
+  isSearching = false,
+  onSelectGame = () => {},
+  showSearchDropdown = false,
 }: CreateReviewModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -61,12 +71,24 @@ const CreateReviewModal = ({
           </Box>
           <Box $width="100%">
             <FlexBox $direction="column" $gap="s_14" $width="100%">
-              <Input
-                placeholder="Название игры"
-                register={register('gameTitle', validationRules.gameTitle)}
-                isError={!!errors.gameTitle}
-                error={errors.gameTitle?.message as string}
-              />
+              <Box
+                $sx={css`
+                  position: relative;
+                `}
+              >
+                <Input
+                  placeholder="Название игры"
+                  register={register('gameTitle', validationRules.gameTitle)}
+                  isError={!!errors.gameTitle}
+                  error={errors.gameTitle?.message as string}
+                />
+                <GameSearchDropdown
+                  searchResults={searchResults}
+                  isSearching={isSearching}
+                  onSelectGame={onSelectGame}
+                  isVisible={showSearchDropdown}
+                />
+              </Box>
               <FlexBox $direction="row" $gap="s_14">
                 <Input
                   placeholder="Разработчик"

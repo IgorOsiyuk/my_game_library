@@ -71,7 +71,7 @@ export class ReviewsController {
       new ParseFilePipeBuilder()
         .addMaxSizeValidator({ maxSize: MAX_FILE_SIZE })
         .addFileTypeValidator({ fileType: 'image/*' })
-        .build(),
+        .build({ fileIsRequired: false }),
     )
     img?: Express.Multer.File,
   ) {

@@ -18,6 +18,10 @@ const nextConfig = {
         port: '9000',
         pathname: '/test/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'media.rawg.io',
+      },
     ],
   },
   webpack: (config) => {

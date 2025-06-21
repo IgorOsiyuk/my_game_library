@@ -1,4 +1,4 @@
-import { Body, Controller, Get } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 
 import { GamesService } from './games.service';
 
@@ -20,7 +20,7 @@ export class GamesController {
    * // Запрос: POST /games/search
    * // Body: { "search": "elder scrolls" }
    */
-  @Get('/search')
+  @Post('/search')
   searchGame(@Body() body: { search: string }) {
     return this.gamesService.searchGame(body.search);
   }
