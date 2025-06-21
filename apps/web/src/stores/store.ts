@@ -49,6 +49,7 @@ export type AppActions = {
   setError: (error: string | null) => void;
   resetStore: () => void;
   updateReview: (reviewId: string, updatedReview: Partial<Review>) => void;
+  updateSelectedReview: (updatedReview: Partial<Review>) => void;
   addReview: (review: Review) => void;
   removeReview: (reviewId: string) => void;
   toggleFavorite: (reviewId: string) => void;
@@ -104,6 +105,11 @@ export const createAppStore = (initState: AppState = defaultInitState) => {
     updateReview: (reviewId, updatedReview) =>
       set((state) => ({
         reviews: state.reviews.map((review) => (review.id === reviewId ? { ...review, ...updatedReview } : review)),
+      })),
+
+    updateSelectedReview: (updatedReview: Partial<Review>) =>
+      set((state) => ({
+        selectedReview: state.selectedReview ? { ...state.selectedReview, ...updatedReview } : null,
       })),
 
     addReview: (review: Review) =>

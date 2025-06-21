@@ -41,7 +41,7 @@ function calculateStats(reviews: Review[]) {
 }
 
 export function useUpdateReview() {
-  const { updateReview: updateReviewInStore, setStats, reviews } = useAppData();
+  const { updateReview: updateReviewInStore, setStats, reviews, updateSelectedReview } = useAppData();
 
   const updateExistingReview = async (formData: UpdateFormValues) => {
     const toastId = toast.loading('Обновление отзыва...');
@@ -61,8 +61,10 @@ export function useUpdateReview() {
       }
 
       // Обновляем отзыв в store
+      console.log(response.data);
       const updatedReview = response.data as Review;
       updateReviewInStore(formData.id, updatedReview);
+      updateSelectedReview(updatedReview);
 
       // Пересчитываем статистику с обновленными данными
       const updatedReviews = reviews.map((review) => (review.id === formData.id ? updatedReview : review));
