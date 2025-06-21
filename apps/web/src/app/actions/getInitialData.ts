@@ -55,8 +55,6 @@ export async function getInitialData(session: Session | null): Promise<InitialDa
       },
     };
   } catch (error) {
-    // console.error('Ошибка при получении начальных данных:', error);
-
     // Проверяем, является ли ошибка ошибкой ответа от axios
     if (axios.isAxiosError(error)) {
       const statusCode = error.response?.status;

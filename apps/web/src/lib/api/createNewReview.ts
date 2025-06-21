@@ -4,13 +4,13 @@ import { createReview, FormValues } from '@/actions/createReview';
 import { signOut } from 'next-auth/react';
 import { toast } from 'react-hot-toast';
 
-async function createNewReview(formData: FormValues) {
+async function createNewReview(formData: FormValues, onSuccess?: () => void) {
   const toastId = toast.loading('Добавление отзыва...');
 
   try {
     const response = await createReview(formData);
     toast.dismiss(toastId);
-    toast.success(response.message || 'Отзыв успешно добавлен');
+
     if (!response.success) {
       toast.error(response.error || 'Ошибка при добавлении отзыва');
 
@@ -20,6 +20,8 @@ async function createNewReview(formData: FormValues) {
 
       return;
     }
+
+    toast.success(response.message || 'Отзыв успешно добавлен');
     return response;
   } catch (err: any) {
     toast.dismiss(toastId);

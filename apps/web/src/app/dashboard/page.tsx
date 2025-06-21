@@ -7,10 +7,10 @@ import SvgImage from '@/atomic/SvgImage';
 import Text from '@/atomic/Text';
 import PlusIcon from '@/icons/plus.svg';
 
-import CreateReviewModal from '@/components/CreateReviewModal';
 import SearchIcon from '@/icons/search.svg';
 import { useState } from 'react';
 import { css } from 'styled-components';
+import CreateReviewModalContainer from './components/CreateReviewModalContainer';
 import GamesContainer from './components/GamesContainer';
 
 export default function Dashboard() {
@@ -64,7 +64,7 @@ export default function Dashboard() {
         </FlexBox>
       </FlexBox>
       <GamesContainer />
-      <CreateReviewModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <CreateReviewModalContainer isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </FlexBox>
   );
 }

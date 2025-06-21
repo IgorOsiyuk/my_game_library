@@ -41,6 +41,9 @@ export class ReviewsService {
         ...(status && { status }),
         ...(isFavorite && { isFavorite }),
       },
+      order: {
+        createdAt: 'DESC',
+      },
     });
   }
 
