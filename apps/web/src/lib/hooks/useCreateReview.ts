@@ -4,41 +4,8 @@ import { createReview, FormValues } from '@/actions/createReview';
 import { Review } from '@/stores/store';
 import { signOut } from 'next-auth/react';
 import { toast } from 'react-hot-toast';
+import { calculateStats } from '../utils';
 import { useAppData } from './useAppData';
-
-// Функция для пересчета статистики
-function calculateStats(reviews: Review[]) {
-  const stats = {
-    total: reviews.length,
-    inProgress: 0,
-    completed: 0,
-    abandoned: 0,
-    planned: 0,
-    favorites: 0,
-  };
-
-  reviews.forEach((review) => {
-    switch (review.status) {
-      case 'В процессе':
-        stats.inProgress++;
-        break;
-      case 'Пройдено':
-        stats.completed++;
-        break;
-      case 'Заброшено':
-        stats.abandoned++;
-        break;
-      case 'Запланировано':
-        stats.planned++;
-        break;
-    }
-    if (review.isFavorite) {
-      stats.favorites++;
-    }
-  });
-
-  return stats;
-}
 
 export function useCreateReview() {
   const { addReview, setStats, reviews } = useAppData();
