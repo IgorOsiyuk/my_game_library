@@ -15,11 +15,15 @@ import { useAppData } from '@/lib/hooks/useAppData';
 import { useGetReview } from '@/lib/hooks/useGetReview';
 import { GameStatusVariantMap } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { css } from 'styled-components';
+import UpdateReviewModalContainer from './components/UpdateReviewModalContainer';
 
 export default function Game() {
   const router = useRouter();
   useGetReview();
+  const [isOpen, setIsOpen] = useState(false);
+
   const { selectedReview, toggleFavorite } = useAppData();
 
   const setFavorite = (id: string) => {
@@ -93,6 +97,7 @@ export default function Game() {
                     transition: background-color 0.3s ease;
                   }
                 `}
+                onClick={() => setIsOpen(true)}
               >
                 <SvgImage $height="20px" $width="20px" $fill="white">
                   <PencilIcon />
@@ -311,6 +316,7 @@ export default function Game() {
           gameplayScore={selectedReview.gameplayScore}
         />
       </FlexBox>
+      <UpdateReviewModalContainer isOpen={isOpen} onClose={() => setIsOpen(false)} review={selectedReview} />
     </FlexBox>
   );
 }

@@ -19,7 +19,7 @@ export type FormValues = {
   artScore: number;
   gameplayScore: number;
   reviewText: string;
-  gameImage?: File;
+  gameImage?: File | string;
 };
 
 export async function createReview(formData: FormValues) {
