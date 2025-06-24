@@ -19,7 +19,8 @@
     ],
     "paths": {
       "@/*": ["./src/app/*"],
-      "@/components/*": ["./src/components/ui/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/ui/*": ["./src/components/ui/*"],
       "@/atomic/*": ["./src/components/atomic/*"],
       "@/lib/*": ["./src/lib/*"],
       "@/libHooks/*": ["./src/lib/hooks/*"],

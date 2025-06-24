@@ -1,10 +1,10 @@
 import { UpdateFormValues } from '@/actions/updateReview';
-import CreateReviewModal from '@/components/CreateReviewModal';
 import deleteReviewClient from '@/lib/api/deleteReview';
 import { useAppData } from '@/lib/hooks/useAppData';
 import { useUpdateReview } from '@/lib/hooks/useUpdateReview';
 import { calculateStats } from '@/lib/utils';
 import { Review } from '@/types/reviews';
+import CreateReviewModal from '@/ui/CreateReviewModal';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 

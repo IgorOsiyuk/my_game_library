@@ -7,9 +7,9 @@ import SvgImage from '@/atomic/SvgImage';
 import Text from '@/atomic/Text';
 
 import Grid from '@/atomic/Grid';
-import GameCard from '@/components/GameCard';
 import { comingSoon, latestReleases, popularGames } from '@/data/games';
 import SearchIcon from '@/icons/search.svg';
+import GameCard from '@/ui/GameCard';
 import { css } from 'styled-components';
 
 export default function Games() {
