@@ -28,16 +28,18 @@ export enum FilterType {
 export interface Review {
   id: string;
   title: string;
-  img: string;
+  plot: string;
+  genres: string;
+  platforms: string;
+  releaseDate: string;
   status: GameStatus;
+  img: string;
   playTime: string;
-  rating: string;
-  score: number;
+  gameScore: number;
   plotScore: number;
   artScore: number;
   gameplayScore: number;
   difficulty: string;
-  trophies: number;
   review: string;
   isFavorite: boolean;
 }

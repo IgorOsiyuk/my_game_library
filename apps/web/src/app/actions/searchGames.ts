@@ -6,12 +6,11 @@ import { isAxiosError } from 'axios';
 import { getServerSession } from 'next-auth';
 
 export type GameSearchResult = {
-  id: string;
   title: string;
   developer?: string;
-  genre?: string;
-  platform?: string;
-  releaseYear?: string;
+  genres?: string[];
+  platforms?: string[];
+  releaseDate?: string;
   image?: string;
 };
 
@@ -40,6 +39,7 @@ export async function searchGames(searchQuery: string) {
     );
 
     const games = response.data;
+    console.log(games);
     return { success: true, data: games, message: 'Поиск выполнен успешно' };
   } catch (error) {
     if (isAxiosError(error)) {

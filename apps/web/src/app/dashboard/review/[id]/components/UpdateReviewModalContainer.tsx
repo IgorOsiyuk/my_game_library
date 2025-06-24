@@ -6,6 +6,7 @@ import { calculateStats } from '@/lib/utils';
 import { Review } from '@/types/reviews';
 import CreateReviewModal from '@/ui/CreateReviewModal';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 interface UpdateReviewModalContainerIProps {
@@ -21,20 +22,20 @@ const UpdateReviewModalContainer = ({ isOpen, onClose, review }: UpdateReviewMod
 
   const form = useForm<UpdateFormValues>({
     defaultValues: {
-      gameTitle: review?.title,
-      developer: '',
-      genre: '',
-      platform: '',
-      releaseYear: '',
-      gameStatus: review?.status,
+      title: review?.title,
+      playTime: review?.playTime,
+      genres: review?.genres,
+      platforms: review?.platforms,
+      releaseDate: review?.releaseDate,
+      status: review?.status,
       difficulty: review?.difficulty,
-      plotDescription: '',
-      gameScore: review?.score || 0,
+      plot: review?.plot,
+      gameScore: review?.gameScore || 0,
       plotScore: review?.plotScore || 0,
       artScore: review?.artScore || 0,
       gameplayScore: review?.gameplayScore || 0,
-      reviewText: review?.review || '',
-      gameImage: undefined,
+      review: review?.review || '',
+      img: undefined,
       imgUrl: review?.img,
     },
     mode: 'onChange',
@@ -86,75 +87,19 @@ const UpdateReviewModalContainer = ({ isOpen, onClose, review }: UpdateReviewMod
 
   // Валидационные правила (изображение не обязательно при обновлении)
   const validationRules = {
-    gameTitle: {
-      required: 'Название игры обязательно для заполнения',
-      minLength: {
-        value: 2,
-        message: 'Название должно содержать минимум 2 символа',
+    plot: {
+      maxLength: {
+        value: 1000,
+        message: 'Описание должно содержать максимум 1000 символов',
       },
     },
-    developer: {
-      required: false, // Не обязательно при обновлении
-    },
-    genre: {
-      required: false, // Не обязательно при обновлении
-    },
-    platform: {
-      required: false, // Не обязательно при обновлении
-    },
-    releaseYear: {
-      required: false, // Не обязательно при обновлении
-      pattern: {
-        value: /^\d{4}$/,
-        message: 'Год должен состоять из 4 цифр',
-      },
-      min: {
-        value: 1970,
-        message: 'Год не может быть меньше 1970',
-      },
-      max: {
-        value: new Date().getFullYear() + 5,
-        message: `Год не может быть больше ${new Date().getFullYear() + 5}`,
+    review: {
+      maxLength: {
+        value: 1000,
+        message: 'Отзыв должен содержать максимум 1000 символов',
       },
     },
-    gameStatus: {
-      required: true,
-    },
-    difficulty: {
-      required: 'Сложность обязательна для заполнения',
-    },
-    plotDescription: {
-      required: false, // Не обязательно при обновлении
-      minLength: {
-        value: 10,
-        message: 'Описание должно содержать минимум 10 символов',
-      },
-    },
-    gameScore: {
-      required: true,
-      valueAsNumber: true,
-    },
-    plotScore: {
-      required: true,
-      valueAsNumber: true,
-    },
-    artScore: {
-      required: true,
-      valueAsNumber: true,
-    },
-    gameplayScore: {
-      required: true,
-      valueAsNumber: true,
-    },
-    reviewText: {
-      required: 'Отзыв обязателен для заполнения',
-      minLength: {
-        value: 20,
-        message: 'Отзыв должен содержать минимум 20 символов',
-      },
-    },
-    gameImage: {
-      required: false, // Изображение не обязательно при обновлении
+    img: {
       validate: {
         fileSize: (file: File | null) => {
           if (!file) return true;
@@ -173,6 +118,13 @@ const UpdateReviewModalContainer = ({ isOpen, onClose, review }: UpdateReviewMod
       },
     },
   };
+
+  useEffect(() => {
+    if (!isOpen) {
+      reset();
+    }
+  }, [isOpen, reset]);
+
   return (
     <CreateReviewModal
       isOpen={isOpen}
@@ -190,7 +142,7 @@ const UpdateReviewModalContainer = ({ isOpen, onClose, review }: UpdateReviewMod
         gameplayScore: watchedGameplayScore,
       }}
       onDelete={handleDelete}
-      showDeleteButton={true}
+      updatedReview={true}
     />
   );
 };

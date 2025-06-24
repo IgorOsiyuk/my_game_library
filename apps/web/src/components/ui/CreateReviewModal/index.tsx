@@ -35,6 +35,7 @@ export interface CreateReviewModalProps {
   showSearchDropdown?: boolean;
   onDelete?: () => void;
   showDeleteButton?: boolean;
+  updatedReview?: boolean;
 }
 
 const CreateReviewModal = ({
@@ -53,6 +54,7 @@ const CreateReviewModal = ({
   showSearchDropdown = false,
   onDelete,
   showDeleteButton = false,
+  updatedReview = false,
 }: CreateReviewModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -66,10 +68,10 @@ const CreateReviewModal = ({
         >
           <Box $width="448px" $height="448px">
             <FileUpload
-              name="gameImage"
+              name="img"
               control={control}
               accept="image/*"
-              rules={validationRules.gameImage}
+              rules={validationRules.img}
               imgPreview={imgPreview}
             />
           </Box>
@@ -82,9 +84,10 @@ const CreateReviewModal = ({
               >
                 <Input
                   placeholder="Название игры"
-                  register={register('gameTitle', validationRules.gameTitle)}
-                  isError={!!errors.gameTitle}
-                  error={errors.gameTitle?.message as string}
+                  register={register('title', validationRules.title)}
+                  isError={!!errors.title}
+                  error={errors.title?.message as string}
+                  disabled={updatedReview}
                 />
                 <GameSearchDropdown
                   searchResults={searchResults}
@@ -95,30 +98,24 @@ const CreateReviewModal = ({
               </Box>
               <FlexBox $direction="row" $gap="s_14">
                 <Input
-                  placeholder="Разработчик"
-                  register={register('developer', validationRules.developer)}
-                  isError={!!errors.developer}
-                  error={errors.developer?.message as string}
-                />
-                <Input
                   placeholder="Жанр"
-                  register={register('genre', validationRules.genre)}
-                  isError={!!errors.genre}
-                  error={errors.genre?.message as string}
+                  register={register('genres', validationRules.genres)}
+                  isError={!!errors.genres}
+                  error={errors.genres?.message as string}
                 />
-              </FlexBox>
-              <FlexBox $direction="row" $gap="s_14">
+                {/* </FlexBox>
+              <FlexBox $direction="row" $gap="s_14"> */}
                 <Input
                   placeholder="Платформа"
-                  register={register('platform', validationRules.platform)}
-                  isError={!!errors.platform}
-                  error={errors.platform?.message as string}
+                  register={register('platforms', validationRules.platforms)}
+                  isError={!!errors.platforms}
+                  error={errors.platforms?.message as string}
                 />
                 <Input
                   placeholder="Год выпуска"
-                  register={register('releaseYear', validationRules.releaseYear)}
-                  isError={!!errors.releaseYear}
-                  error={errors.releaseYear?.message as string}
+                  register={register('releaseDate', validationRules.releaseDate)}
+                  isError={!!errors.releaseDate}
+                  error={errors.releaseDate?.message as string}
                 />
               </FlexBox>
               <Box
@@ -132,27 +129,27 @@ const CreateReviewModal = ({
               >
                 <FlexBox $direction="row" $gap="s_14" $width="100%">
                   <GameStatus
-                    register={register('gameStatus', validationRules.gameStatus)}
+                    register={register('status', validationRules.status)}
                     label={GameStatusEnum.IN_PROGRESS}
-                    name="gameStatus"
+                    name="status"
                     value={GameStatusEnum.IN_PROGRESS}
                   />
                   <GameStatus
-                    register={register('gameStatus', validationRules.gameStatus)}
+                    register={register('status', validationRules.status)}
                     label={GameStatusEnum.COMPLETED}
-                    name="gameStatus"
+                    name="status"
                     value={GameStatusEnum.COMPLETED}
                   />
                   <GameStatus
-                    register={register('gameStatus', validationRules.gameStatus)}
+                    register={register('status', validationRules.status)}
                     label={GameStatusEnum.ABANDONED}
-                    name="gameStatus"
+                    name="status"
                     value={GameStatusEnum.ABANDONED}
                   />
                   <GameStatus
-                    register={register('gameStatus', validationRules.gameStatus)}
+                    register={register('status', validationRules.status)}
                     label={GameStatusEnum.PLANNED}
-                    name="gameStatus"
+                    name="status"
                     value={GameStatusEnum.PLANNED}
                   />
                 </FlexBox>
@@ -163,6 +160,12 @@ const CreateReviewModal = ({
                 isError={!!errors.difficulty}
                 error={errors.difficulty?.message as string}
               />
+              <Input
+                placeholder="Затраченное время (в часах)"
+                register={register('timeSpent', validationRules.timeSpent)}
+                isError={!!errors.timeSpent}
+                error={errors.timeSpent?.message as string}
+              />
               <Box
                 $sx={css`
                   & textarea {
@@ -172,9 +175,9 @@ const CreateReviewModal = ({
               >
                 <TextArea
                   placeholder="Сюжет"
-                  register={register('plotDescription', validationRules.plotDescription)}
-                  isError={!!errors.plotDescription}
-                  error={errors.plotDescription?.message as string}
+                  register={register('plot', validationRules.plot)}
+                  isError={!!errors.plot}
+                  error={errors.plot?.message as string}
                 />
               </Box>
               <FlexBox $direction="row" $gap="s_14">
@@ -210,9 +213,9 @@ const CreateReviewModal = ({
               >
                 <TextArea
                   placeholder="Напиши отзыв"
-                  register={register('reviewText', validationRules.reviewText)}
-                  isError={!!errors.reviewText}
-                  error={errors.reviewText?.message as string}
+                  register={register('review', validationRules.review)}
+                  isError={!!errors.review}
+                  error={errors.review?.message as string}
                 />
               </Box>
             </FlexBox>
@@ -235,7 +238,7 @@ const CreateReviewModal = ({
               <Button type="submit" buttonSize={SizeEnum.FULL} color="accent" spacing="s_24">
                 Сохранить
               </Button>
-              {showDeleteButton && (
+              {updatedReview && (
                 <Button type="button" buttonSize={SizeEnum.FULL} color="grey" spacing="s_24" onClick={onDelete}>
                   Delete game
                 </Button>

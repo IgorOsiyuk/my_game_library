@@ -6,20 +6,20 @@ import { isAxiosError } from 'axios';
 import { getServerSession } from 'next-auth';
 
 export type FormValues = {
-  gameTitle: string;
-  developer: string;
-  genre: string;
-  platform: string;
-  releaseYear: string;
-  gameStatus: string;
+  title: string;
+  genres: string;
+  platforms: string;
+  releaseDate: string;
+  status: string;
   difficulty: string;
-  plotDescription: string;
+  playTime: string;
+  plot: string;
   gameScore: number;
   plotScore: number;
   artScore: number;
   gameplayScore: number;
-  reviewText: string;
-  gameImage?: File;
+  review: string;
+  img?: File;
   imgUrl?: string;
 };
 
@@ -37,28 +37,22 @@ export async function createReview(formData: FormValues) {
     const submitData = new FormData();
 
     // Добавляем все поля формы
-    submitData.append('title', formData.gameTitle);
-    // submitData.append('developer', formData.developer);
-    // submitData.append('genre', formData.genre);
-    // submitData.append('platform', formData.platform);
-    // submitData.append('releaseYear', formData.releaseYear);
-    submitData.append('status', formData.gameStatus);
-    submitData.append('difficulty', formData.difficulty);
-    // submitData.append('plotDescription', formData.plotDescription);
-
-    submitData.append('score', formData.gameScore.toString());
+    submitData.append('title', formData.title);
+    submitData.append('genres', formData.genres);
+    submitData.append('platforms', formData.platforms);
+    submitData.append('releaseDate', formData.releaseDate);
+    submitData.append('status', formData.status);
+    submitData.append('playTime', formData.playTime);
+    submitData.append('plot', formData.plot);
+    submitData.append('gameScore', formData.gameScore.toString());
     submitData.append('plotScore', formData.plotScore.toString());
     submitData.append('artScore', formData.artScore.toString());
     submitData.append('gameplayScore', formData.gameplayScore.toString());
-
-    submitData.append('review', formData.reviewText);
-
-    submitData.append('playTime', '222ч');
-    submitData.append('rating', '22');
-    submitData.append('trophies', '25');
+    submitData.append('difficulty', formData.difficulty);
+    submitData.append('review', formData.review);
     // Добавляем файл изображения, если он есть
-    if (formData.gameImage) {
-      submitData.append('img', formData.gameImage);
+    if (formData.img) {
+      submitData.append('img', formData.img);
     }
 
     if (formData.imgUrl) {

@@ -135,26 +135,28 @@ export default function Game() {
                 </Text>
                 <Grid $columns="4fr 2fr" $gap="s_20">
                   <FlexBox $direction="column" $gap="s_14">
-                    <Grid $columns="1fr 3fr" $gap="s_20" $align="center">
-                      <Text size="body_M" color="greySecondary">
-                        Год выпуска:
-                      </Text>
-                      <FlexBox $wrap="wrap" $gap="s_8">
-                        <Box
-                          $padding="s_8"
-                          $backgroundColor="dark"
-                          $sx={({ theme }) => css`
-                            border-radius: ${theme.radius.rounded_small};
-                            overflow: hidden;
-                          `}
-                        >
-                          <Text size="body_S" color="white">
-                            2021
-                          </Text>
-                        </Box>
-                      </FlexBox>
-                    </Grid>
-                    <Grid $columns="1fr 3fr" $gap="s_20" $align="center">
+                    {selectedReview.releaseDate && (
+                      <Grid $columns="1fr 3fr" $gap="s_20" $align="center">
+                        <Text size="body_M" color="greySecondary">
+                          Год выпуска:
+                        </Text>
+                        <FlexBox $wrap="wrap" $gap="s_8">
+                          <Box
+                            $padding="s_8"
+                            $backgroundColor="dark"
+                            $sx={({ theme }) => css`
+                              border-radius: ${theme.radius.rounded_small};
+                              overflow: hidden;
+                            `}
+                          >
+                            <Text size="body_S" color="white">
+                              {selectedReview.releaseDate}
+                            </Text>
+                          </Box>
+                        </FlexBox>
+                      </Grid>
+                    )}
+                    {/* <Grid $columns="1fr 3fr" $gap="s_20" $align="center">
                       <Text size="body_M" color="greySecondary">
                         Разработчики:
                       </Text>
@@ -191,13 +193,14 @@ export default function Game() {
                           </Text>
                         </Box>
                       </FlexBox>
-                    </Grid>
-                    <Grid $columns="1fr 3fr" $gap="s_20" $align="center">
-                      <Text size="body_M" color="greySecondary">
-                        Платформы:
-                      </Text>
-                      <FlexBox $wrap="wrap" $gap="s_8">
-                        <Box
+                    </Grid> */}
+                    {selectedReview.platforms && (
+                      <Grid $columns="1fr 3fr" $gap="s_20" $align="center">
+                        <Text size="body_M" color="greySecondary">
+                          Платформы:
+                        </Text>
+                        <FlexBox $wrap="wrap" $gap="s_8">
+                          {/* <Box
                           $padding="s_8"
                           $backgroundColor="dark"
                           $sx={({ theme }) => css`
@@ -220,22 +223,23 @@ export default function Game() {
                           <Text size="body_S" color="white">
                             PC
                           </Text>
-                        </Box>
+                        </Box> */}
 
-                        <Box
-                          $padding="s_8"
-                          $backgroundColor="dark"
-                          $sx={({ theme }) => css`
-                            border-radius: ${theme.radius.rounded_small};
-                            overflow: hidden;
-                          `}
-                        >
-                          <Text size="body_S" color="white">
-                            Mac
-                          </Text>
-                        </Box>
-                      </FlexBox>
-                    </Grid>
+                          <Box
+                            $padding="s_8"
+                            $backgroundColor="dark"
+                            $sx={({ theme }) => css`
+                              border-radius: ${theme.radius.rounded_small};
+                              overflow: hidden;
+                            `}
+                          >
+                            <Text size="body_S" color="white">
+                              {selectedReview.platforms}
+                            </Text>
+                          </Box>
+                        </FlexBox>
+                      </Grid>
+                    )}
                     <Grid $columns="1fr 3fr" $gap="s_20" $align="center">
                       <Text size="body_M" color="greySecondary">
                         Жанр:
@@ -250,10 +254,10 @@ export default function Game() {
                           `}
                         >
                           <Text size="body_S" color="white">
-                            Action
+                            {selectedReview.genres}
                           </Text>
                         </Box>
-                        <Box
+                        {/* <Box
                           $padding="s_8"
                           $backgroundColor="dark"
                           $sx={({ theme }) => css`
@@ -264,20 +268,24 @@ export default function Game() {
                           <Text size="body_S" color="white">
                             Adventure
                           </Text>
-                        </Box>
+                        </Box> */}
                       </FlexBox>
                     </Grid>
                   </FlexBox>
                   <FlexBox $direction="column" $gap="s_14">
-                    <Text size="body_M" color="greySecondary">
-                      Время прохождения: {selectedReview.playTime}
-                    </Text>
-                    <Text size="body_M" color="greySecondary">
-                      Сложность: {selectedReview.difficulty}
-                    </Text>
-                    <Text size="body_M" color="greySecondary">
+                    {selectedReview.playTime && (
+                      <Text size="body_M" color="greySecondary">
+                        Время прохождения: {selectedReview.playTime}
+                      </Text>
+                    )}
+                    {selectedReview.difficulty && (
+                      <Text size="body_M" color="greySecondary">
+                        Сложность: {selectedReview.difficulty}
+                      </Text>
+                    )}
+                    {/* <Text size="body_M" color="greySecondary">
                       Трофеи: {selectedReview.trophies}
-                    </Text>
+                    </Text> */}
                   </FlexBox>
                 </Grid>
               </FlexBox>
@@ -288,14 +296,7 @@ export default function Game() {
                   Сюжет
                 </Text>
                 <Text size="body_M" color="white" fontWeight="light">
-                  The Lich King Arthas has set in motion events that could lead to the extinction of all life on
-                  Azeroth. With the armies of the undead and the necromantic power of the plague threatening to sweep
-                  across the land, only the mightiest heroes can oppose the Lich King&lsquo;s will and end his reign of
-                  terror for all time. Learn the craft of spell augmentation with the new Inscription profession. Brave
-                  the harsh new continent of Northrend, the icy domain of the Lich King. Engage in epic siege warfare,
-                  deploying mighty siege engines to lay waste to destructible buildings in your path. Transform your
-                  hero&apos;s look with new character-customization options, including new hairstyles and dances.
-                  Explore perilous new dungeons filled with some of the deadliest creatures -- and greatest treasures.
+                  {selectedReview.plot}
                 </Text>
               </FlexBox>
               <FlexBox $direction="column" $gap="s_14">
@@ -310,7 +311,7 @@ export default function Game() {
           </Box>
         </FlexBox>
         <ScoresPanel
-          score={selectedReview.score}
+          score={selectedReview.gameScore}
           plotScore={selectedReview.plotScore}
           artScore={selectedReview.artScore}
           gameplayScore={selectedReview.gameplayScore}

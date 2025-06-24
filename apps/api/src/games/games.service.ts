@@ -73,7 +73,6 @@ export class GamesService {
         genres: game.gameGenres?.map((gameGenre) => gameGenre.genre.name) || [],
         platforms: game.gamePlatforms?.map((gamePlatform) => gamePlatform.platform.name) || [],
         releaseDate: game.releaseDate,
-        rating: game.rating,
         image: game.image,
       }));
     }
@@ -81,6 +80,7 @@ export class GamesService {
     // Если игры не найдены, выполняем поиск через внешний API
     const response = await fetch(`${this.gameApiUrl}&search=${search}`);
     const data = await response.json();
+    console.log(data);
     // Преобразуем результаты API в нужный формат
     const returnData = data.results.map((game) => ({
       slug: game['slug'],
@@ -88,7 +88,6 @@ export class GamesService {
       genres: game['genres'].map((genre) => genre['name']),
       platforms: game['platforms'].map((platform) => platform['platform']['name']),
       releaseDate: game['released'],
-      rating: game['rating'],
       image: game['background_image'],
     }));
 
@@ -120,10 +119,9 @@ export class GamesService {
 
     // Создаем новую игру
     const game = new Game();
-    game.title = gameData.title;
     game.slug = gameData.slug;
+    game.title = gameData.title;
     game.releaseDate = gameData.releaseDate;
-    game.rating = gameData.rating;
     game.image = gameData.image;
 
     // Сохраняем игру в БД

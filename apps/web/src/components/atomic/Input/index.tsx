@@ -10,15 +10,16 @@ interface InputIProps {
   isError?: boolean;
   error?: string;
   type?: string;
+  disabled?: boolean;
   register: UseFormRegisterReturn<string>;
 }
 
-function Input({ label, placeholder, icon, isError, error, type, register }: InputIProps) {
+function Input({ label, placeholder, icon, isError, error, type, register, disabled }: InputIProps) {
   return (
     <Box $width="100%">
       <S.InputWrapper $isError={isError}>
         <S.Label>{label}</S.Label>
-        <S.Input placeholder={placeholder} type={type} {...register} />
+        <S.Input placeholder={placeholder} type={type} {...register} disabled={disabled} />
         {/* <S.IconWrapper>{icon}</S.IconWrapper> */}
         {icon}
       </S.InputWrapper>

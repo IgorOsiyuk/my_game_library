@@ -1,7 +1,6 @@
 'use client';
 
 import { GameSearchResult, searchGames } from '@/actions/searchGames';
-import { signOut } from 'next-auth/react';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useDebounce from './useDebounce';
@@ -26,11 +25,7 @@ export function useGameSearch() {
       const response = await searchGames(query);
 
       if (!response.success) {
-        if (response.statusCode === 401) {
-          signOut({ callbackUrl: '/signin' });
-        } else {
-          toast.error(response.error || 'Ошибка при поиске игр');
-        }
+        toast.error(response.error || 'Ошибка при поиске игр');
         setSearchResults([]);
         return;
       }

@@ -7,7 +7,6 @@ import SvgImage from '@/atomic/SvgImage';
 import Text from '@/atomic/Text';
 import PlusIcon from '@/icons/plus.svg';
 
-import SearchIcon from '@/icons/search.svg';
 import { useState } from 'react';
 import { css } from 'styled-components';
 import CreateReviewModalContainer from './components/CreateReviewModalContainer';
@@ -24,7 +23,7 @@ export default function Dashboard() {
           </Text>
         </Box>
         <FlexBox $gap="s_16">
-          <Button
+          {/* <Button
             textSize="button"
             color="darkSecondary"
             spacing="s_14"
@@ -41,7 +40,7 @@ export default function Dashboard() {
             `}
           >
             Поиск
-          </Button>
+          </Button> */}
           <Button
             textSize="button"
             color="accent"

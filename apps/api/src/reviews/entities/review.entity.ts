@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { User } from '../../user/entities/user.entity';
 
@@ -21,6 +21,18 @@ export class Review {
   @Column()
   title: string;
 
+  /** Жанры игры */
+  @Column({ nullable: true })
+  genres: string;
+
+  /** Платформы игры */
+  @Column({ nullable: true })
+  platforms: string;
+
+  /** Дата выхода игры */
+  @Column({ nullable: true })
+  releaseDate: string;
+
   /** URL изображения (скриншота) к отзыву */
   @Column({ nullable: true })
   img: string;
@@ -34,39 +46,39 @@ export class Review {
   status: ReviewStatus | null;
 
   /** Время прохождения игры */
-  @Column()
+  @Column({ nullable: true })
   playTime: string;
 
+  /** Сюжет отзыва */
+  @Column('text', { nullable: true })
+  plot: string;
+
   /** Общая оценка игры (от 0 до 5) */
-  @Column('float')
+  @Column('float', { nullable: true, default: 0 })
   rating: number;
 
   /** Итоговый балл (от 0 до 5) */
-  @Column('float')
-  score: number;
+  @Column('float', { nullable: true, default: 0 })
+  gameScore: number;
 
   /** Оценка сюжета (от 0 до 5) */
-  @Column('float')
+  @Column('float', { nullable: true, default: 0 })
   plotScore: number;
 
   /** Оценка графики/визуального стиля (от 0 до 5) */
-  @Column('float')
+  @Column('float', { nullable: true, default: 0 })
   artScore: number;
 
   /** Оценка геймплея (от 0 до 5) */
-  @Column('float')
+  @Column('float', { nullable: true, default: 0 })
   gameplayScore: number;
 
   /** Оценка сложности игры */
-  @Column()
+  @Column({ nullable: true })
   difficulty: string;
 
-  /** Количество полученных трофеев/достижений */
-  @Column()
-  trophies: number;
-
   /** Текст отзыва */
-  @Column('text')
+  @Column('text', { nullable: true })
   review: string;
 
   /** Флаг, указывающий добавлен ли отзыв в избранное */
@@ -93,4 +105,18 @@ export class Review {
     onUpdate: 'CURRENT_TIMESTAMP',
   })
   updatedAt: Date;
+
+  /**
+   * Автоматически рассчитывает рейтинг как среднее арифметическое всех оценок
+   */
+  @BeforeInsert()
+  @BeforeUpdate()
+  calculateRating() {
+    const scores = [this.gameScore, this.plotScore, this.artScore, this.gameplayScore];
+    const validScores = scores.filter((score) => score != null && !isNaN(score));
+
+    if (validScores.length > 0) {
+      this.rating = Math.round((validScores.reduce((sum, score) => sum + score, 0) / validScores.length) * 100) / 100;
+    }
+  }
 }

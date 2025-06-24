@@ -53,13 +53,6 @@ export class Game {
   releaseDate: Date;
 
   /**
-   * Рейтинг игры
-   * Значение от 0 до 5 с десятичной точностью
-   */
-  @Column({ nullable: true })
-  rating: string;
-
-  /**
    * URL изображения/обложки игры
    */
   @Column({ nullable: true })

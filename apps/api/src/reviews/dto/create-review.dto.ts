@@ -1,4 +1,4 @@
-import { IsEnum, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsOptional, IsString, MaxLength } from 'class-validator';
 
 import { ReviewStatus } from '../entities/review-status.enum';
 
@@ -11,6 +11,39 @@ import { ReviewStatus } from '../entities/review-status.enum';
  */
 export class CreateReviewDto {
   /**
+   * Заголовок отзыва
+   * @string
+   */
+  @IsString()
+  title: string;
+
+  /**
+   * Жанры игры
+   * @string
+   */
+  @IsString()
+  @IsOptional()
+  genres?: string;
+
+  /**
+   * Платформы игры
+   * @string
+   */
+  @IsString()
+  @IsOptional()
+  platforms?: string;
+
+  /**
+   * Дата выхода игры
+   * @date
+   */
+  @IsString()
+  @IsOptional()
+  releaseDate?: string;
+
+  /**
+   * Разработчики игры
+   * @string
    * Статус отзыва (опционально)
    * @enum {ReviewStatus}
    */
@@ -19,11 +52,70 @@ export class CreateReviewDto {
   status?: ReviewStatus;
 
   /**
-   * Заголовок отзыва
+   * Оценка сложности
    * @string
    */
   @IsString()
-  title: string;
+  @IsOptional()
+  difficulty?: string;
+
+  /**
+   * Время прохождения игры
+   * @string
+   */
+  @IsString()
+  @IsOptional()
+  playTime?: string;
+
+  /**
+   * Сюжет отзыва (максимум 1000 символов)
+   * @string
+   */
+  @IsString()
+  @IsOptional()
+  @MaxLength(1000, { message: 'Сюжет отзыва не должен превышать 1000 символов' })
+  plot?: string;
+
+  /**
+   * Итоговый балл (0-5)
+   * @string преобразуется в number
+   */
+  @IsString()
+  @IsOptional()
+  gameScore?: string;
+
+  /**
+   * Оценка сюжета (0-5)
+   * @string преобразуется в number
+   */
+  @IsString()
+  @IsOptional()
+  plotScore?: string;
+
+  /**
+   * Оценка графики (0-5)
+   * @string преобразуется в number
+   */
+  @IsString()
+  @IsOptional()
+  artScore?: string;
+
+  /**
+   * Оценка геймплея (0-5)
+   * @string преобразуется в number
+   */
+  @IsString()
+  @IsOptional()
+  gameplayScore?: string;
+
+  /**
+   * Текст отзыва (максимум 1000 символов)
+   * @string
+   */
+  @IsString()
+  @IsOptional()
+  @MaxLength(1000, { message: 'Текст отзыва не должен превышать 1000 символов' })
+  review?: string;
 
   /**
    * URL изображения (если загружается не через форму)
@@ -31,67 +123,4 @@ export class CreateReviewDto {
    */
   @IsOptional()
   imgUrl?: string;
-
-  /**
-   * Время прохождения игры
-   * @string
-   */
-  @IsString()
-  playTime: string;
-
-  /**
-   * Общая оценка игры (0-5)
-   * @string преобразуется в number
-   */
-  @IsString()
-  rating: string;
-
-  /**
-   * Итоговый балл (0-5)
-   * @string преобразуется в number
-   */
-  @IsString()
-  score: string;
-
-  /**
-   * Оценка сюжета (0-5)
-   * @string преобразуется в number
-   */
-  @IsString()
-  plotScore: string;
-
-  /**
-   * Оценка графики (0-5)
-   * @string преобразуется в number
-   */
-  @IsString()
-  artScore: string;
-
-  /**
-   * Оценка геймплея (0-5)
-   * @string преобразуется в number
-   */
-  @IsString()
-  gameplayScore: string;
-
-  /**
-   * Оценка сложности
-   * @string
-   */
-  @IsString()
-  difficulty: string;
-
-  /**
-   * Количество полученных трофеев
-   * @string преобразуется в number
-   */
-  @IsString()
-  trophies: string;
-
-  /**
-   * Текст отзыва
-   * @string
-   */
-  @IsString()
-  review: string;
 }

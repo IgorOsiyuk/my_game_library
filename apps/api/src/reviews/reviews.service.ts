@@ -65,7 +65,7 @@ export class ReviewsService {
     if (createReviewDto.imgUrl) {
       imgUrl = createReviewDto.imgUrl;
     } else {
-      const fileName = `${uuidv4()}-${img.originalname}`;
+      const fileName = `${uuidv4()}-${img?.originalname || 'thumbnail'}`;
       const uploadResult = await this.objectStorageService.upload(fileName, img.buffer);
       imgUrl = uploadResult.url;
     }
@@ -75,9 +75,7 @@ export class ReviewsService {
       artScore: Number(createReviewDto.artScore),
       gameplayScore: Number(createReviewDto.gameplayScore),
       plotScore: Number(createReviewDto.plotScore),
-      rating: Number(createReviewDto.rating),
-      score: Number(createReviewDto.score),
-      trophies: Number(createReviewDto.trophies),
+      gameScore: Number(createReviewDto.gameScore),
       img: imgUrl,
       user: { id: userId },
     });
@@ -210,7 +208,7 @@ export class ReviewsService {
 
     // Обрабатываем новое изображение
     if (img) {
-      const fileName = `${uuidv4()}-${img.originalname}`;
+      const fileName = `${uuidv4()}-${img?.originalname || 'thumbnail'}`;
       const uploadResult = await this.objectStorageService.upload(fileName, img.buffer);
       imgUrl = uploadResult.url;
     } else if (updateReviewDto.imgUrl) {
@@ -220,7 +218,7 @@ export class ReviewsService {
     // Обновляем только переданные поля
     Object.keys(updateReviewDto).forEach((key) => {
       if (updateReviewDto[key] !== undefined) {
-        if (['artScore', 'gameplayScore', 'plotScore', 'rating', 'score', 'trophies'].includes(key)) {
+        if (['artScore', 'gameplayScore', 'plotScore', 'gameScore'].includes(key)) {
           review[key] = Number(updateReviewDto[key]);
         } else {
           review[key] = updateReviewDto[key];
