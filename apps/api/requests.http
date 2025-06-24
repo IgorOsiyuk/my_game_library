@@ -182,3 +182,7 @@ POST http://localhost:4000/reviews/favorite/7253011b-d4c2-4a40-afb5-bd7e6e6569c0
 ### Получение статистики по отзывам пользователя
 GET http://localhost:4000/reviews/stats
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjOTc2M2M4Yy1kMjM2LTQwMjktYjQ4Yy0yNjQ4ZDFhNDVjZGMiLCJpYXQiOjE3NDYwMjAzNTYsImV4cCI6MTc0NjAyMDQxNn0.m6opFM6cC_LL6zjYw4rSm9WINMbs-KYVUZd_tlb-Dzc
+
+### Удаление отзыва
+DELETE http://localhost:4000/reviews/7253011b-d4c2-4a40-afb5-bd7e6e6569c0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjOTc2M2M4Yy1kMjM2LTQwMjktYjQ4Yy0yNjQ4ZDFhNDVjZGMiLCJpYXQiOjE3NDYwMjAzNTYsImV4cCI6MTc0NjAyMDQxNn0.m6opFM6cC_LL6zjYw4rSm9WINMbs-KYVUZd_tlb-Dzc

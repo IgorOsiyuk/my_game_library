@@ -235,4 +235,29 @@ export class ReviewsService {
 
     return this.reviewRepository.save(review);
   }
+
+  /**
+   * Удаляет отзыв по ID
+   * @param reviewId - ID отзыва для удаления
+   * @param userId - ID пользователя, которому принадлежит отзыв
+   * @returns Promise<{message: string}> Результат удаления
+   */
+  async remove(reviewId: string, userId: string) {
+    const review = await this.reviewRepository.findOne({
+      where: {
+        id: reviewId,
+        user: { id: userId },
+      },
+    });
+
+    if (!review) {
+      throw new NotFoundException('Отзыв не найден');
+    }
+
+    await this.reviewRepository.remove(review);
+
+    return {
+      message: 'Отзыв успешно удален',
+    };
+  }
 }

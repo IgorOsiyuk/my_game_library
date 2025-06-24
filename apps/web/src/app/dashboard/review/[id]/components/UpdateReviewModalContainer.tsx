@@ -1,7 +1,11 @@
 import { UpdateFormValues } from '@/actions/updateReview';
 import CreateReviewModal from '@/components/CreateReviewModal';
+import deleteReviewClient from '@/lib/api/deleteReview';
+import { useAppData } from '@/lib/hooks/useAppData';
 import { useUpdateReview } from '@/lib/hooks/useUpdateReview';
+import { calculateStats } from '@/lib/utils';
 import { Review } from '@/types/reviews';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 interface UpdateReviewModalContainerIProps {
@@ -12,6 +16,8 @@ interface UpdateReviewModalContainerIProps {
 
 const UpdateReviewModalContainer = ({ isOpen, onClose, review }: UpdateReviewModalContainerIProps) => {
   const updateExistingReview = useUpdateReview();
+  const router = useRouter();
+  const { removeReview, setSelectedReview, reviews, setStats } = useAppData();
 
   const form = useForm<UpdateFormValues>({
     defaultValues: {
@@ -57,6 +63,25 @@ const UpdateReviewModalContainer = ({ isOpen, onClose, review }: UpdateReviewMod
     updateExistingReview(dataToSend).then(() => {
       onClose();
     });
+  };
+
+  const handleDelete = async () => {
+    if (!review?.id) return;
+
+    const result = await deleteReviewClient(review.id);
+    if (result?.success) {
+      // Обновляем store: удаляем отзыв из списка и обнуляем selectedReview
+      removeReview(review.id);
+      setSelectedReview(null);
+
+      // Пересчитываем статистику
+      const updatedReviews = reviews.filter((r) => r.id !== review.id);
+      const newStats = calculateStats(updatedReviews);
+      setStats(newStats);
+
+      onClose();
+      router.push('/dashboard');
+    }
   };
 
   // Валидационные правила (изображение не обязательно при обновлении)
@@ -164,6 +189,8 @@ const UpdateReviewModalContainer = ({ isOpen, onClose, review }: UpdateReviewMod
         artScore: watchedArtScore,
         gameplayScore: watchedGameplayScore,
       }}
+      onDelete={handleDelete}
+      showDeleteButton={true}
     />
   );
 };

@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseFilePipeBuilder,
@@ -141,5 +142,17 @@ export class ReviewsController {
     img?: Express.Multer.File,
   ) {
     return this.reviewsService.update(id, req['userId'], updateReviewDto, img);
+  }
+
+  /**
+   * Удаляет отзыв по ID
+   * @route DELETE /reviews/:id
+   * @param id - ID отзыва для удаления
+   * @param req - Объект запроса с данными пользователя
+   * @returns Результат удаления отзыва
+   */
+  @Delete(':id')
+  remove(@Param('id') id: string, @Request() req: Request) {
+    return this.reviewsService.remove(id, req['userId']);
   }
 }

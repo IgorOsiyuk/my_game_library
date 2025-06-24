@@ -33,6 +33,8 @@ export interface CreateReviewModalProps {
   isSearching?: boolean;
   onSelectGame?: (game: GameSearchResult) => void;
   showSearchDropdown?: boolean;
+  onDelete?: () => void;
+  showDeleteButton?: boolean;
 }
 
 const CreateReviewModal = ({
@@ -49,6 +51,8 @@ const CreateReviewModal = ({
   isSearching = false,
   onSelectGame = () => {},
   showSearchDropdown = false,
+  onDelete,
+  showDeleteButton = false,
 }: CreateReviewModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -161,7 +165,9 @@ const CreateReviewModal = ({
               />
               <Box
                 $sx={css`
-                  min-height: 206px;
+                  & textarea {
+                    min-height: 206px;
+                  }
                 `}
               >
                 <TextArea
@@ -197,7 +203,9 @@ const CreateReviewModal = ({
               </FlexBox>
               <Box
                 $sx={css`
-                  min-height: 206px;
+                  & textarea {
+                    min-height: 206px;
+                  }
                 `}
               >
                 <TextArea
@@ -227,9 +235,11 @@ const CreateReviewModal = ({
               <Button type="submit" buttonSize={SizeEnum.FULL} color="accent" spacing="s_24">
                 Сохранить
               </Button>
-              <Button type="button" buttonSize={SizeEnum.FULL} color="grey" spacing="s_24">
-                Delete game
-              </Button>
+              {showDeleteButton && (
+                <Button type="button" buttonSize={SizeEnum.FULL} color="grey" spacing="s_24" onClick={onDelete}>
+                  Delete game
+                </Button>
+              )}
             </FlexBox>
           </Box>
         </FlexBox>

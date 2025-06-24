@@ -39,7 +39,12 @@ export class GamesService {
    */
   async searchGame(search: string) {
     // Создаем QueryBuilder для гибкого поиска
-    const queryBuilder = this.gameRepository.createQueryBuilder('game');
+    const queryBuilder = this.gameRepository
+      .createQueryBuilder('game')
+      .leftJoinAndSelect('game.gameGenres', 'gameGenre')
+      .leftJoinAndSelect('gameGenre.genre', 'genre')
+      .leftJoinAndSelect('game.gamePlatforms', 'gamePlatform')
+      .leftJoinAndSelect('gamePlatform.platform', 'platform');
 
     // Разбиваем поисковый запрос на слова
     const searchTerms = search.split(' ').filter((term) => term.length > 0);
@@ -60,15 +65,22 @@ export class GamesService {
 
     const games = await queryBuilder.getMany();
 
-    // Если игры найдены в локальной БД, возвращаем их
+    // Если игры найдены в локальной БД, преобразуем их в нужный формат
     if (games.length > 0) {
-      return games;
+      return games.map((game) => ({
+        slug: game.slug,
+        title: game.title,
+        genres: game.gameGenres?.map((gameGenre) => gameGenre.genre.name) || [],
+        platforms: game.gamePlatforms?.map((gamePlatform) => gamePlatform.platform.name) || [],
+        releaseDate: game.releaseDate,
+        rating: game.rating,
+        image: game.image,
+      }));
     }
 
     // Если игры не найдены, выполняем поиск через внешний API
     const response = await fetch(`${this.gameApiUrl}&search=${search}`);
     const data = await response.json();
-
     // Преобразуем результаты API в нужный формат
     const returnData = data.results.map((game) => ({
       slug: game['slug'],
