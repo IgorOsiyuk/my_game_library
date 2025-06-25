@@ -2,23 +2,20 @@ import { UpdateFormValues } from '@/actions/updateReview';
 import deleteReviewClient from '@/lib/api/deleteReview';
 import { useAppData } from '@/lib/hooks/useAppData';
 import { useUpdateReview } from '@/lib/hooks/useUpdateReview';
-import { calculateStats } from '@/lib/utils';
 import { Review } from '@/types/reviews';
 import CreateReviewModal from '@/ui/CreateReviewModal';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 interface UpdateReviewModalContainerIProps {
-  isOpen: boolean;
   onClose: () => void;
   review?: Review;
 }
 
-const UpdateReviewModalContainer = ({ isOpen, onClose, review }: UpdateReviewModalContainerIProps) => {
+const UpdateReviewModalContainer = ({ onClose, review }: UpdateReviewModalContainerIProps) => {
   const updateExistingReview = useUpdateReview();
   const router = useRouter();
-  const { removeReview, setSelectedReview, reviews, setStats } = useAppData();
+  const { removeReview } = useAppData();
 
   const form = useForm<UpdateFormValues>({
     defaultValues: {
@@ -71,14 +68,8 @@ const UpdateReviewModalContainer = ({ isOpen, onClose, review }: UpdateReviewMod
 
     const result = await deleteReviewClient(review.id);
     if (result?.success) {
-      // Обновляем store: удаляем отзыв из списка и обнуляем selectedReview
+      // Обновляем store: удаляем отзыв из списка, обнуляем selectedReview и пересчитываем статистику
       removeReview(review.id);
-      setSelectedReview(null);
-
-      // Пересчитываем статистику
-      const updatedReviews = reviews.filter((r) => r.id !== review.id);
-      const newStats = calculateStats(updatedReviews);
-      setStats(newStats);
 
       onClose();
       router.push('/dashboard');
@@ -119,15 +110,9 @@ const UpdateReviewModalContainer = ({ isOpen, onClose, review }: UpdateReviewMod
     },
   };
 
-  useEffect(() => {
-    if (!isOpen) {
-      reset();
-    }
-  }, [isOpen, reset]);
-
   return (
     <CreateReviewModal
-      isOpen={isOpen}
+      isOpen={true}
       onClose={onClose}
       onSubmit={handleSubmit(onSubmit)}
       register={register}

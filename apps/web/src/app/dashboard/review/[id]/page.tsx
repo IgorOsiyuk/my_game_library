@@ -35,7 +35,6 @@ export default function Game() {
   if (!selectedReview) {
     return <div>Loading...</div>;
   }
-
   return (
     <FlexBox $direction="column" $gap="s_32">
       <Box
@@ -67,7 +66,6 @@ export default function Game() {
           Back
         </Text>
       </Box>
-
       <FlexBox $justify="space-between" $align="flex-start">
         <FlexBox $gap="s_32">
           <FlexBox $direction="column" $gap="s_14">
@@ -317,7 +315,7 @@ export default function Game() {
           gameplayScore={selectedReview.gameplayScore}
         />
       </FlexBox>
-      <UpdateReviewModalContainer isOpen={isOpen} onClose={() => setIsOpen(false)} review={selectedReview} />
+      {isOpen && <UpdateReviewModalContainer onClose={() => setIsOpen(false)} review={selectedReview} />}
     </FlexBox>
   );
 }

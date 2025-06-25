@@ -1,3 +1,4 @@
+import { calculateStats } from '@/lib/utils';
 import { createStore } from 'zustand/vanilla';
 
 interface Stats {
@@ -171,13 +172,14 @@ export const createAppStore = (initState: AppState = defaultInitState) => {
         const updatedReviews = state.reviews.filter((review) => review.id !== reviewId);
         const filteredReviews = filterReviews(updatedReviews, state.selectedFilter);
 
-        // Обнуляем selectedReview если удаляемый отзыв является выбранным
-        const updatedSelectedReview = state.selectedReview?.id === reviewId ? null : state.selectedReview;
+        // Пересчитываем статистику
+        const newStats = calculateStats(updatedReviews);
 
         return {
           reviews: updatedReviews,
           filteredReviews,
-          selectedReview: updatedSelectedReview,
+          selectedReview: null,
+          stats: newStats,
         };
       }),
 

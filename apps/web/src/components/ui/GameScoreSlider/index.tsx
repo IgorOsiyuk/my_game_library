@@ -67,7 +67,7 @@ const GameScoreSlider = ({
               `}
             >
               <Text color="accent2" size="big_numbers" fontWeight="medium">
-                {value.toFixed(1)}
+                {value}
               </Text>
             </Box>
             {showEmoji && (

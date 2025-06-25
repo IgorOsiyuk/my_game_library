@@ -1,7 +1,7 @@
 'use client';
 
 import { logout } from '@/actions/logout';
-import SideNav from '@/components/SideNav';
+import SideNav from '@/ui/SideNav';
 import { signOut } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import { toast } from 'react-hot-toast';

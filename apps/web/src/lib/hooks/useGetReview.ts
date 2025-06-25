@@ -18,7 +18,6 @@ export function useGetReview() {
       const toastId = toast.loading('Загрузка отзыва...');
       try {
         const { data: response } = await axios.get(`/api/dashboard/review/${params.id}`);
-        console.log(response);
         toast.dismiss(toastId);
 
         if (!response.success) {
