@@ -11,7 +11,7 @@ import PencilIcon from '@/icons/pencil.svg';
 import setToFavorite from '@/lib/api/setToFavorite';
 import { useAppData } from '@/lib/hooks/useAppData';
 import { useGetReview } from '@/lib/hooks/useGetReview';
-import { GameStatusVariantMap } from '@/lib/utils';
+import { GameStatusVariantMap, getEmojiForValue } from '@/lib/utils';
 import ScoresPanel from '@/ui/ScoresPanel';
 import StatusLabel from '@/ui/StatusLabel';
 import { useRouter } from 'next/navigation';
@@ -35,6 +35,7 @@ export default function Game() {
   if (!selectedReview) {
     return <div>Loading...</div>;
   }
+
   return (
     <FlexBox $direction="column" $gap="s_32">
       <Box
@@ -76,6 +77,7 @@ export default function Game() {
                 $sx={({ theme }) => css`
                   border-radius: ${theme.radius.rounded_medium};
                   overflow: hidden;
+                  position: relative;
                 `}
               >
                 <Image
@@ -92,6 +94,31 @@ export default function Game() {
                     pointer-events: none;
                   `}
                 />
+                <Box
+                  $sx={css`
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    border-radius: ${({ theme }) => theme.radius.rounded_small};
+                    padding: ${({ theme }) => theme.spacing.s_6};
+                  `}
+                >
+                  <Image
+                    alt="rating-image"
+                    fill
+                    sizes="100vw"
+                    style={{
+                      objectFit: 'cover',
+                    }}
+                    $sx={css`
+                      width: 70px;
+                      height: 70px;
+                      pointer-events: none;
+                    `}
+                    src={getEmojiForValue(selectedReview.rating)}
+                  />
+                </Box>
               </Box>
             </FlexBox>
             <FlexBox $gap="s_12">
@@ -144,85 +171,32 @@ export default function Game() {
                 <Text size="title_L" color="white">
                   {selectedReview.title}
                 </Text>
-                <Grid $columns="4fr 2fr" $gap="s_20">
+                <Grid $columns="4fr 3fr" $gap="s_20">
                   <FlexBox $direction="column" $gap="s_14">
                     {selectedReview.releaseDate && (
-                      <Grid $columns="1fr 3fr" $gap="s_20" $align="center">
+                      <Grid $columns="1fr 3fr" $gap="s_20" $align="center" $justifyItems="flex-start">
                         <Text size="body_M" color="greySecondary">
                           Год выпуска:
                         </Text>
-                        <FlexBox $wrap="wrap" $gap="s_8">
-                          <Box
-                            $padding="s_8"
-                            $backgroundColor="dark"
-                            $sx={({ theme }) => css`
-                              border-radius: ${theme.radius.rounded_small};
-                              overflow: hidden;
-                            `}
-                          >
-                            <Text size="body_S" color="white">
-                              {selectedReview.releaseDate}
-                            </Text>
-                          </Box>
-                        </FlexBox>
+                        <Box
+                          $padding="s_8"
+                          $backgroundColor="dark"
+                          $sx={({ theme }) => css`
+                            border-radius: ${theme.radius.rounded_small};
+                            overflow: hidden;
+                          `}
+                        >
+                          <Text size="body_S" color="white">
+                            {selectedReview.releaseDate}
+                          </Text>
+                        </Box>
                       </Grid>
                     )}
-                    {/* <Grid $columns="1fr 3fr" $gap="s_20" $align="center">
-                      <Text size="body_M" color="greySecondary">
-                        Разработчики:
-                      </Text>
-                      <FlexBox $wrap="wrap" $gap="s_8">
-                        <Box
-                          $padding="s_8"
-                          $backgroundColor="dark"
-                          $sx={({ theme }) => css`
-                            border-radius: ${theme.radius.rounded_small};
-                            overflow: hidden;
-                          `}
-                        >
-                          <Text size="body_S" color="white">
-                            CD PROJEKT RED
-                          </Text>
-                        </Box>
-                      </FlexBox>
-                    </Grid>
-                    <Grid $columns="1fr 3fr" $gap="s_20" $align="center">
-                      <Text size="body_M" color="greySecondary">
-                        Издатель:
-                      </Text>
-                      <FlexBox $wrap="wrap" $gap="s_8">
-                        <Box
-                          $padding="s_8"
-                          $backgroundColor="dark"
-                          $sx={({ theme }) => css`
-                            border-radius: ${theme.radius.rounded_small};
-                            overflow: hidden;
-                          `}
-                        >
-                          <Text size="body_S" color="white">
-                            CD PROJEKT RED
-                          </Text>
-                        </Box>
-                      </FlexBox>
-                    </Grid> */}
                     {selectedReview.platforms && (
-                      <Grid $columns="1fr 3fr" $gap="s_20" $align="center">
+                      <Grid $columns="1fr 3fr" $gap="s_20" $align="center" $justifyItems="flex-start">
                         <Text size="body_M" color="greySecondary">
                           Платформы:
                         </Text>
-                        <FlexBox $wrap="wrap" $gap="s_8">
-                          {/* <Box
-                          $padding="s_8"
-                          $backgroundColor="dark"
-                          $sx={({ theme }) => css`
-                            border-radius: ${theme.radius.rounded_small};
-                            overflow: hidden;
-                          `}
-                        >
-                          <Text size="body_S" color="white">
-                            Playstation 4
-                          </Text>
-                        </Box>
                         <Box
                           $padding="s_8"
                           $backgroundColor="dark"
@@ -232,30 +206,16 @@ export default function Game() {
                           `}
                         >
                           <Text size="body_S" color="white">
-                            PC
+                            {selectedReview.platforms}
                           </Text>
-                        </Box> */}
-
-                          <Box
-                            $padding="s_8"
-                            $backgroundColor="dark"
-                            $sx={({ theme }) => css`
-                              border-radius: ${theme.radius.rounded_small};
-                              overflow: hidden;
-                            `}
-                          >
-                            <Text size="body_S" color="white">
-                              {selectedReview.platforms}
-                            </Text>
-                          </Box>
-                        </FlexBox>
+                        </Box>
                       </Grid>
                     )}
-                    <Grid $columns="1fr 3fr" $gap="s_20" $align="center">
-                      <Text size="body_M" color="greySecondary">
-                        Жанр:
-                      </Text>
-                      <FlexBox $wrap="wrap" $gap="s_8">
+                    {selectedReview.genres && (
+                      <Grid $columns="1fr 3fr" $gap="s_20" $align="center" $justifyItems="flex-start">
+                        <Text size="body_M" color="greySecondary">
+                          Жанр:
+                        </Text>
                         <Box
                           $padding="s_8"
                           $backgroundColor="dark"
@@ -268,7 +228,16 @@ export default function Game() {
                             {selectedReview.genres}
                           </Text>
                         </Box>
-                        {/* <Box
+                      </Grid>
+                    )}
+                  </FlexBox>
+                  <FlexBox $direction="column" $gap="s_14">
+                    {selectedReview.playTime && (
+                      <Grid $columns="1fr 2fr" $gap="s_20" $align="center" $justifyItems="flex-start">
+                        <Text size="body_M" color="greySecondary">
+                          Время прохождения:
+                        </Text>
+                        <Box
                           $padding="s_8"
                           $backgroundColor="dark"
                           $sx={({ theme }) => css`
@@ -276,48 +245,56 @@ export default function Game() {
                             overflow: hidden;
                           `}
                         >
-                          <Text size="body_S" color="white">
-                            Adventure
+                          <Text size="body_M" color="white">
+                            {selectedReview.playTime}
                           </Text>
-                        </Box> */}
-                      </FlexBox>
-                    </Grid>
-                  </FlexBox>
-                  <FlexBox $direction="column" $gap="s_14">
-                    {selectedReview.playTime && (
-                      <Text size="body_M" color="greySecondary">
-                        Время прохождения: {selectedReview.playTime}
-                      </Text>
+                        </Box>
+                      </Grid>
                     )}
                     {selectedReview.difficulty && (
-                      <Text size="body_M" color="greySecondary">
-                        Сложность: {selectedReview.difficulty}
-                      </Text>
+                      <Grid $columns="1fr 2fr" $gap="s_20" $align="center" $justifyItems="flex-start">
+                        <Text size="body_M" color="greySecondary">
+                          Сложность:
+                        </Text>
+                        <Box
+                          $padding="s_8"
+                          $backgroundColor="dark"
+                          $sx={({ theme }) => css`
+                            border-radius: ${theme.radius.rounded_small};
+                            overflow: hidden;
+                          `}
+                        >
+                          <Text size="body_M" color="white">
+                            {selectedReview.difficulty}
+                          </Text>
+                        </Box>
+                      </Grid>
                     )}
-                    {/* <Text size="body_M" color="greySecondary">
-                      Трофеи: {selectedReview.trophies}
-                    </Text> */}
                   </FlexBox>
                 </Grid>
               </FlexBox>
             </FlexBox>
             <FlexBox $direction="column" $mt="s_56" $gap="s_32">
-              <FlexBox $direction="column" $gap="s_14">
-                <Text size="body_M" color="white" fontWeight="bold">
-                  Сюжет
-                </Text>
-                <Text size="body_M" color="white" fontWeight="light">
-                  {selectedReview.plot}
-                </Text>
-              </FlexBox>
-              <FlexBox $direction="column" $gap="s_14">
-                <Text size="body_M" color="white" fontWeight="bold">
-                  Отзыв
-                </Text>
-                <Text size="body_M" color="white" fontWeight="light">
-                  {selectedReview.review}
-                </Text>
-              </FlexBox>
+              {selectedReview.plot && (
+                <FlexBox $direction="column" $gap="s_14">
+                  <Text size="body_M" color="white" fontWeight="bold">
+                    Сюжет
+                  </Text>
+                  <Text size="body_M" color="white" fontWeight="light">
+                    {selectedReview.plot}
+                  </Text>
+                </FlexBox>
+              )}
+              {selectedReview.review && (
+                <FlexBox $direction="column" $gap="s_14">
+                  <Text size="body_M" color="white" fontWeight="bold">
+                    Отзыв
+                  </Text>
+                  <Text size="body_M" color="white" fontWeight="light">
+                    {selectedReview.review}
+                  </Text>
+                </FlexBox>
+              )}
             </FlexBox>
           </Box>
         </FlexBox>
@@ -326,6 +303,7 @@ export default function Game() {
           plotScore={selectedReview.plotScore}
           artScore={selectedReview.artScore}
           gameplayScore={selectedReview.gameplayScore}
+          averageScore={selectedReview.rating}
         />
       </FlexBox>
       {isOpen && <UpdateReviewModalContainer onClose={() => setIsOpen(false)} review={selectedReview} />}

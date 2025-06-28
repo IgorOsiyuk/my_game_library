@@ -4,7 +4,7 @@ import { useCreateReview } from '@/lib/hooks/useCreateReview';
 import { useGameSearch } from '@/lib/hooks/useGameSearch';
 import { GameStatus as GameStatusEnum } from '@/types/game';
 import CreateReviewModal from '@/ui/CreateReviewModal';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 interface CreateReviewModalContainerProps {
@@ -16,6 +16,7 @@ const CreateReviewModalContainer = ({ isOpen, onClose }: CreateReviewModalContai
   const createNewReview = useCreateReview();
   const { searchResults, isSearching, updateSearchQuery, clearSearch, searchQuery } = useGameSearch();
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
+  const isSelectingGameRef = useRef(false);
 
   const form = useForm<FormValues>({
     defaultValues: {
@@ -57,6 +58,18 @@ const CreateReviewModalContainer = ({ isOpen, onClose }: CreateReviewModalContai
 
   // Обновляем поисковой запрос при изменении названия игры
   useEffect(() => {
+    // Игнорируем изменения, если игра была выбрана программно
+    if (isSelectingGameRef.current) {
+      isSelectingGameRef.current = false;
+      return;
+    }
+
+    // Игнорируем если пользователь очистил поле или поле пустое
+    if (!watchedGameTitle || watchedGameTitle.trim() === '') {
+      setShowSearchDropdown(false);
+      return;
+    }
+
     if (watchedGameTitle !== searchQuery) {
       setShowSearchDropdown(true);
       updateSearchQuery(watchedGameTitle);
@@ -69,6 +82,7 @@ const CreateReviewModalContainer = ({ isOpen, onClose }: CreateReviewModalContai
       clearSearch();
       reset();
       setShowSearchDropdown(false);
+      isSelectingGameRef.current = false;
     }
   }, [isOpen, clearSearch, reset]);
 
@@ -76,6 +90,7 @@ const CreateReviewModalContainer = ({ isOpen, onClose }: CreateReviewModalContai
     createNewReview(formValues).then(() => {
       clearSearch();
       reset();
+      isSelectingGameRef.current = false;
       onClose();
     });
   };
@@ -83,6 +98,7 @@ const CreateReviewModalContainer = ({ isOpen, onClose }: CreateReviewModalContai
   // Обработчик выбора игры из результатов поиска
   const handleSelectGame = (game: GameSearchResult) => {
     setShowSearchDropdown(false);
+    isSelectingGameRef.current = true;
     setValue('title', game.title);
     if (game.genres) setValue('genres', game.genres.join(', '));
     if (game.platforms) setValue('platforms', game.platforms.join(', '));

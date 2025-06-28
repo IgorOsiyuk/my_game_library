@@ -1,6 +1,7 @@
 export type FontSizes = {
   title_L: string;
   title_M: string;
+  title_S: string;
   big_numbers: string;
   small_titles: string;
   button: string;
@@ -13,6 +14,7 @@ export type FontSizes = {
 const fontSizes: FontSizes = {
   title_L: '56px',
   title_M: '48px',
+  title_S: '40px',
   big_numbers: '32px',
   small_titles: '30px',
   button: '20px',

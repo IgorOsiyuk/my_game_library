@@ -1,6 +1,13 @@
-import { StatusEnum } from '@/components/StatusLabel';
 import { Review } from '@/stores/store';
 import { GameStatus } from '@/types/game';
+import { StatusEnum } from '@/ui/StatusLabel';
+
+import Rating0Img from '@/images/rating-0.png';
+import Rating1Img from '@/images/rating-1.png';
+import Rating2Img from '@/images/rating-2.png';
+import Rating3Img from '@/images/rating-3.png';
+import Rating4Img from '@/images/rating-4.png';
+import { StaticImageData } from 'next/image';
 
 export const validateEmail = (value: string) => {
   if (value.length === 0) {
@@ -48,3 +55,11 @@ export function calculateStats(reviews: Review[]) {
 
   return stats;
 }
+
+export const getEmojiForValue = (value: number): StaticImageData => {
+  if (value <= 1) return Rating0Img;
+  if (value <= 2) return Rating1Img;
+  if (value <= 3) return Rating2Img;
+  if (value <= 4) return Rating3Img;
+  return Rating4Img;
+};

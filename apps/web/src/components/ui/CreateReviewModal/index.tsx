@@ -34,7 +34,6 @@ export interface CreateReviewModalProps {
   onSelectGame?: (game: GameSearchResult) => void;
   showSearchDropdown?: boolean;
   onDelete?: () => void;
-  showDeleteButton?: boolean;
   updatedReview?: boolean;
 }
 
@@ -53,7 +52,6 @@ const CreateReviewModal = ({
   onSelectGame = () => {},
   showSearchDropdown = false,
   onDelete,
-  showDeleteButton = false,
   updatedReview = false,
 }: CreateReviewModalProps) => {
   return (

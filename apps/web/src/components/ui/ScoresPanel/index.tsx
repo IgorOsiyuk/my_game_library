@@ -1,12 +1,7 @@
 import FlexBox from '@/atomic/FlexBox';
 import Image from '@/atomic/Image';
 import Text from '@/atomic/Text';
-import Rating0Img from '@/images/rating-0.png';
-import Rating1Img from '@/images/rating-1.png';
-import Rating2Img from '@/images/rating-2.png';
-import Rating3Img from '@/images/rating-3.png';
-import Rating4Img from '@/images/rating-4.png';
-import { StaticImageData } from 'next/image';
+import { getEmojiForValue } from '@/lib/utils';
 import { css } from 'styled-components';
 
 interface ScoresPanelProps {
@@ -14,17 +9,10 @@ interface ScoresPanelProps {
   plotScore: number;
   artScore: number;
   gameplayScore: number;
+  averageScore: number;
 }
 
-const getEmojiForValue = (value: number): StaticImageData => {
-  if (value <= 1) return Rating0Img;
-  if (value <= 2) return Rating1Img;
-  if (value <= 3) return Rating2Img;
-  if (value <= 4) return Rating3Img;
-  return Rating4Img;
-};
-
-export default function ScoresPanel({ score, plotScore, artScore, gameplayScore }: ScoresPanelProps) {
+export default function ScoresPanel({ score, plotScore, artScore, gameplayScore, averageScore }: ScoresPanelProps) {
   return (
     <FlexBox
       $px="s_20"
@@ -39,6 +27,30 @@ export default function ScoresPanel({ score, plotScore, artScore, gameplayScore 
         flex: 0 0 auto;
       `}
     >
+      <FlexBox $direction="column" $gap="s_12">
+        <Text size="body_M" color="greySecondary">
+          Средняя оценка
+        </Text>
+        <FlexBox $gap="s_8" $wrap="nowrap" $justify="space-between" $align="center">
+          <Text size="title_L" color="yellow" fontWeight="bold">
+            {Math.round(averageScore * 10) / 10}
+          </Text>
+          <Image
+            alt="rating-image"
+            fill
+            sizes="100vw"
+            style={{
+              objectFit: 'cover',
+            }}
+            $sx={css`
+              width: 70px;
+              height: 70px;
+              pointer-events: none;
+            `}
+            src={getEmojiForValue(averageScore)}
+          />
+        </FlexBox>
+      </FlexBox>
       <FlexBox $direction="column" $gap="s_12">
         <Text size="body_M" color="greySecondary">
           Оценка игры
