@@ -7,11 +7,13 @@ import Image from '@/atomic/Image';
 import Input from '@/atomic/Input';
 import SvgImage from '@/atomic/SvgImage';
 import Text from '@/atomic/Text';
+import EyeClosedIcon from '@/icons/eye_closed.svg';
 import EyeOpenedIcon from '@/icons/eye_opened.svg';
 import DefaultProfileImage from '@/images/default_profile_image.jpg';
 import { useAppData } from '@/lib/hooks/useAppData';
 import { useGetUserData } from '@/lib/hooks/useGetUserData';
-import { useEffect } from 'react';
+import { useUpdateUserData } from '@/lib/hooks/useUpdateUserData';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { css } from 'styled-components';
 
@@ -24,7 +26,11 @@ interface UserFormValues {
 
 export default function User() {
   useGetUserData();
-  const { user, updateUser } = useAppData();
+  const { user } = useAppData();
+  const updateUserData = useUpdateUserData();
+  // Состояния для управления видимостью паролей
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
 
   const form = useForm<UserFormValues>({
     defaultValues: {
@@ -50,19 +56,20 @@ export default function User() {
   }, [user, setValue]);
 
   const onSubmit = async (formValues: UserFormValues) => {
-    try {
-      // Обновляем данные пользователя в store
-      if (formValues.nickname !== user.nickname) {
-        updateUser({
-          nickname: formValues.nickname,
-        });
-      }
+    await updateUserData({
+      name: formValues.nickname,
+      password: formValues.password,
+      confirmPassword: formValues.confirmPassword,
+    });
+  };
 
-      // Здесь можно добавить API вызов для сохранения на сервере
-      console.log('Сохранение данных пользователя:', formValues);
-    } catch (error) {
-      console.error('Ошибка при сохранении:', error);
-    }
+  // Функции переключения видимости паролей
+  const toggleCurrentPasswordVisibility = () => {
+    setShowCurrentPassword(!showCurrentPassword);
+  };
+
+  const toggleNewPasswordVisibility = () => {
+    setShowNewPassword(!showNewPassword);
   };
 
   // Валидационные правила
@@ -130,6 +137,7 @@ export default function User() {
                     register={register('nickname', validationRules.nickname)}
                     isError={!!errors.nickname}
                     error={errors.nickname?.message}
+                    type="text"
                   />
                   <Input label="Email" placeholder="Email" type="email" register={register('email')} disabled />
                 </FlexBox>
@@ -144,27 +152,49 @@ export default function User() {
                 <Input
                   label="Текущий пароль"
                   placeholder="Текущий пароль"
-                  type="password"
+                  type={showCurrentPassword ? 'text' : 'password'}
                   register={register('password', validationRules.password)}
                   isError={!!errors.password}
                   error={errors.password?.message}
                   icon={
-                    <SvgImage $height="20px" $width="20px" $fill="white">
-                      <EyeOpenedIcon />
-                    </SvgImage>
+                    <Box
+                      $sx={css`
+                        cursor: pointer;
+                        &:hover {
+                          opacity: 0.7;
+                        }
+                        transition: opacity 0.3s ease;
+                      `}
+                      onClick={toggleCurrentPasswordVisibility}
+                    >
+                      <SvgImage $height="20px" $width="20px" $fill="white">
+                        {showCurrentPassword ? <EyeClosedIcon /> : <EyeOpenedIcon />}
+                      </SvgImage>
+                    </Box>
                   }
                 />
                 <Input
                   label="Новый пароль"
                   placeholder="Новый пароль"
-                  type="password"
+                  type={showNewPassword ? 'text' : 'password'}
                   register={register('confirmPassword', validationRules.confirmPassword)}
                   isError={!!errors.confirmPassword}
                   error={errors.confirmPassword?.message}
                   icon={
-                    <SvgImage $height="20px" $width="20px" $fill="white">
-                      <EyeOpenedIcon />
-                    </SvgImage>
+                    <Box
+                      $sx={css`
+                        cursor: pointer;
+                        &:hover {
+                          opacity: 0.7;
+                        }
+                        transition: opacity 0.3s ease;
+                      `}
+                      onClick={toggleNewPasswordVisibility}
+                    >
+                      <SvgImage $height="20px" $width="20px" $fill="white">
+                        {showNewPassword ? <EyeClosedIcon /> : <EyeOpenedIcon />}
+                      </SvgImage>
+                    </Box>
                   }
                 />
               </FlexBox>
