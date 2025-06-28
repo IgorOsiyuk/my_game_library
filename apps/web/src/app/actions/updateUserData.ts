@@ -67,7 +67,7 @@ export async function updateUserData(
 
       return {
         success: false,
-        error: `Ошибка сервера (${statusCode}): ${errorMessage}`,
+        error: errorMessage,
         statusCode,
       };
     }

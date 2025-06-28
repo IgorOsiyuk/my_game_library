@@ -39,7 +39,7 @@ export async function getStats(session: Session | null) {
 
       return {
         success: false,
-        error: `Ошибка сервера (${statusCode}): ${errorMessage}`,
+        error: errorMessage,
         statusCode,
       };
     }

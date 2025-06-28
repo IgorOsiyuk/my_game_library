@@ -66,7 +66,7 @@ export async function getInitialData(session: Session | null): Promise<InitialDa
 
       return {
         success: false,
-        error: `Ошибка сервера (${statusCode}): ${errorMessage}`,
+        error: errorMessage,
         statusCode,
       };
     }

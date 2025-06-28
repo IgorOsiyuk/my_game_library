@@ -75,7 +75,7 @@ export async function createReview(formData: FormValues) {
       const errorMessage = error.response?.data?.message || error.message;
       return {
         success: false,
-        error: `Ошибка сервера (${statusCode}): ${errorMessage}`,
+        error: errorMessage,
         statusCode,
       };
     }

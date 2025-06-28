@@ -30,7 +30,7 @@ export async function getReviews(session: Session | null, status?: string, isFav
 
       return {
         success: false,
-        error: `Ошибка сервера (${statusCode}): ${errorMessage}`,
+        error: errorMessage,
         statusCode,
       };
     }
