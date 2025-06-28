@@ -1,7 +1,7 @@
 import { FormValues } from '@/actions/createReview';
 import { GameSearchResult } from '@/actions/searchGames';
-import { useCreateReview } from '@/lib/hooks/useCreateReview';
-import { useGameSearch } from '@/lib/hooks/useGameSearch';
+import { useCreateReview } from '@/lib/hooks/api/useCreateReview';
+import { useGameSearch } from '@/lib/hooks/api/useGameSearch';
 import { GameStatus as GameStatusEnum } from '@/types/game';
 import CreateReviewModal from '@/ui/CreateReviewModal';
 import { useEffect, useRef, useState } from 'react';

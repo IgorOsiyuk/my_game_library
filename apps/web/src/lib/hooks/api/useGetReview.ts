@@ -6,7 +6,7 @@ import { signOut } from 'next-auth/react';
 import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppData } from './useAppData';
+import { useAppData } from '../useAppData';
 
 export function useGetReview() {
   const { setSelectedReview, setLoading, setError } = useAppData();

@@ -3,7 +3,7 @@
 import { GameSearchResult, searchGames } from '@/actions/searchGames';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import useDebounce from './useDebounce';
+import useDebounce from '../useDebounce';
 
 export function useGameSearch() {
   const [searchResults, setSearchResults] = useState<GameSearchResult[]>([]);

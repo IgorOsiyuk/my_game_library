@@ -1,7 +1,7 @@
 import { UpdateFormValues } from '@/actions/updateReview';
 import deleteReviewClient from '@/lib/api/deleteReview';
+import { useUpdateReview } from '@/lib/hooks/api/useUpdateReview';
 import { useAppData } from '@/lib/hooks/useAppData';
-import { useUpdateReview } from '@/lib/hooks/useUpdateReview';
 import { Review } from '@/types/reviews';
 import CreateReviewModal from '@/ui/CreateReviewModal';
 import { useRouter } from 'next/navigation';

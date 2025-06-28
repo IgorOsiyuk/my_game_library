@@ -2,9 +2,9 @@
 
 import FlexBox from '@/atomic/FlexBox';
 import setToFavorite from '@/lib/api/setToFavorite';
+import { useInititalData } from '@/lib/hooks/api/useInititalData';
 import { useAppData } from '@/lib/hooks/useAppData';
 import { useFilter } from '@/lib/hooks/useFilter';
-import { useInititalData } from '@/lib/hooks/useInititalData';
 import FilterOptions from '@/ui/FilterOptions';
 import GamesList from '@/ui/GamesList';
 import ViewOptions, { ViewType } from '@/ui/ViewOptions';

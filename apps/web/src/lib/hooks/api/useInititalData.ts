@@ -5,7 +5,7 @@ import axios from 'axios';
 import { signOut } from 'next-auth/react';
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppData } from './useAppData';
+import { useAppData } from '../useAppData';
 
 export function useInititalData() {
   const { setReviews, setStats, setUser, setLoading, setError } = useAppData();

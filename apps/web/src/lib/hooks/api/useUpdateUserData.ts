@@ -4,7 +4,7 @@ import { UpdateUserDataRequest } from '@/types/user';
 import axios from 'axios';
 import { signOut } from 'next-auth/react';
 import { toast } from 'react-hot-toast';
-import { useAppData } from './useAppData';
+import { useAppData } from '../useAppData';
 
 export function useUpdateUserData() {
   const { updateUser } = useAppData();
