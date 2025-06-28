@@ -17,7 +17,7 @@ interface InputIProps {
 function Input({ label, placeholder, icon, isError, error, type, register, disabled }: InputIProps) {
   return (
     <Box $width="100%">
-      <S.InputWrapper $isError={isError}>
+      <S.InputWrapper $isError={isError} $disabled={disabled}>
         <S.Label>{label}</S.Label>
         <S.Input placeholder={placeholder} type={type} {...register} disabled={disabled} />
         {/* <S.IconWrapper>{icon}</S.IconWrapper> */}

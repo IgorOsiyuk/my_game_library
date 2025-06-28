@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components';
 
-const InputWrapper = styled.div<{ $isError?: boolean }>`
-  ${({ theme, $isError }) => {
+const InputWrapper = styled.div<{ $isError?: boolean; $disabled?: boolean }>`
+  ${({ theme, $isError, $disabled }) => {
     return css`
       width: 100%;
-      background-color: ${theme.colors.darkSecondary};
+      background-color: ${$disabled ? theme.colors.dark : theme.colors.darkSecondary};
       padding: ${theme.spacing.s_12} ${theme.spacing.s_18};
       border-radius: ${theme.radius.rounded_small};
       border-width: 1px;
@@ -14,6 +14,11 @@ const InputWrapper = styled.div<{ $isError?: boolean }>`
       flex-direction: row;
       align-items: center;
       justify-content: start;
+      ${Input} {
+        &:disabled {
+          color: ${theme.colors.grey};
+        }
+      }
     `;
   }}
 `;
