@@ -1,7 +1,8 @@
 'use client';
 
-import { UpdateFormValues, updateReview } from '@/actions/updateReview';
+import { UpdateFormValues } from '@/actions/updateReview';
 import { Review } from '@/stores/store';
+import axios from 'axios';
 import { signOut } from 'next-auth/react';
 import { toast } from 'react-hot-toast';
 import { calculateStats } from '../../utils';
@@ -14,7 +15,7 @@ export function useUpdateReview() {
     const toastId = toast.loading('Обновление отзыва...');
 
     try {
-      const response = await updateReview(formData);
+      const { data: response } = await axios.patch('/api/dashboard/review', formData);
       toast.dismiss(toastId);
 
       if (!response.success) {

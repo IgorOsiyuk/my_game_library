@@ -84,8 +84,8 @@ export class GamesService {
     const returnData = data.results.map((game) => ({
       slug: game['slug'],
       title: game['name'],
-      genres: game['genres'].map((genre) => genre['name']),
-      platforms: game['platforms'].map((platform) => platform['platform']['name']),
+      genres: game['genres']?.map((genre) => genre['name']) || [],
+      platforms: game['platforms']?.map((platform) => platform['platform']['name']) || [],
       releaseDate: game['released'],
       image: game['background_image'],
     }));

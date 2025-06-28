@@ -1,14 +1,10 @@
 import { getInitialData } from '@/actions/getInitialData';
-import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
-import { authOptions } from '../auth/[...nextauth]/route';
 
 // Обработчик GET-запросов для получения данных о панели управления
 export async function GET() {
-  const session = await getServerSession(authOptions);
-
   try {
-    const dashboardData = await getInitialData(session);
+    const dashboardData = await getInitialData();
 
     return NextResponse.json(dashboardData);
   } catch (error: any) {

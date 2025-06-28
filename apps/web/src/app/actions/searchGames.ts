@@ -39,11 +39,9 @@ export async function searchGames(searchQuery: string) {
     );
 
     const games = response.data;
-    console.log(games);
     return { success: true, data: games, message: 'Поиск выполнен успешно' };
   } catch (error) {
     if (isAxiosError(error)) {
-      console.log(error);
       const statusCode = error.response?.status;
       const errorMessage = error.response?.data?.message || error.message;
       return {

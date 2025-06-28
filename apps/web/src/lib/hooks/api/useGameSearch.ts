@@ -1,6 +1,7 @@
 'use client';
 
-import { GameSearchResult, searchGames } from '@/actions/searchGames';
+import { GameSearchResult } from '@/actions/searchGames';
+import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useDebounce from '../useDebounce';
@@ -22,7 +23,7 @@ export function useGameSearch() {
     setIsSearching(true);
 
     try {
-      const response = await searchGames(query);
+      const { data: response } = await axios.get(`/api/games/search?q=${encodeURIComponent(query)}`);
 
       if (!response.success) {
         toast.error(response.error || 'Ошибка при поиске игр');

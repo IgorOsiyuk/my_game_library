@@ -1,8 +1,9 @@
 'use server';
 
+import { authOptions } from '@/api/auth/[...nextauth]/route';
 import { User } from '@/types/user';
 import axios from 'axios';
-import { Session } from 'next-auth';
+import { getServerSession } from 'next-auth';
 
 interface UserDataResponse {
   success: boolean;
@@ -11,7 +12,8 @@ interface UserDataResponse {
   statusCode?: number;
 }
 
-export async function getUserData(session: Session | null): Promise<UserDataResponse> {
+export async function getUserData(): Promise<UserDataResponse> {
+  const session = await getServerSession(authOptions);
   try {
     if (!session) {
       return { success: false, error: 'Нет активной сессии', statusCode: 401 };

@@ -1,7 +1,8 @@
 'use server';
 
+import { authOptions } from '@/api/auth/[...nextauth]/route';
 import axios from 'axios';
-import { Session } from 'next-auth';
+import { getServerSession } from 'next-auth';
 
 interface UpdateUserDataRequest {
   name?: string;
@@ -20,10 +21,8 @@ interface UpdateUserDataResponse {
   statusCode?: number;
 }
 
-export async function updateUserData(
-  session: Session | null,
-  userData: UpdateUserDataRequest,
-): Promise<UpdateUserDataResponse> {
+export async function updateUserData(userData: UpdateUserDataRequest): Promise<UpdateUserDataResponse> {
+  const session = await getServerSession(authOptions);
   try {
     if (!session) {
       return { success: false, error: 'Нет активной сессии', statusCode: 401 };

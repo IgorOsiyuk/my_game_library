@@ -1,7 +1,8 @@
 'use client';
 
-import { createReview, FormValues } from '@/actions/createReview';
+import { FormValues } from '@/actions/createReview';
 import { Review } from '@/stores/store';
+import axios from 'axios';
 import { signOut } from 'next-auth/react';
 import { toast } from 'react-hot-toast';
 import { calculateStats } from '../../utils';
@@ -14,7 +15,7 @@ export function useCreateReview() {
     const toastId = toast.loading('Добавление отзыва...');
 
     try {
-      const response = await createReview(formData);
+      const { data: response } = await axios.post('/api/dashboard/review', formData);
       toast.dismiss(toastId);
 
       if (!response.success) {
