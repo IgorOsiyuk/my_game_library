@@ -10,6 +10,12 @@ interface Stats {
   favorites: number;
 }
 
+export interface User {
+  email: string;
+  nickname: string;
+  avatar: string;
+}
+
 export enum GameStatus {
   IN_PROGRESS = 'В процессе',
   COMPLETED = 'Пройдено',
@@ -72,6 +78,7 @@ export type AppState = {
   selectedFilter: FilterType;
   selectedReview: Review | null;
   stats: Stats;
+  user: User | null;
   isLoading: boolean;
   error: string | null;
 };
@@ -80,6 +87,9 @@ export type AppActions = {
   setReviews: (reviews: Review[]) => void;
   setSelectedReview: (review: Review | null) => void;
   setStats: (stats: Stats) => void;
+  setUser: (user: User | null) => void;
+  updateUser: (userData: Partial<User>) => void;
+  clearUser: () => void;
   setLoading: (isLoading: boolean) => void;
   setError: (error: string | null) => void;
   resetStore: () => void;
@@ -107,6 +117,7 @@ export const defaultInitState: AppState = {
     planned: 0,
     favorites: 0,
   },
+  user: null,
   isLoading: true,
   error: null,
 };
@@ -115,6 +126,7 @@ export const defaultInitState: AppState = {
 export const createInitState = (
   reviews: Review[] = [],
   stats: Stats = defaultInitState.stats,
+  user: User | null = null,
   isLoading: boolean = false,
   error: string | null = null,
 ): AppState => ({
@@ -123,6 +135,7 @@ export const createInitState = (
   selectedFilter: FilterType.ALL,
   selectedReview: null,
   stats,
+  user,
   isLoading,
   error,
 });
@@ -140,6 +153,15 @@ export const createAppStore = (initState: AppState = defaultInitState) => {
     setSelectedReview: (review: Review | null) => set({ selectedReview: review }),
 
     setStats: (stats: Stats) => set({ stats }),
+
+    setUser: (user: User | null) => set({ user }),
+
+    updateUser: (userData: Partial<User>) =>
+      set((state) => ({
+        user: state.user ? { ...state.user, ...userData } : null,
+      })),
+
+    clearUser: () => set({ user: null }),
 
     setLoading: (isLoading: boolean) => set({ isLoading }),
 
