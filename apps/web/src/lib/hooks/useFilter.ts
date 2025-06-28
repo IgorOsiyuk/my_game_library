@@ -7,9 +7,7 @@ export function useFilter() {
   const { selectedFilter, setSelectedFilter, filteredReviews, reviews } = useAppData();
 
   const handleFilterChange = (filter: FilterType) => {
-    console.log('Changing filter from', selectedFilter, 'to', filter);
     setSelectedFilter(filter);
-    console.log('Reviews after filter:', filteredReviews.length, 'of', reviews.length);
   };
 
   return {

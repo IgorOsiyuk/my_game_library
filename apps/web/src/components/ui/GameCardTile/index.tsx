@@ -4,39 +4,32 @@ import Grid from '@/atomic/Grid';
 import Image from '@/atomic/Image';
 import SvgImage from '@/atomic/SvgImage';
 import Text from '@/atomic/Text';
-import StatusLabel from '@/components/StatusLabel';
-import InfoIcon from '@/icons/info.svg';
 import StarIcon from '@/icons/star.svg';
 import { GameStatusVariantMap } from '@/lib/utils';
 import { GameStatus } from '@/types/game';
+import StatusLabel from '@/ui/StatusLabel';
+import { useRouter } from 'next/navigation';
 import { css } from 'styled-components';
 
 interface GameCardTileProps {
   id: string;
   title: string;
   playTime: string;
-  genres: string[];
-  rating: string;
-  status?: GameStatus;
+  genres: string;
+  rating: number;
+  status: GameStatus;
   image: string;
-  platform: string;
-  developer: string;
+  platforms: string;
 }
 
-const GameCardTile = ({
-  id,
-  title,
-  playTime,
-  genres,
-  rating,
-  status,
-  image,
-  platform,
-  developer,
-}: GameCardTileProps) => {
+const GameCardTile = ({ id, title, playTime, genres, rating, status, image, platforms }: GameCardTileProps) => {
+  const router = useRouter();
+  const handleClick = () => {
+    router.push(`/dashboard/review/${id}`);
+  };
   return (
     <Grid
-      $columns="341px 1fr 1fr 1fr 1fr 1fr 2fr 1fr"
+      $columns="341px 1fr 1fr 1fr 1fr 2fr 1fr"
       $align="center"
       $padding="s_8"
       $width="100%"
@@ -56,18 +49,32 @@ const GameCardTile = ({
             overflow: hidden;
           `}
         >
-          <Image alt="card-image" src={image} width={54} height={54} />
+          <Image alt="card-image" src={image} width={54} height={54} sizes="30vw" onClick={handleClick} />
         </FlexBox>
         <FlexBox $gap="s_8" $align="flex-start" $direction="column">
-          <Text size="body_M" color="white" fontWeight="medium">
-            {title}
-          </Text>
+          <Box
+            onClick={handleClick}
+            as={'button'}
+            $sx={({ theme }) => css`
+              * {
+                cursor: pointer;
+                text-decoration: underline;
+                text-decoration-color: transparent;
+                &:hover {
+                  text-decoration-color: ${theme.colors.white};
+                  transition: text-decoration-color 0.3s ease;
+                }
+              }
+            `}
+          >
+            <Text size="body_M" color="white" fontWeight="medium">
+              {title}
+            </Text>
+          </Box>
           <FlexBox $gap="s_4" $align="center">
-            {genres.map((genre, index) => (
-              <Text key={index} size="body_S" color="greySecondary">
-                {genre}
-              </Text>
-            ))}
+            <Text size="body_S" color="greySecondary">
+              {genres}
+            </Text>
           </FlexBox>
         </FlexBox>
       </FlexBox>
@@ -82,45 +89,22 @@ const GameCardTile = ({
       </FlexBox>
       <Box>
         <Text size="body_M" color="white">
-          {platform}
-        </Text>
-      </Box>
-      <Box>
-        <Text size="body_M" color="white">
-          {developer}
+          {platforms}
         </Text>
       </Box>
       <Box>
         <Text size="body_M" color="greySecondary">
-          {`${playTime} played`}
+          {`${playTime}ч. наиграно`}
         </Text>
       </Box>
       <FlexBox $gap="s_4" $align="center" $wrap="wrap">
-        {genres.map((genre, index) => (
-          <Text key={index} size="body_M" color="greySecondary">
-            {genre}
-          </Text>
-        ))}
+        <Text size="body_M" color="greySecondary">
+          {genres}
+        </Text>
       </FlexBox>
       <Box />
       <FlexBox $gap="s_20" $align="center" $justify="flex-end">
         {status && <StatusLabel label={status} variant={GameStatusVariantMap[status]} />}
-        <Box
-          as={'button'}
-          $sx={({ theme }) => css`
-            cursor: pointer;
-            border-radius: 4px;
-            overflow: hidden;
-            &:hover {
-              background-color: ${theme.colors.grey};
-              transition: background-color 0.3s ease;
-            }
-          `}
-        >
-          <SvgImage $height="16px" $width="16px" $fill="greySecondary">
-            <InfoIcon />
-          </SvgImage>
-        </Box>
       </FlexBox>
     </Grid>
   );

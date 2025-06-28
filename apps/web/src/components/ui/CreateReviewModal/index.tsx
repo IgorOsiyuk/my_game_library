@@ -162,9 +162,9 @@ const CreateReviewModal = ({
               />
               <Input
                 placeholder="Затраченное время (в часах)"
-                register={register('timeSpent', validationRules.timeSpent)}
-                isError={!!errors.timeSpent}
-                error={errors.timeSpent?.message as string}
+                register={register('playTime', validationRules.playTime)}
+                isError={!!errors.playTime}
+                error={errors.playTime?.message as string}
               />
               <Box
                 $sx={css`

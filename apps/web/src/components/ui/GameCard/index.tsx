@@ -3,11 +3,11 @@ import FlexBox from '@/atomic/FlexBox';
 import Image from '@/atomic/Image';
 import SvgImage from '@/atomic/SvgImage';
 import Text from '@/atomic/Text';
-import StatusLabel from '@/components/StatusLabel';
 import HeartIcon from '@/icons/heart.svg';
 import StarIcon from '@/icons/star.svg';
 import { GameStatusVariantMap } from '@/lib/utils';
 import { GameStatus } from '@/types/game';
+import StatusLabel from '@/ui/StatusLabel';
 import { useRouter } from 'next/navigation';
 import { css } from 'styled-components';
 
@@ -15,13 +15,12 @@ export interface GameCardIProps {
   id: string;
   title: string;
   playTime?: string;
-  genres: string[];
+  genres: string;
   isFavorite: boolean;
-  rating: string;
-  status?: GameStatus;
+  rating: number;
+  status: GameStatus;
   image: string;
   isLarge?: boolean;
-  setFavorite: (id: string) => void;
 }
 
 const GameCard = ({
@@ -34,9 +33,11 @@ const GameCard = ({
   image,
   isLarge = false,
   isFavorite,
-  setFavorite,
 }: GameCardIProps) => {
   const router = useRouter();
+  const handleClick = () => {
+    router.push(`/dashboard/review/${id}`);
+  };
   return (
     <FlexBox
       $width="100%"
@@ -67,9 +68,7 @@ const GameCard = ({
           </Box>
         )}
         <Box
-          onClick={() => {
-            router.push(`/dashboard/review/${id}`);
-          }}
+          onClick={handleClick}
           $sx={css`
             width: 100%;
             height: 100%;
@@ -99,21 +98,37 @@ const GameCard = ({
       <FlexBox $direction="column" $width="100%" $padding="s_16" $gap="s_24" $backgroundColor="dark">
         <FlexBox $direction="column" $gap="s_8">
           <FlexBox $gap="s_8" $align="center" $justify="space-between">
-            <Text size="body_M" color="white" fontWeight="medium">
-              {title}
-            </Text>
+            <Box
+              onClick={handleClick}
+              as={'button'}
+              $sx={({ theme }) => css`
+                * {
+                  cursor: pointer;
+                  text-decoration: underline;
+                  text-decoration-color: transparent;
+                  &:hover {
+                    text-decoration-color: ${theme.colors.white};
+                    transition: text-decoration-color 0.3s ease;
+                  }
+                }
+              `}
+            >
+              <Text size="body_M" color="white" fontWeight="medium">
+                {title}
+              </Text>
+            </Box>
             {playTime && (
               <Text size="body_S" color="greySecondary">
-                {playTime}
+                {playTime}ч.
               </Text>
             )}
           </FlexBox>
           <FlexBox $gap="s_4" $align="center">
-            {genres.map((genre, index) => (
-              <Text key={index} size="body_S" color="greySecondary">
-                {genre}
-              </Text>
-            ))}
+            {/* {genres.map((genre, index) => ( */}
+            <Text size="body_S" color="greySecondary">
+              {genres}
+            </Text>
+            {/* ))} */}
           </FlexBox>
         </FlexBox>
         <FlexBox $justify="space-between">

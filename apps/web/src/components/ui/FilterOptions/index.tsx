@@ -2,9 +2,7 @@
 
 import Button from '@/atomic/Button';
 import FlexBox from '@/atomic/FlexBox';
-import SvgImage from '@/atomic/SvgImage';
 import Text from '@/atomic/Text';
-import PlusIcon from '@/icons/plus.svg';
 import { FilterType } from '@/stores/store';
 import { css } from 'styled-components';
 import SkeletonFilterOptions from './SkeletonFilterOptions';
@@ -132,15 +130,15 @@ const FilterOptions = ({ selectedFilter, onFilterChange, reviewCounts, isLoading
             e.preventDefault();
             onFilterChange(FilterType.FAVORITE);
           }}
-          icon={
-            <SvgImage
-              $height="16px"
-              $width="16px"
-              $fill={selectedFilter === FilterType.FAVORITE ? 'white' : 'greySecondary'}
-            >
-              <PlusIcon />
-            </SvgImage>
-          }
+          // icon={
+          //   <SvgImage
+          //     $height="16px"
+          //     $width="16px"
+          //     $fill={selectedFilter === FilterType.FAVORITE ? 'white' : 'greySecondary'}
+          //   >
+          //     <PlusIcon />
+          //   </SvgImage>
+          // }
         >
           <Text color="greySecondary" size="body_M">
             Избранные ({reviewCounts.favorites})

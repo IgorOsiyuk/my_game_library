@@ -43,6 +43,7 @@ export interface Review {
   difficulty: string;
   review: string;
   isFavorite: boolean;
+  rating: number;
 }
 
 // Функция для фильтрации отзывов

@@ -78,7 +78,20 @@ export default function Game() {
                   overflow: hidden;
                 `}
               >
-                <Image alt="card-image" src={selectedReview.img} width={337} height={337} />
+                <Image
+                  alt="card-image"
+                  src={selectedReview.img}
+                  fill
+                  sizes="80vw"
+                  style={{
+                    objectFit: 'cover',
+                  }}
+                  $sx={css`
+                    width: 100%;
+                    height: 100%;
+                    pointer-events: none;
+                  `}
+                />
               </Box>
             </FlexBox>
             <FlexBox $gap="s_12">
