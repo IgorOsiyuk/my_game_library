@@ -22,7 +22,7 @@ export class TransformUserInterceptor implements NestInterceptor {
       map((data) => {
         // Если данные - это пользователь, возвращаем только его имя
         if (data instanceof User) {
-          return { name: data.name };
+          return { name: data.name, email: data.email };
         }
         // Иначе возвращаем данные как есть
         return data;

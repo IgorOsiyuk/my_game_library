@@ -18,6 +18,25 @@ export class UserService {
   ) {}
 
   /**
+   * Получает данные пользователя по ID
+   *
+   * @param userId - идентификатор пользователя
+   * @returns объект пользователя
+   * @throws NotFoundException - если пользователь не найден
+   */
+  async getUserById(userId: string): Promise<User> {
+    // Находим пользователя по ID
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+
+    // Проверяем существование пользователя
+    if (!user) {
+      throw new NotFoundException('Пользователь не найден');
+    }
+
+    return user;
+  }
+
+  /**
    * Обновляет данные пользователя (имя и/или пароль)
    *
    * @param userId - идентификатор пользователя

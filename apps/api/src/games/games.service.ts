@@ -39,48 +39,47 @@ export class GamesService {
    */
   async searchGame(search: string) {
     // Создаем QueryBuilder для гибкого поиска
-    const queryBuilder = this.gameRepository
-      .createQueryBuilder('game')
-      .leftJoinAndSelect('game.gameGenres', 'gameGenre')
-      .leftJoinAndSelect('gameGenre.genre', 'genre')
-      .leftJoinAndSelect('game.gamePlatforms', 'gamePlatform')
-      .leftJoinAndSelect('gamePlatform.platform', 'platform');
+    // const queryBuilder = this.gameRepository
+    //   .createQueryBuilder('game')
+    //   .leftJoinAndSelect('game.gameGenres', 'gameGenre')
+    //   .leftJoinAndSelect('gameGenre.genre', 'genre')
+    //   .leftJoinAndSelect('game.gamePlatforms', 'gamePlatform')
+    //   .leftJoinAndSelect('gamePlatform.platform', 'platform');
 
-    // Разбиваем поисковый запрос на слова
-    const searchTerms = search.split(' ').filter((term) => term.length > 0);
+    // // Разбиваем поисковый запрос на слова
+    // const searchTerms = search.split(' ').filter((term) => term.length > 0);
 
-    // Для каждого слова добавляем условие поиска
-    if (searchTerms.length > 0) {
-      const whereConditions = searchTerms
-        .map((_, index) => `(game.slug ILIKE :term${index} OR game.title ILIKE :term${index})`)
-        .join(' OR ');
+    // // Для каждого слова добавляем условие поиска
+    // if (searchTerms.length > 0) {
+    //   const whereConditions = searchTerms
+    //     .map((_, index) => `(game.slug ILIKE :term${index} OR game.title ILIKE :term${index})`)
+    //     .join(' OR ');
 
-      queryBuilder.where(whereConditions);
+    //   queryBuilder.where(whereConditions);
 
-      // Добавляем параметры для каждого слова
-      searchTerms.forEach((term, index) => {
-        queryBuilder.setParameter(`term${index}`, `%${term}%`);
-      });
-    }
+    //   // Добавляем параметры для каждого слова
+    //   searchTerms.forEach((term, index) => {
+    //     queryBuilder.setParameter(`term${index}`, `%${term}%`);
+    //   });
+    // }
 
-    const games = await queryBuilder.getMany();
+    // const games = await queryBuilder.getMany();
 
-    // Если игры найдены в локальной БД, преобразуем их в нужный формат
-    if (games.length > 0) {
-      return games.map((game) => ({
-        slug: game.slug,
-        title: game.title,
-        genres: game.gameGenres?.map((gameGenre) => gameGenre.genre.name) || [],
-        platforms: game.gamePlatforms?.map((gamePlatform) => gamePlatform.platform.name) || [],
-        releaseDate: game.releaseDate,
-        image: game.image,
-      }));
-    }
+    // // Если игры найдены в локальной БД, преобразуем их в нужный формат
+    // if (games.length > 0) {
+    //   return games.map((game) => ({
+    //     slug: game.slug,
+    //     title: game.title,
+    //     genres: game.gameGenres?.map((gameGenre) => gameGenre.genre.name) || [],
+    //     platforms: game.gamePlatforms?.map((gamePlatform) => gamePlatform.platform.name) || [],
+    //     releaseDate: game.releaseDate,
+    //     image: game.image,
+    //   }));
+    // }
 
     // Если игры не найдены, выполняем поиск через внешний API
-    const response = await fetch(`${this.gameApiUrl}&search=${search}`);
+    const response = await fetch(this.gameApiUrl(`/games`, { search }));
     const data = await response.json();
-    console.log(data);
     // Преобразуем результаты API в нужный формат
     const returnData = data.results.map((game) => ({
       slug: game['slug'],
@@ -203,5 +202,9 @@ export class GamesService {
   /**
    * Полный URL для запросов к API игр, включая ключ
    */
-  private gameApiUrl = `${this.gameApiDbUrl}/games?key=${this.gameApiKey}`;
+  private gameApiUrl = (endpoint: string, params?: Record<string, string>) => {
+    const url = `${this.gameApiDbUrl}${endpoint}`;
+    const searchParams = new URLSearchParams({ key: this.gameApiKey, ...params });
+    return `${url}?${searchParams.toString()}`;
+  };
 }

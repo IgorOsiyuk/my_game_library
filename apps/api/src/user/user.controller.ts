@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Param, Patch, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Patch, Request, UseGuards, UseInterceptors } from '@nestjs/common';
 
 import { AuthGuard } from '../guards';
 
@@ -17,28 +17,41 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   /**
-   * Обновляет данные пользователя (имя и/или пароль)
+   * Получает данные текущего авторизованного пользователя
    *
-   * @param userId - идентификатор пользователя
-   * @param updateUserDataDto - данные для обновления
-   * @returns обновленный объект пользователя с полем name
+   * @param req - объект запроса с данными пользователя
+   * @returns объект пользователя с полями name и email
    * @requires Bearer токен для аутентификации
    */
-  @Patch(':id/update-user-data')
+  @Get()
   @UseInterceptors(TransformUserInterceptor)
-  async updateUserData(@Param('id') userId: string, @Body() updateUserDataDto: UpdateUserDataDto) {
-    return this.userService.updateUserData(userId, updateUserDataDto);
+  async getCurrentUser(@Request() req: Request) {
+    return this.userService.getUserById(req['userId']);
   }
 
   /**
-   * Удаляет аккаунт пользователя
+   * Обновляет данные текущего авторизованного пользователя (имя и/или пароль)
    *
-   * @param userId - идентификатор пользователя
+   * @param req - объект запроса с данными пользователя
+   * @param updateUserDataDto - данные для обновления
+   * @returns обновленный объект пользователя с полями name и email
+   * @requires Bearer токен для аутентификации
+   */
+  @Patch('update-user-data')
+  @UseInterceptors(TransformUserInterceptor)
+  async updateUserData(@Request() req: Request, @Body() updateUserDataDto: UpdateUserDataDto) {
+    return this.userService.updateUserData(req['userId'], updateUserDataDto);
+  }
+
+  /**
+   * Удаляет аккаунт текущего авторизованного пользователя
+   *
+   * @param req - объект запроса с данными пользователя
    * @returns объект с сообщением об успешном удалении
    * @requires Bearer токен для аутентификации
    */
-  @Delete(':id')
-  async deleteUser(@Param('id') userId: string) {
-    return this.userService.deleteUser(userId);
+  @Delete('delete-account')
+  async deleteUser(@Request() req: Request) {
+    return this.userService.deleteUser(req['userId']);
   }
 }
