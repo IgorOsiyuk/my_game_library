@@ -13,14 +13,14 @@ export default async function refreshAccessToken(token: JWT, retryCount = 0) {
         },
       },
     );
-    if (response.status === 401) {
-      throw new Error(response.data?.message || 'Ошибка обновления токена');
-    }
+
+    const { accessToken, accessTokenExpiresIn, refreshToken } = response.data;
+
     return {
       ...token,
-      accessToken: response.data.accessToken,
-      accessTokenExpiresIn: Date.now() + response.data.accessTokenExpiresIn,
-      refreshToken: response.data.refreshToken,
+      accessToken,
+      accessTokenExpiresIn: Date.now() + accessTokenExpiresIn * 1000, // Конвертируем секунды в миллисекунды
+      refreshToken,
     };
   } catch (error) {
     console.error('Ошибка обновления токена:', error);

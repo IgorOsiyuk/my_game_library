@@ -58,10 +58,10 @@ export const authOptions: NextAuthOptions = {
   ],
   session: {
     strategy: 'jwt',
-    maxAge: 7 * 24 * 60 * 60,
+    maxAge: 7 * 24 * 60 * 60, // 7 дней в секундах
   },
   jwt: {
-    maxAge: 7 * 24 * 60 * 60,
+    maxAge: 7 * 24 * 60 * 60, // 7 дней в секундах
   },
   pages: {
     signIn: '/signin',
@@ -76,12 +76,14 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.accessToken = user.accessToken;
-        token.accessTokenExpiresIn = Date.now() + user.accessTokenExpiresIn;
+        token.accessTokenExpiresIn = Date.now() + user.accessTokenExpiresIn * 1000; // Конвертируем секунды в миллисекунды
         token.refreshToken = user.refreshToken;
         return token;
       }
 
+      // Проверяем, не истек ли access token
       if (Date.now() < token.accessTokenExpiresIn) return token;
+
       console.log('refresh token in jwt callback');
       const refreshedToken = await refreshAccessToken(token);
 
@@ -100,11 +102,6 @@ export const authOptions: NextAuthOptions = {
       }
 
       session.user = token;
-      // session.accessToken = token.accessToken;
-      // session.refreshToken = token.refreshToken;
-      // session.accessTokenExpiresIn = token.accessTokenExpiresIn;
-      // session.refreshTokenExpiresIn = token.refreshTokenExpiresIn;
-
       return session;
     },
     async redirect({ url, baseUrl }) {
