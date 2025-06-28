@@ -3,6 +3,7 @@ import FlexBox from '@/atomic/FlexBox';
 import Image from '@/atomic/Image';
 import ProfileIcon from '@/icons/profile.svg';
 import DefaultProfileImage from '@/images/default_profile_image.jpg';
+import { User } from '@/stores/store';
 import { css } from 'styled-components';
 import Text from '../../atomic/Text';
 import NavLink from './NavLink';
@@ -18,9 +19,10 @@ interface SideNavIProps {
   signOutHandler: (event: React.MouseEvent<HTMLButtonElement>) => void;
   mainNavigationItems: NavigationItem[];
   bottomNavigationItems: NavigationItem[];
+  user: Partial<User>;
 }
 
-const SideNav = ({ signOutHandler, mainNavigationItems, bottomNavigationItems }: SideNavIProps) => {
+const SideNav = ({ signOutHandler, mainNavigationItems, bottomNavigationItems, user }: SideNavIProps) => {
   return (
     <Box $radius={'rounded_medium'} $height={'100%'} $backgroundColor={'dark'} $px={'s_8'} $py={'s_24'}>
       <FlexBox $direction="column" $justify="space-between" $height="100%">
@@ -37,7 +39,7 @@ const SideNav = ({ signOutHandler, mainNavigationItems, bottomNavigationItems }:
               <Image alt="profile-image" {...DefaultProfileImage} height={40} width={40} />
             </Box>
             <Text color="white" size="body_S">
-              Igor Osiyuk
+              {user.nickname}
             </Text>
           </FlexBox>
           <FlexBox $direction="column" $gap="s_4">

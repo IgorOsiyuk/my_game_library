@@ -1,6 +1,7 @@
 'use client';
 
 import { logout } from '@/actions/logout';
+import { useAppData } from '@/lib/hooks/useAppData';
 import SideNav from '@/ui/SideNav';
 import { signOut } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
@@ -34,9 +35,10 @@ export default function SideNavContainer() {
   };
 
   const paths = usePathname();
-
+  const { user } = useAppData();
   return (
     <SideNav
+      user={user}
       signOutHandler={handleLogout}
       mainNavigationItems={mainNavigationItems.map((item) => ({
         ...item,

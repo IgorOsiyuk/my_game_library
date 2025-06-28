@@ -3,13 +3,14 @@
 import { Review } from '@/types/reviews';
 import { Stats, StatsResponse } from '@/types/stats';
 import axios from 'axios';
-import { Session } from 'next-auth';
+import { Session, User } from 'next-auth';
 
 interface InitialDataResponse {
   success: boolean;
   data?: {
     reviews: Review[];
     stats: Stats;
+    user: User;
   };
   error?: string;
   statusCode?: number;
@@ -24,16 +25,18 @@ export async function getInitialData(session: Session | null): Promise<InitialDa
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     const reviewsUrl = `${baseUrl}/reviews`;
     const statsUrl = `${baseUrl}/reviews/stats`;
+    const userUrl = `${baseUrl}/user`;
 
     const headers = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${session?.user.accessToken}`,
     };
 
-    // Выполняем оба запроса параллельно
-    const [reviewsResponse, statsResponse] = await Promise.all([
+    // Выполняем все запросы параллельно
+    const [reviewsResponse, statsResponse, userDataResponse] = await Promise.all([
       axios.get(reviewsUrl, { headers }),
       axios.get(statsUrl, { headers }),
+      axios.get(userUrl, { headers }),
     ]);
 
     // Обрабатываем данные статистики
@@ -52,6 +55,7 @@ export async function getInitialData(session: Session | null): Promise<InitialDa
       data: {
         reviews: reviewsResponse.data,
         stats: processedStats,
+        user: userDataResponse.data,
       },
     };
   } catch (error) {

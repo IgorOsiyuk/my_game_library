@@ -78,7 +78,7 @@ export type AppState = {
   selectedFilter: FilterType;
   selectedReview: Review | null;
   stats: Stats;
-  user: User | null;
+  user: User;
   isLoading: boolean;
   error: string | null;
 };
@@ -87,7 +87,7 @@ export type AppActions = {
   setReviews: (reviews: Review[]) => void;
   setSelectedReview: (review: Review | null) => void;
   setStats: (stats: Stats) => void;
-  setUser: (user: User | null) => void;
+  setUser: (user: User) => void;
   updateUser: (userData: Partial<User>) => void;
   clearUser: () => void;
   setLoading: (isLoading: boolean) => void;
@@ -117,7 +117,11 @@ export const defaultInitState: AppState = {
     planned: 0,
     favorites: 0,
   },
-  user: null,
+  user: {
+    email: '',
+    nickname: '',
+    avatar: '',
+  },
   isLoading: true,
   error: null,
 };
@@ -126,7 +130,7 @@ export const defaultInitState: AppState = {
 export const createInitState = (
   reviews: Review[] = [],
   stats: Stats = defaultInitState.stats,
-  user: User | null = null,
+  user: User = defaultInitState.user,
   isLoading: boolean = false,
   error: string | null = null,
 ): AppState => ({
@@ -154,14 +158,14 @@ export const createAppStore = (initState: AppState = defaultInitState) => {
 
     setStats: (stats: Stats) => set({ stats }),
 
-    setUser: (user: User | null) => set({ user }),
+    setUser: (user: User) => set({ user }),
 
     updateUser: (userData: Partial<User>) =>
       set((state) => ({
-        user: state.user ? { ...state.user, ...userData } : null,
+        user: { ...state.user, ...userData },
       })),
 
-    clearUser: () => set({ user: null }),
+    clearUser: () => set({ user: defaultInitState.user }),
 
     setLoading: (isLoading: boolean) => set({ isLoading }),
 
