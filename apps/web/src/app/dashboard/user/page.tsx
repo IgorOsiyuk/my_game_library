@@ -46,6 +46,7 @@ export default function User() {
     handleSubmit,
     setValue,
     formState: { errors },
+    reset,
   } = form;
 
   useEffect(() => {
@@ -60,6 +61,8 @@ export default function User() {
       name: formValues.nickname,
       password: formValues.password,
       confirmPassword: formValues.confirmPassword,
+    }).finally(() => {
+      reset();
     });
   };
 
@@ -150,8 +153,8 @@ export default function User() {
                 </Text>
 
                 <Input
-                  label="Текущий пароль"
-                  placeholder="Текущий пароль"
+                  label="Новый пароль"
+                  placeholder="Новый пароль"
                   type={showCurrentPassword ? 'text' : 'password'}
                   register={register('password', validationRules.password)}
                   isError={!!errors.password}
@@ -174,8 +177,8 @@ export default function User() {
                   }
                 />
                 <Input
-                  label="Новый пароль"
-                  placeholder="Новый пароль"
+                  label="Повторите новый пароль"
+                  placeholder="Повторите новый пароль"
                   type={showNewPassword ? 'text' : 'password'}
                   register={register('confirmPassword', validationRules.confirmPassword)}
                   isError={!!errors.confirmPassword}
